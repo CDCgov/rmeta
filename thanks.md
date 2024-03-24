@@ -1,6 +1,6 @@
 # Thanks and Acknowledgements
 
-Starting this file way too late, but wanted to recognize contributions made by people who helped this repo. There are many more than this, but I should have started this file years ago.
+We want to recognize contributions made by people who helped this repo. There are many more than this but here are a few.
 
-* Chris Sandlin [@cssandlin](https://github.com/cssandlin)
-* Drewry Morris [@drewry](https://github.com/drewry)
+* Maurice Reeves [@mauricereeves](https://github.com/mauricereeves/)
+* Alan Viars [@aviars](https://github.com/aviars)
