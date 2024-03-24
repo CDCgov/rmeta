@@ -1,4 +1,6 @@
-# CDCgov GitHub Organization Open Source Project Template
+# RMeta
+
+A research and development database, UI and API.
 
 **Template for clearance: This project serves as a template to aid projects in starting up and moving through clearance procedures. To start, create a new repository and implement the required [open practices](open_practices.md), train on and agree to adhere to the organization's [rules of behavior](rules_of_behavior.md), and [send a request through the create repo form](https://forms.office.com/Pages/ResponsePage.aspx?id=aQjnnNtg_USr6NJ2cHf8j44WSiOI6uNOvdWse4I-C2NUNk43NzMwODJTRzA4NFpCUk1RRU83RTFNVi4u) using language from this template as a Guide.**
 
@@ -19,7 +21,11 @@
 
 ## Overview
 
-Describe the purpose of your project. Add additional sections as necessary to help collaborators and potential collaborators understand and use your project.
+RMeta is designed to help design a future state of data anonymization and privacy poreserving data linkages.
+It provides basic codified information as JSON and CSV.
+
+RMeta is written in Python 3.11 and Django 5.  An installation guide will be added soon.
+
   
 ## Public Domain Standard Notice
 This repository constitutes a work of the United States Government and is not
