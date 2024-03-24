@@ -1,0 +1,18 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<main class="container">
+<section id="preview">
+    <h2>Reports By Program Areas</h2>
+
+{% for a in program_areas %}    
+    <p class="grid">
+        <a href="{% url 'rdata:program_area_report' a.code %}"><button type="button" class="btn btn-primary">
+            {{a.name}} </button></a>
+    </p>
+{% endfor%}
+
+</section>
+</main>
+{% endblock %}

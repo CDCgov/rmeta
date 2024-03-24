@@ -1,0 +1,15 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<!-- Main -->
+<main class="container">
+<section id="preview">
+    <h2>eICR Anonyomized Data Needs</h2>
+    <p>
+        <a href="{% url 'rdata:annon_data_needs_csv' %}"><button type="button" class="btn btn-primary">
+            Download CSV </button></a>
+    </p>
+</section>
+</main>
+{% endblock %}

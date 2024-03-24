@@ -1,0 +1,24 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<main class="container">
+<section id="preview">
+    <h2>Reports By State</h2>
+
+    <p class="grid">
+        <a href="{% url 'rdata:state_report_csv' %}"><button type="button" class="outline">
+            Download CDC Connections CSV (All States) </button></a>
+        <a href="{% url 'rdata:type_csv' 'SourceSystem' %}"><button type="button" class="outline">
+                Download Source Systems CSV (All States)</button></a>
+    </p>
+{% for s in jurisdictions %}    
+    <p class="grid">
+        <a href="{% url 'rdata:state_report' s.code %}"><button type="button" class="btn btn-primary">
+            {{s.get_state_display}} ({{s.code}}) </button></a>
+    </p>
+{% endfor%}
+
+</section>
+</main>
+{% endblock %}

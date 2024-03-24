@@ -1,0 +1,18 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<main class="container">
+<section id="preview">
+    <h2>Reports By Jurisdiction</h2>
+
+{% for j in jurisdictions %}    
+    <p class="grid">
+        <a href="{% url 'rdata:jurisdiction_report' j.code %}"><button type="button" class="btn btn-primary">
+            {{j.name}} ({{j.code}}) </button></a>
+    </p>
+{% endfor%}
+
+</section>
+</main>
+{% endblock %}

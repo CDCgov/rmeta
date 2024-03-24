@@ -1,0 +1,158 @@
+[
+{
+  "model": "report_metadata.programareatype",
+  "pk": 1,
+  "fields": {
+    "code": "ENTERIC",
+    "name": "Enteric (ENTERIC)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:19:03.296Z",
+    "updated": "2024-03-14T18:19:03.296Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 2,
+  "fields": {
+    "code": "GENERAL-COMMUNICABLE",
+    "name": "General Communicable (GENERAL-COMMUNICABLE)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:19:43.785Z",
+    "updated": "2024-03-14T18:19:43.785Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 3,
+  "fields": {
+    "code": "HEPATITIS",
+    "name": "Hepatitis (HEPATITIS)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:20:26.476Z",
+    "updated": "2024-03-14T18:20:26.476Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 4,
+  "fields": {
+    "code": "HIV",
+    "name": "HIV (HIV)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:20:53.598Z",
+    "updated": "2024-03-14T18:26:51.799Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 5,
+  "fields": {
+    "code": "FLU",
+    "name": "Influenza (FLU)",
+    "adult_records_contain_child_records": true,
+    "description": "",
+    "created": "2024-03-14T18:21:28.347Z",
+    "updated": "2024-03-14T18:24:50.235Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 6,
+  "fields": {
+    "code": "ADULT-LEAD",
+    "name": "Adult Lead (ADULT-LEAD)",
+    "adult_records_contain_child_records": true,
+    "description": "",
+    "created": "2024-03-14T18:22:00.059Z",
+    "updated": "2024-03-14T18:24:59.107Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 7,
+  "fields": {
+    "code": "STD",
+    "name": "Sexually Transmitted Diseases (STD)",
+    "adult_records_contain_child_records": false,
+    "description": "HIV is usually seperate",
+    "created": "2024-03-14T18:23:01.574Z",
+    "updated": "2024-03-14T18:23:01.574Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 8,
+  "fields": {
+    "code": "CS",
+    "name": "Congenital Syphilis (CS)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:23:46.734Z",
+    "updated": "2024-03-14T18:23:46.734Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 9,
+  "fields": {
+    "code": "TB",
+    "name": "Tuberculosis (TB)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:24:10.553Z",
+    "updated": "2024-03-14T18:24:10.553Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 10,
+  "fields": {
+    "code": "ZOO",
+    "name": "Zoonotic (ZOO)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:24:40.874Z",
+    "updated": "2024-03-14T18:24:40.874Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 11,
+  "fields": {
+    "code": "SUICIDE",
+    "name": "Suicide (SUICIDE)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:26:05.626Z",
+    "updated": "2024-03-14T18:26:05.626Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 12,
+  "fields": {
+    "code": "MH",
+    "name": "Mental Health (MH)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-14T18:26:33.217Z",
+    "updated": "2024-03-14T18:26:33.217Z"
+  }
+},
+{
+  "model": "report_metadata.programareatype",
+  "pk": 13,
+  "fields": {
+    "code": "CHILD-LEAD",
+    "name": "Child Lead (CHILD-LEAD)",
+    "adult_records_contain_child_records": false,
+    "description": "",
+    "created": "2024-03-20T13:35:22.519Z",
+    "updated": "2024-03-21T14:13:07.621Z"
+  }
+}
+]

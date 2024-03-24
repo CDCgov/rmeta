@@ -1,0 +1,17 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+
+<main ref=container>
+    <h1>Sign in</h1>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+      {{form}}
+
+      <button type="submit">
+        Login
+      </button>
+    </form>
+  </main>
+  {% endblock %}

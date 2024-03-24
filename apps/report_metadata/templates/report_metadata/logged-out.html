@@ -1,0 +1,15 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<!-- Main -->
+<main class="container">
+<section id="preview">
+    <h2>You have been logged out.</h2>
+    <p>
+        <a href="{% url 'login' %}"><button type="button" class="btn btn-primary">
+            Log Back In </button></a>
+    </p>
+</section>
+</main>
+{% endblock %}

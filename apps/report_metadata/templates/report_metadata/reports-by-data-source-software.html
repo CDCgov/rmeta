@@ -1,0 +1,18 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<main class="container">
+<section id="preview">
+    <h2>Reports By Source Software</h2>
+
+{% for s in software %}    
+    <p class="grid">
+        <a href="{% url 'rdata:source_software_report' s.code %}"><button type="button" class="btn btn-primary">
+            {{s.name}} ({{s.code}}) </button></a>
+    </p>
+{% endfor%}
+
+</section>
+</main>
+{% endblock %}

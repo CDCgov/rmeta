@@ -1,0 +1,120 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+
+<!-- Header -->
+<header class="container">
+    <nav>
+      <ul>
+        <li>
+          <details class="dropdown">
+            <summary role="button" class="secondary">Theme</summary>
+            <ul>
+              <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+              <li><a href="#" data-theme-switcher="light">Light</a></li>
+              <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <!-- ./ Header -->
+
+<main class="container">
+<section id="preview">
+    <h2> {{program_area}} System Report:</h2>
+
+
+    <!-- Accordions -->
+    <section id="accordions">
+        <h2>Systems:</h2>
+        {% for system in systems %}
+        <details>
+          <summary>{{system.name}} - {{system.code}}</summary>
+          <p>
+            
+        <div class="overflow-auto">
+          <table class="striped">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Program Areas</th>
+                <th scope="col">Software</th>
+                <th scope="col">Main Output Format</th>
+                <th scope="col">Other Output Formats</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{system.name}}</td>
+                <td>{{system.program_areas_list}}</td>
+                <td>{{system.software.name}}</td>
+                <td>{{system.output_data_type}}</td>
+                <td>{{system.output_data_other_types_list}}</td>
+
+                
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          </p>
+        </details>
+    {% endfor %}
+
+<!-- Accordions -->
+<section id="accordions">
+    <h2>Connections:</h2>
+    {% for c in connections %}
+    <details>
+      <summary>{{c}}</summary>
+      <p>
+        
+    <div class="overflow-auto">
+      <table class="striped">
+        <thead>
+          <tr>
+            <th scope="col">Partner</th>
+            <th scope="col">In System</th>
+            <th scope="col">In System Software</th>
+            <th scope="col">In System Output Data Type</th>
+            <th scope="col">In System Other Output Data Types</th>
+            <th scope="col">In System Transport Type</th>
+            <th scope="col">In System Transport Other Types</th>
+            <th scope="col">Receiving System</th>
+            <th scope="col">Receiving System Software</th>
+            <th scope="col">Receving System Data Type</th>
+            <th scope="col">Receiving System Other Data Types</th>
+            <th scope="col">Receving System Transport Type</th>
+            <th scope="col">Receiving System Other Transport Types</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{c.partner}}</td>
+            <td>{{c.source_system}}</td>
+            <td>{{c.source_system.software}}</td>
+            <td>{{c.source_system.output_data_type}}</td>
+            <td>{{c.source_system.output_data_other_types_list}}</td>
+            <td>{{c.source_system.output_transport_type}}</td>
+            <td>{{c.source_system.output_transport_other_types_list}}</td>
+            <td>{{c.cdc_receiving_system}}</td>
+            <td>{{c.cdc_receiving_system.software}}</td>
+            <td>{{c.cdc_receiving_system.input_data_type}}</td>
+            <td>{{c.cdc_receiving_system.input_data_other_types_list}}</td>
+            <td>{{c.cdc_receiving_system.input_transport_type}}</td>
+            <td>{{c.cdc_receiving_system.input_transport_other_types_list}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </p>
+    </details>
+{% endfor %}
+  </section>
+  <!-- ./ Accordions -->
+
+</section>
+</main>
+{% endblock %}

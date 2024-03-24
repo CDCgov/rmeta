@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>RData</title>
+    <meta name="description" content="A pure HTML example, without dependencies." />
+
+    <!-- Pico.css -->
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.3/css/pico.min.css"
+    />
+    
+  </head>
+
+  <body>
+    <!-- Header -->
+    {% block Content %}
+    {% if template %}{% include template %}{% endif %}
+    {{ content|safe }}
+    {% endblock %}
+
+    <!-- Minimal theme switcher -->
+    <script src="{% static 'report_metadata/js/minimal-theme-switcher.js' %}"></script>
+
+    <!-- Modal -->
+    <script src="{% static 'report_metadata/js/modal.js' %}"></script>
+  </body>
+</html>

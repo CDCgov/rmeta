@@ -1,0 +1,72 @@
+[
+{
+  "model": "report_metadata.personhashtype",
+  "pk": 1,
+  "fields": {
+    "code": "CDC-DOB-MPN",
+    "name": "Date of Birth + Mobile Phone Number",
+    "pepper_prefix": "CDC-DOB-MPN",
+    "series": 1,
+    "bcrypt_salt": "$2b$13$e8OBXsJcI033iz0xRYQQfe",
+    "description": "DOB in format YYYY-MM-DD. l.  Nothing but numbers for the phone number. Include country code.  1 in the case of the US. Use ^ to delineate.",
+    "created": "2024-03-20T16:06:10.086Z",
+    "updated": "2024-03-20T16:19:25.673Z"
+  }
+},
+{
+  "model": "report_metadata.personhashtype",
+  "pk": 2,
+  "fields": {
+    "code": "CDC-IM-IP",
+    "name": "Insurance Member ID + Insurance Plan ID",
+    "pepper_prefix": "CDC-IM-IP",
+    "series": 1,
+    "bcrypt_salt": "$2b$13$NCgd18Cm/Oo0x8o0v4nRHu",
+    "description": "Uppercase entire string. Use ^ to delineate",
+    "created": "2024-03-20T16:10:55.632Z",
+    "updated": "2024-03-20T16:18:00.190Z"
+  }
+},
+{
+  "model": "report_metadata.personhashtype",
+  "pk": 3,
+  "fields": {
+    "code": "CDC-DOB-EMAIL",
+    "name": "Date of Birth + Email",
+    "pepper_prefix": "CDC-DOB-EMAIL",
+    "series": 1,
+    "bcrypt_salt": "$2b$13$rXhv1h/02VPYoiwKUS2z7O",
+    "description": "Lowercase email. DOB must be in the format YYYY-MM-DD, Use ^ to delineate.",
+    "created": "2024-03-20T16:12:21.464Z",
+    "updated": "2024-03-20T16:18:35.078Z"
+  }
+},
+{
+  "model": "report_metadata.personhashtype",
+  "pk": 4,
+  "fields": {
+    "code": "CDC-EMAIL-MPN",
+    "name": "Email + Mobile Phone Number",
+    "pepper_prefix": "CDC-EMAIL-MPN",
+    "series": 1,
+    "bcrypt_salt": "$2b$13$kgKxxrPmAlhnheZ6PCm32u",
+    "description": "Lowercase email.  Nothing but numbers for the phone number. Include country code.  1 in the case of the US.  Use ^ to delineate.",
+    "created": "2024-03-20T16:13:47.869Z",
+    "updated": "2024-03-20T16:18:22.405Z"
+  }
+},
+{
+  "model": "report_metadata.personhashtype",
+  "pk": 5,
+  "fields": {
+    "code": "CDC-MRN-NODE",
+    "name": "MRN + Node",
+    "pepper_prefix": "CDC-MRN-NODE",
+    "series": 1,
+    "bcrypt_salt": "$2b$13$1Lm2UB9Uosp0GMUHkHoImu",
+    "description": "A source system Medical Record NBumber (MRN) + the source system node.  AKA (issuer/AA). Uppercase entire string.  Use ^ to delineate",
+    "created": "2024-03-20T16:14:35.265Z",
+    "updated": "2024-03-20T16:18:07.589Z"
+  }
+}
+]
