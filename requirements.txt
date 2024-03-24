@@ -20,7 +20,7 @@ idna==3.6
 jdt==0.5.7
 jsonschema==4.21.1
 jsonschema-specifications==2023.12.1
-jwcrypto==1.5.4
+jwcrypto==1.5.6
 markdown2==2.4.13
 mnemonic==0.21
 ndjson==0.3.1
