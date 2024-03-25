@@ -82,7 +82,7 @@ def program_area_report(request, program_area_code):
 def state_report(request, state):
     connections = Connection.objects.filter(partner__state=state)
     systems = SourceSystem.objects.filter(jurisdiction__state=state)
-    jurisdiction = Jurisdiction.objects.get(state=state)
+    jurisdiction = Jurisdiction.objects.get(state=state, state_level=True)
     template = "report_metadata/state-report.html"
     context = {"connections":connections, "state":state, "systems": systems,
                "name": "Jurasdiction", "jurisdiction":jurisdiction}
