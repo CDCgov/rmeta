@@ -396,7 +396,7 @@ class InergrationEngineSoftware(models.Model):
 class InergrationEngineSystem(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
-    integration_engine_software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
+    integration_engine_software = models.ForeignKey(InergrationEngineSoftware, on_delete=models.CASCADE,
                                  related_name="inergration_engine_software",null=True,blank=True)
     source_system = models.ForeignKey('SourceSoftware', blank=True, null=True, on_delete=models.CASCADE,
                         related_name="inergration_engine_source_system")
