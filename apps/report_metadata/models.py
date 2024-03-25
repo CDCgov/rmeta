@@ -328,7 +328,7 @@ class IntermediarySoftware(models.Model):
 class IntermediarySystem(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
-    software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
+    intermediary_software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
                                  related_name="intermediary_software", null=True,blank=True)
     source_system = models.ForeignKey('SourceSoftware', blank=True, null=True, on_delete=models.CASCADE,
                         related_name="intermediary_source_system",
@@ -396,11 +396,10 @@ class InergrationEngineSoftware(models.Model):
 class InergrationEngineSystem(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
-    software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
+    integration_engine_software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
                                  related_name="inergration_engine_software",null=True,blank=True)
     source_system = models.ForeignKey('SourceSoftware', blank=True, null=True, on_delete=models.CASCADE,
-                        related_name="inergration_engine_source_system",
-                        help_text="Leave blank if original source (ie. not an intermediary system)")
+                        related_name="inergration_engine_source_system")
     input_data_type = models.ForeignKey(HealthDataType, on_delete=models.CASCADE, 
                                 blank=True, null=True, related_name="inergration_engine_main_data_input_type")
     input_data_other_types = models.ManyToManyField(HealthDataType, blank=True,
