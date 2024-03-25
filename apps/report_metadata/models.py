@@ -298,7 +298,6 @@ class Partner(models.Model):
                  "updated": str(self.updated)}
 
 
-
 class IntermediarySoftware(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
@@ -325,11 +324,12 @@ class IntermediarySoftware(models.Model):
                  "description": self.description,
                  "updated": str(self.updated)}
 
+
 class IntermediarySystem(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
     software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
-                                 related_name="intermediary_software",)
+                                 related_name="intermediary_software", null=True,blank=True)
     source_system = models.ForeignKey('SourceSoftware', blank=True, null=True, on_delete=models.CASCADE,
                         related_name="intermediary_source_system",
                         help_text="Leave blank if original source (ie. not an intermediary system)")
@@ -365,6 +365,7 @@ class IntermediarySystem(models.Model):
     def __str__(self):
         return "%s (%s)" % (self.name, self.code)
 
+
 class InergrationEngineSoftware(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
@@ -391,11 +392,12 @@ class InergrationEngineSoftware(models.Model):
                  "description": self.description,
                  "updated": str(self.updated)}
     
+
 class InergrationEngineSystem(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
     software = models.ForeignKey(IntermediarySoftware, on_delete=models.CASCADE,
-                                 related_name="inergration_engine_software",)
+                                 related_name="inergration_engine_software",null=True,blank=True)
     source_system = models.ForeignKey('SourceSoftware', blank=True, null=True, on_delete=models.CASCADE,
                         related_name="inergration_engine_source_system",
                         help_text="Leave blank if original source (ie. not an intermediary system)")
@@ -431,6 +433,7 @@ class InergrationEngineSystem(models.Model):
     def __str__(self):
         return "%s (%s)" % (self.name, self.code)
     
+
 class SourceSoftware(models.Model):
     code = models.CharField(max_length=255, default='',unique=True)
     name = models.CharField(max_length=255, default='')
@@ -460,7 +463,7 @@ class SourceSoftware(models.Model):
 class SourceSystem(models.Model):
     code = models.CharField(max_length=255, default='', unique=True)
     name = models.CharField(max_length=255, default='')
-    jurisdiction = models.ForeignKey(Jurisdiction, on_delete=models.CASCADE,blank=True, null=True)
+    jurisdiction = models.ForeignKey(Jurisdiction, on_delete=models.CASCADE, blank=True, null=True)
     state = USPostalCodeField(blank=True, default='', choices=USPS_CHOICES)
     software = models.ForeignKey(SourceSoftware, on_delete=models.CASCADE)
     program_areas = models.ManyToManyField(ProgramAreaType, blank=True)
