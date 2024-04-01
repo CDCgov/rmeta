@@ -71,12 +71,13 @@ oauth2_management_urlpatterns = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('reporting/', include('apps.report_metadata.urls')),
+    path('hashcow/', include('apps.hashcow.urls')),
     path('o/',
              include((oauth2_management_urlpatterns + oauth2_base_urlpatterns,
                       'oauth2_provider'))),
     path('', home, name='home' ),
     
-    path('accounts/login', LoginView.as_view(
+    path('accounts/login/', LoginView.as_view(
             template_name='report_metadata/login.html'
         ), name='login'),
     
