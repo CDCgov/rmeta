@@ -10,9 +10,14 @@ import bcrypt
 from Crypto.Protocol.KDF import scrypt
 from Crypto.Random import get_random_bytes
 
-BCRYPT_ROUNDS =int(env('BCRYPT_ROUNDS',12))
+BCRYPT_ROUNDS =int(env('BCRYPT_ROUNDS',13))
 BCRYPT_SALT = b'$2b$13$GamJ8w9ryKQ2cSmwQ0f.Pe'
 SHA2_512_SALT = env('SHA2_512_SALT','')
+
+
+
+
+
 def generate_password_recovery_phrase(strength=256):
     m = Mnemonic('english')
     mywords = m.generate(strength)
@@ -34,23 +39,25 @@ def passphrase_hash(passphrase):
                                    get_passphrase_salt(),
                                    int(env('PASSPHRASE_ITERATIONS')))).decode("ascii")
 
-def pprl_sha512_bcrypt(passphrase, bcrypt_salt="", bcrypt_rounds=13, pepper=""):
-    result ={"id": "", "pepper": pepper}
+def pprl_sha512_bcrypt(passphrase, bcrypt_salt="", bcrypt_rounds=BCRYPT_ROUNDS, pepper=""):
+    result ={}
     passphrase ="%s^%s" %(pepper, passphrase)
     result["pepper_and_value"] = passphrase
-    hash = sha256(passphrase.encode('utf-8')).hexdigest()
+    hash = sha512(passphrase.encode('utf-8')).hexdigest()
     sha512_passphrase = str.encode(hash)
     # print("SHA2-512 hash=",sha512_passphrase.decode())
     result['sha2_512_hash'] = sha512_passphrase.decode()
     if bcrypt_salt:
-        result['bcrypt_salt']= bcrypt_salt
+        # result['bcrypt_salt']= bcrypt_salt
+        print("dfdg")
         salt = bcrypt_salt.encode('utf-8')
     else:
         # print("No bcrypt salt supplied, so generating a new salt")
         salt = bcrypt.gensalt(rounds=bcrypt_rounds)
-        result['bcrypt_salt']= salt.decode()
+        # result['bcrypt_salt']= salt.decode()
     hash = bcrypt.hashpw(sha512_passphrase, salt)
     result["sha2_512_bcrypt_hash"] = hash.decode()
+    print(len(hash.decode()))
     result["id"] = result["sha2_512_bcrypt_hash"].rsplit('$',1)[-1]
 
     return result
