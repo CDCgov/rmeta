@@ -28,13 +28,9 @@
         </nav>
         <hgroup>
             <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
-                Everything you see here should be considered experimental beta software
-                for research and development purposes. While every attempt is made 
-                to keep this data up to date some of it might be out of date or 
-                is missing altogether. If you have data you would like to add, 
-                please reach out for an administrative account. 
-                <strong>This service is not an official data source.</strong> 
-            
+                This is beta software provided for research and development purposes. 
+                While every attempt is made to keep this data up to date, some of it might be out of date or 
+                is missing.
             </p>
           </hgroup>
       </header>
@@ -54,7 +50,7 @@
             Program Areas (CSV) </button></a>
 
             <a href="{% url 'rdata:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
-                Program Areas (JSON) </button></a>
+            Program Areas (JSON) </button></a>
         </p>
 
         <p class="grid">
@@ -103,13 +99,12 @@
                 Anonyomized Data Needs (JSON)</button></a>     
             </p>
 
-            <h3>API Messages</h3>
+            <h3>API Messages (Experimental)</h3>
             <p class="grid">
                 <a href="{% url 'rdata:type_csv' 'RMetaMessage' %}"><button type="button" class="outline">
-                    Messages (CSV)</button></a>
-        
+                    All Messages (CSV)</button></a>
                 <a href="{% url 'rdata:type_json' 'RMetaMessage' %}"><button type="button" class="outline">
-                    Messages (JSON)</button></a>
+                    All Messages (JSON)</button></a>
             </p>
 
     <h3>Reports</h3>
@@ -124,14 +119,11 @@
                     By Program Area</button></a>   
             </p>
 
-
-
-
         {% if request.user.is_staff %}
     <h3>Administration</h3>
         <p>
             <a href="{% url 'admin:index' %}"><button type="button" class="outline">
-                Administrative Interface </button></a>
+            Administrative Interface </button></a>
        </p>
     {% endif %}
 

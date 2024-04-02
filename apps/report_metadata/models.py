@@ -9,7 +9,6 @@ from django.conf import settings
 
 CASE_STATUS_CHOICES = (('SUSPECTED','SUSPECTED'),('PROBABLE','PROBABLE'),
                        ('CONFIRMED','CONFIRMED'))
-from .pprl import pprl_sha512_bcrypt
 
 
 class PersonHashType(models.Model):
@@ -36,7 +35,7 @@ class PersonHashType(models.Model):
 
 
     @property
-    def pepper(self):
+    def salt(self):
         return "%s..." % (self.bcrypt_salt[7:11])
     
 
@@ -121,6 +120,8 @@ class AnonyomizedDataNeed(models.Model):
             if not self.name:
                 self.name = self.eicr_data_element
                 self.code = str.upper(slugify(self.eicr_data_element))
+            if not self.message_field_name:
+                self.message_field_name = self.name.lower().replace(" ","_")
             super(AnonyomizedDataNeed, self).save(**kwargs)
 
 
@@ -835,21 +836,6 @@ class RMetaMessage(models.Model):
 
     def save(self, commit=True, **kwargs):
         if commit:
-            if self.patient_date_of_birth and self.patient_mobile_phone_number:
-                
-                dob_and_mobile_num = "%s^%s" % (self.patient_date_of_birth, 
-                                                self.patient_mobile_phone_number.strip("-"))
-                dob_mpn = PersonHashType.objects.get(code="CDC-DOB-MPN")
-                
-                value_to_hash = "%s^%s" % (dob_mpn.prefix,dob_and_mobile_num)
-                result = pprl_sha512_bcrypt(dob_and_mobile_num, dob_mpn.bcrypt_salt,
-                                            dob_mpn.pepper_prefix)
-                self.patient_dob_and_mobilephone_hash = result["sha2_512_bcrypt_hash"].rsplit("$",1)[-1]
-
-                mydict = json.loads(self.cdc_payload_json) 
-                mydict["patient_dob_and_mobilephone_hash"]= self.patient_dob_and_mobilephone_hash
-                self.cdc_payload_json = json.dumps(mydict, indent=2)
-
             super(RMetaMessage, self).save(**kwargs)
 
 

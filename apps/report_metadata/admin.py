@@ -10,12 +10,12 @@ from .models import (HealthDataType, DataTransportType, PatientIDType,
 
 
 class PersonHashTypeAdmin(admin.ModelAdmin):
-    list_display = ('name', 'code', 'prefix','series', 'pepper', 'description', 'updated')
+    list_display = ('name', 'code', 'prefix','series', 'salt', 'description', 'updated')
     search_fields = ('code', 'name', 'description')
 admin.site.register(PersonHashType, PersonHashTypeAdmin)
 
 class AnonyomizedDataNeedAdmin(admin.ModelAdmin):
-    list_display = ('name','code',  'keep', 'hipaa_id', 'pprl_hash', 
+    list_display = ('name','code',  'keep', 'in_syndromic_message', 'hipaa_id', 'pprl_hash', 
                     'eicr_template','description', 'updated')
     search_fields = ('code', 'name', 'description')
 admin.site.register(AnonyomizedDataNeed, AnonyomizedDataNeedAdmin)
