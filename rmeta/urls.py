@@ -70,6 +70,7 @@ oauth2_management_urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
     path('hashcow/', include('apps.hashcow.urls')),
     path('o/',

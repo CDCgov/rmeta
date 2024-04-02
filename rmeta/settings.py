@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.report_metadata',
     'apps.hashcow',
+    'apps.anonymouser',
 ]
 
 MIDDLEWARE = [
