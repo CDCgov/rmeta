@@ -15,6 +15,7 @@ class HashedMessage(models.Model):
     dob_and_mobilephone_hash = models.CharField(max_length=64, blank=True, default='',)
     email_and_mobilephone_hash = models.CharField(max_length=64, blank=True, default='')
     dob_and_email_hash = models.CharField(max_length=64, blank=True, default='')
+    dob_and_fn_and_ln_hash = models.CharField(max_length=64, blank=True, default='',)
     insurance_plan_and_insurance_member_hash = models.CharField(max_length=64, blank=True, default='')
     mrn_and_node_hash = models.CharField(max_length=64, blank=True, default='')
 
@@ -82,7 +83,7 @@ class HashedMessage(models.Model):
 
     class Meta:
         verbose_name_plural = 'Hashed Messages'
-        verbose_name = 'HashedMessage'
+        verbose_name = 'Hashed Message'
 
 
     @property

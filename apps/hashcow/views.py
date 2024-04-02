@@ -48,18 +48,12 @@ def write_metadata(request):
 
                 for k, v  in update_dict.items():
                     setattr(hm, k, v)
-            if hm.dob_and_email_hash == j["dob_and_mobilephone_hash"]: 
-                for k, v  in update_dict.items():
-                    setattr(hm, k, v)
                 response['hm'] = model_to_dict(hm)                 
                 hm.save()
         response['update_fields'] = update_keys
         return HttpResponse(json.dumps(response, indent=2),
                             content_type="application/json")
-        
-        print(j.keys())
-    
-    
-    return HttpResponse(json.dumps({"error":"This API requires and HTTP POST with a JSON object for contant"}, indent=2),
+            
+    return HttpResponse(json.dumps({"error":"This API requires and HTTP POST with a JSON object for content"}, indent=2),
                             content_type="application/json")
 
