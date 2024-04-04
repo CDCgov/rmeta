@@ -42,7 +42,7 @@ if __name__ == "__main__":
         wf = int(args.workfactor)
         if wf>3:
             response = bcrypt_salt(workfactor=wf)
-            print(response)
+            print(response['salt'])
         else:
             print("You must supply an integer between 4 and 31 for Bcrypt rounds/workfactor.")
 

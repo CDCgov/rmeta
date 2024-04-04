@@ -192,10 +192,6 @@ class AnonymizedMessage(models.Model):
         adn =  AnonyomizedDataNeed.objects.filter(keep=False)
         for df in adn:
             if df.message_field_name in anon.keys():
-                print(df.message_field_name)
                 del anon[df.message_field_name]
-
-
         del anon['id']
-        #del anon['patient_last_name']
         return anon

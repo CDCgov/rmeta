@@ -864,7 +864,7 @@ class RMetaMessage(models.Model):
         return  {"message_id":self.message_id,
                  "inital_message_id": self.initial_message_id,
                  "is_inital_message": self.is_initial_message,
-                 "encompasing_encounter_id": self.encompasing_encounter_id,
+                 "encompasing_encounter_id": self.encompassing_encounter_id,
                  "message_type": self.source_system_case_report_type.code,
                  "source_system_code": self.source_system.code,
                  "patient_dob_and_mobilephone_hash": self.patient_dob_and_mobilephone_hash,
