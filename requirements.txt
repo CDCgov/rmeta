@@ -16,7 +16,7 @@ django-oauth-toolkit==2.3.0
 django-widget-tweaks==1.5.0
 djangorestframework==3.14.0
 dnspython==2.6.1
-idna==3.6
+idna==3.7
 jdt==0.5.7
 jsonschema==4.21.1
 jsonschema-specifications==2023.12.1
