@@ -20,6 +20,7 @@ def load_uscdi_data_elements(input_csv_filename):
             data_element.in_uscdi = True
         data_element.current_uscdi_level = row["Current USCDI Level"]
         data_element.uscdi_url = row["USCDI URL"]
+        data_element.uscdi_uuid = uscdi_uuid=row["Data Element"]
         data_element.description = row["Description"]
         data_element.applicable_vocabulary_standards =row["Applicable Vocabulary Standard(s)"]
         data_element.associated_reporting_program =row["Associated Reporting Program"]

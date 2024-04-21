@@ -135,6 +135,11 @@ class DataElementType(models.Model):
     def save(self, commit=True, **kwargs):
         if commit:
             if not self.code:
-                self.code = "%s-%s" % (self.data_class.code, 
-                                       str.upper(slugify(self.name.upper())))
+                self.code = "%s-%s-%s-%s" % (str.upper(slugify(self.name.upper())),
+                                             self.data_class.code,
+                                             self.domain.code,
+                                             self.use_case.code,
+                )
+                                             
+
             super(DataElementType, self).save(**kwargs)
