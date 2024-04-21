@@ -28,7 +28,12 @@ SECRET_KEY = 'django-insecure-96i03%7gl51^)s2&0ov$oi!)x5b)y@%c)0zc#rgzov%g=f+kn@
 DEBUG = True
 
 ALLOWED_HOSTS = ["cdcmeta.com","localhost",]
-CSRF_TRUSTED_ORIGINS = ['https://cdcmeta.com',]
+CSRF_TRUSTED_ORIGINS = ['https://cdcmeta.com', "http://localhost", ]
+
+CORS_ALLOWED_ORIGINS = ['https://cdcmeta.com', 
+                        "http://localhost:8080",
+                        "http://localhost:8000"]
+
 
 # Application definition
 
@@ -41,14 +46,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'oauth2_provider',
     'rest_framework',
+    'corsheaders',
     'apps.report_metadata',
     'apps.hashcow',
     'apps.anonymouser',
+    'apps.uscdi',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
