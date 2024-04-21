@@ -719,6 +719,8 @@ class Connection(models.Model):
     @property
     def integration_engine_systems_list(self):
         mylist=[]
+        for i in self.cdc_receiving_system.integration_engine_systems.all():
+            mylist.append(i.code)
         for i in self.integration_engine_systems.all():
             mylist.append(i.code)
         return mylist
@@ -726,6 +728,8 @@ class Connection(models.Model):
     @property
     def intermediary_systems_list(self):
         mylist=[]
+        for i in self.cdc_receiving_system.intermediary_systems.all():
+            mylist.append(i.code)
         for i in self.intermediary_systems.all():
             mylist.append(i.code)
         return mylist

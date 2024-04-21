@@ -68,8 +68,9 @@ class SourceSoftwareAdmin(admin.ModelAdmin):
 admin.site.register(SourceSoftware, SourceSoftwareAdmin)
 
 class SourceSystemAdmin(admin.ModelAdmin):
-    list_display = ('code', 'name', 'jurisdiction', 'program_areas_list', 'output_data_type',
-                    'description','updated')
+    list_display = ('code', 'name', 'jurisdiction', 'program_areas_list',  
+                    'integration_engine_systems_list', 'intermediary_systems_list',
+                    'output_data_type', 'description','updated')
     search_fields = ('code','jurisdiction__code','program_areas__code','description')
 admin.site.register(SourceSystem, SourceSystemAdmin)
 
