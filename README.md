@@ -1,6 +1,6 @@
 # RMeta
 
-A research and development database, UI, and API.
+A research and development database, UI, and API for public health Metadata.
 
 **General disclaimer** This repository was created for use by CDC programs to collaborate on public health related projects in support of the [CDC mission](https://www.cdc.gov/about/organization/mission.htm).  GitHub is not hosted by the CDC, but is a third party website used by CDC and its partners to share information and collaborate on software. CDC use of GitHub does not imply an endorsement of any one particular service, product, or enterprise. 
 
@@ -17,7 +17,7 @@ rms.office.com/Pages/ResponsePage.aspx?id=aQjnnNtg_USr6NJ2cHf8j44WSiOI6uNOvdWse4
 
 ## Overview
 
-RMeta is designed to help design a future state of data anonymization and privacy poreserving data linkages.
+RMeta is designed to help design a future state of data anonymization and privacy preserving data linkages.
 It provides basic codified information as JSON and CSV.
 
 RMeta is written in Python 3.11 and Django 5.  An installation guide will be added soon.
