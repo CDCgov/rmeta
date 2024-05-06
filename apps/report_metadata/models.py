@@ -209,7 +209,7 @@ class ProgramAreaType(models.Model):
     def as_dict(self):
         return  {"code":self.code,
                  "name": self.name, 
-                 "adult_records_contain_child_records": self.adult_records_contain_child_records,
+                 # "adult_records_contain_child_records": self.adult_records_contain_child_records,
                  "description": self.description,
                  "updated": str(self.updated)}
 

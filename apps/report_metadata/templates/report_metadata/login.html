@@ -3,15 +3,16 @@
 {% load static %}
 {% block Content %}
 
-<main ref=container>
-    <h1>Sign in</h1>
-    <form method="post" action="{% url 'login' %}">
+
+    <form method="post" action="{% url 'login' %}" class="login-form">
         {% csrf_token %}
       {{form}}
-
-      <button type="submit">
-        Login
-      </button>
+      <div style="text-align: center;">
+        <button type="submit">
+          Login
+        </button>
+      </div>
+      <a href="{% url 'request_access' %}">Don't have an account? Request Access</a>
     </form>
-  </main>
+
   {% endblock %}

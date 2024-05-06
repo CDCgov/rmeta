@@ -16,6 +16,7 @@ from datetime import datetime
 import csv
 import importlib
 from django.contrib import messages
+from django_ratelimit.decorators import ratelimit
 
 
 logger = logging.getLogger('report_metadata_.%s' % __name__)
@@ -147,7 +148,7 @@ def type_json(request, my_type_name):
     #response['Content-Disposition'] = 'attachment; filename=' + filename
     count=0
     json_results = {"count": count,
-                    "updated": datetime.now().strftime('%m-%d-%Y'),
+                    #timestamp": datetime.now().strftime('%m-%d-%Y'),
                     "content":[]}
     for i in js:
         json_results["content"].append(i.as_dict)
@@ -188,43 +189,7 @@ def home(request):
     context = {}
     return render(request, template, context)
 
-
-@require_GET
-@protected_resource()
-def hello_oauth(request):
-    # A remote API call for logging out the user
-    user = request.resource_owner
-    message = "Hello OAuth World, %s" % (user.first_name)
-    data = {"status": "ok",
-            "message": message}
-    logger.info(message)
-    return JsonResponse(data)
-
-
-
-@require_GET
-def hello(request):
-    # A remote API call for logging out the user
-    message = "Hello World"
-    data = {"status": "ok",
-            "message": message}
-    logger.info(message)
-    return JsonResponse(data)
-
-@require_GET
-def source_list(request):
-    # A remote API call for logging out the user
-    message = "Source Systems"
-    data = {"status": "ok",
-            "message": message}
-    logger.info(message)
-    return JsonResponse(data)
-
-@require_GET
-def recipient_system_list(request):
-    # A remote API call for logging out the user
-    message = "Recipient Systems"
-    data = {"status": "ok",
-            "message": message}
-    logger.info("Hello world.")
-    return JsonResponse(data)
+def request_access(request):
+    template='report_metadata/request-access.html'
+    context = {}
+    return render(request, template, context)

@@ -2,20 +2,21 @@ from django.conf.urls import include
 from django.urls import re_path as url
 from django.urls import path
 from django.contrib import admin
-from .views import (hello, source_list, recipient_system_list, 
-                    annon_data_needs_csv, annon_data_needs_home,
+from django.contrib.auth.decorators import login_required
+from .views import (annon_data_needs_csv, annon_data_needs_home,
                     state_report,state_report_index,
-                    state_report_csv,jurisdictions_csv, type_csv, 
+                    state_report_csv, type_csv, 
                     type_json,  jurisdiction_report,
                     jurisdiction_report_index, source_software_report_index, source_software_report,
                     program_area_report_index, program_area_report)
+
+from .publicapi_views import public_type_csv, public_type_json, hello
+
 __author__ = "Alan Viars"
-app_name = 'rdata'
+app_name = 'rmeta'
 admin.autodiscover()
 
 app_v1 = [
-    url(r'source/system/list$', source_list, name='source_list'),
-    url(r'recipient/system/list$', recipient_system_list, name='recipient_system_list'),
     url(r'annon-data-needs/csv$', annon_data_needs_csv, name='annon_data_needs_csv'),
     url(r'annon-data-needs/home$', annon_data_needs_home, name='annon_data_needs_home'),
     url(r'reports/state/index$', state_report_index, name='state_report_index'),
@@ -28,18 +29,26 @@ app_v1 = [
     url(r'reports/source-software/(?P<software_code>[^/]+)$', source_software_report, name='source_software_report'),
     url(r'reports/program-area/(?P<program_area_code>[^/]+)$', program_area_report, name='program_area_report'),
     url(r'reports/state/(?P<state>[^/]+)$', state_report, name='state_report'),
-    url(r'reports/state/(?P<state>[^/]+)$', state_report, name='state_report'),
-    url(r'types/jurisdictions$', jurisdictions_csv, name='jurisdictions_csv'),
-    url(r'types/csv/(?P<my_type_name>[^/]+)$', type_csv, name='type_csv'),
-    url(r'types/json/(?P<my_type_name>[^/]+)$', type_json, name='type_json'),
+    url(r'types/csv/(?P<my_type_name>[^/]+)$', login_required(type_csv), name='type_csv'),
+    url(r'types/json/(?P<my_type_name>[^/]+)$', login_required(type_json), name='type_json'),
 ]
 
-api_v1 = [
-    url(r'hello$', hello, name='hello'),
+public_api_v1 = [
+
+    url(r'public/hello$', hello, name='public_api_hello'),
+    
+    url(r'public/types/json/(?P<my_type_name>[^/]+)$', public_type_json, name='public_type_json'),
+    url(r'public/types/csv/(?P<my_type_name>[^/]+)$', public_type_csv, name='public_type_csv'),
+
+
+    url(r'public/types/csv/(?P<my_type_name>[^/]+)/(?P<my_module_name>[^/]+)$', public_type_csv, name='public_type_csv_module'),
+    url(r'public/types/json/(?P<my_type_name>[^/]+)/(?P<my_module_name>[^/]+)$', public_type_json, name='public_type_json_module'),
 ]
+
+
 
 urlpatterns = [
     path('app/v1/', include(app_v1)),
-    path('api/v1/', include(api_v1)),
+    path('v1/', include(public_api_v1)),
 ]
 

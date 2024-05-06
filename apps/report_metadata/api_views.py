@@ -14,7 +14,7 @@ from datetime import datetime
 import csv
 import importlib
 
-logger = logging.getLogger('report_metadata_message_api.%s' % __name__)
+logger = logging.getLogger('token_based_api.%s' % __name__)
 User = get_user_model()
 
 

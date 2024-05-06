@@ -2,16 +2,12 @@
 {% load i18n %}
 {% load static %}
 {% block Content %}
-<style>
-
-</style>
-
 <main class="container">
     <header class="container">
 
         <nav>
             <ul>
-                <li><h1><strong>RMeta</strong></h1></li>
+                <li><h1><strong>CDC Meta</strong></h1></li>
               </ul>
           <ul>
             <li>
@@ -28,8 +24,42 @@
         </nav>
         <hgroup>
             <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
+                CDC Meta is a data portal and set of APIs 
+                relevant to public health.
                 This is beta software for research and development purposes. 
                 Some data might be out of date, incorrect, or missing.
+
+            </p>
+          </hgroup>
+      </header>
+
+<main class="container">
+    <header class="container">
+
+        <nav>
+            <ul>
+                <li><h1><strong>CDC Meta</strong></h1></li>
+              </ul>
+          <ul>
+            <li>
+              <details class="dropdown">
+                <summary role="button" class="secondary">Theme</summary>
+                <ul>
+                  <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                  <li><a href="#" data-theme-switcher="light">Light</a></li>
+                  <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+        <hgroup>
+            <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
+                CDC Meta is a data portal and set of APIs 
+                relevant to public health.
+                This is beta software for research and development purposes. 
+                Some data might be out of date, incorrect, or missing.
+
             </p>
           </hgroup>
       </header>
@@ -38,84 +68,84 @@
 
     <h3>Reports</h3>
     <p class="grid" >
-    <a href="{% url 'rdata:state_report_index' %}"><button type="button" class="outline">
+    <a href="{% url 'rmeta:state_report_index' %}"><button type="button" class="outline">
             By State </button></a>
-        <a href="{% url 'rdata:jurisdiction_report_index' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:jurisdiction_report_index' %}"><button type="button" class="outline">
             By Jurisdiction </button></a>
-        <a href="{% url 'rdata:source_software_report_index' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:source_software_report_index' %}"><button type="button" class="outline">
             By Source Software </button></a>
-        <a href="{% url 'rdata:program_area_report_index' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:program_area_report_index' %}"><button type="button" class="outline">
             By Program Area</button></a>   
     </p>
 
     <h3>Data Specifications</h3>
 
        <p class="grid">
-        <a href="{% url 'rdata:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
                 Jurisdictions (CSV) </button></a>
-        <a href="{% url 'rdata:type_json' 'Jurisdiction' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:type_json' 'Jurisdiction' %}"><button type="button" class="outline">
                 Jurisdictions (JSON) </button></a>
         </p>
         
         <p class="grid">
-        <a href="{% url 'rdata:type_csv' 'ProgramAreaType' %}"><button type="button" class="outline">
+        <a href="{% url 'rmeta:type_csv' 'ProgramAreaType' %}"><button type="button" class="outline">
             Program Areas (CSV) </button></a>
 
-            <a href="{% url 'rdata:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
             Program Areas (JSON) </button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rdata:type_csv' 'HealthDataType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_csv' 'HealthDataType' %}"><button type="button" class="outline">
                 Health Data Types (CSV) </button></a>
-            <a href="{% url 'rdata:type_json' 'HealthDataType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'HealthDataType' %}"><button type="button" class="outline">
                 Health Data Types (JSON) </button></a>     
             </p>
 
         <p class="grid">
-            <a href="{% url 'rdata:type_csv' 'DataTransportType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_csv' 'DataTransportType' %}"><button type="button" class="outline">
                 Data Transport Types (CSV) </button></a>
-            <a href="{% url 'rdata:type_json' 'DataTransportType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'DataTransportType' %}"><button type="button" class="outline">
                 Data Transport Types (JSON) </button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rdata:type_csv' 'PatientIDType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_csv' 'PatientIDType' %}"><button type="button" class="outline">
                 Patient ID Types (CSV) </button></a>
 
-            <a href="{% url 'rdata:type_json' 'PatientIDType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'PatientIDType' %}"><button type="button" class="outline">
                 Patient ID Types (JSON) </button></a>
 
         </p>
         
         <p class="grid">
-            <a href="{% url 'rdata:type_csv' 'ReportType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_csv' 'ReportType' %}"><button type="button" class="outline">
                 Report Types (CSV)</button></a>
 
-            <a href="{% url 'rdata:type_json' 'ReportType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'ReportType' %}"><button type="button" class="outline">
                 Report Types (JSON)</button></a>
         </p>
     
         <p class="grid">
-            <a href="{% url 'rdata:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
                 Person Hash Types (CSV)</button></a>
 
-            <a href="{% url 'rdata:type_json' 'PersonHashType' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'PersonHashType' %}"><button type="button" class="outline">
                 Person Hash Types (JSON)</button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rdata:annon_data_needs_csv' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:annon_data_needs_csv' %}"><button type="button" class="outline">
                 Anonyomized Data Needs (CSV) </button></a>
-            <a href="{% url 'rdata:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
+            <a href="{% url 'rmeta:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
                 Anonyomized Data Needs (JSON)</button></a>     
             </p>
 
             <h3>API Messages (Experimental)</h3>
             <p class="grid">
-                <a href="{% url 'rdata:type_csv' 'RMetaMessage' %}"><button type="button" class="outline">
+                <a href="{% url 'rmeta:type_csv' 'RMetaMessage' %}"><button type="button" class="outline">
                     All Messages (CSV)</button></a>
-                <a href="{% url 'rdata:type_json' 'RMetaMessage' %}"><button type="button" class="outline">
+                <a href="{% url 'rmeta:type_json' 'RMetaMessage' %}"><button type="button" class="outline">
                     All Messages (JSON)</button></a>
             </p>
 

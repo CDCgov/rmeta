@@ -1,5 +1,5 @@
 """
-URL configuration for rmeta project.
+URL configuration for cdcmeta project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -18,11 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path as url
 from oauth2_provider import views as oauth2_views
-from apps.report_metadata.views import home
+from apps.report_metadata.views import home, request_access
+from django_ratelimit.decorators import ratelimit
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
-admin.site.site_header = "RMeta Admin"
-admin.site.site_title = "RMeta Admin Portal"
-admin.site.index_title = "RMeta Administration"
+
+#admin.site.site_header = "CDC Meta Admin"
+admin.site.site_title = "CDC Meta Admin Portal"
+admin.site.index_title = "CDC Meta Administration"
 
 
 oauth2_base_urlpatterns = [
@@ -72,19 +74,20 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
+    path('api/', include('apps.report_metadata.urls')),
+    
+    # public URLs
+    #path('public/api/v1/', include('apps.report_metadata.publicapi_urls')),
     path('hashcow/', include('apps.hashcow.urls')),
-    path('o/',
-             include((oauth2_management_urlpatterns + oauth2_base_urlpatterns,
-                      'oauth2_provider'))),
+    path('o/',include((oauth2_management_urlpatterns + oauth2_base_urlpatterns, 'oauth2_provider'))),
     path('', home, name='home' ),
-    
-    path('accounts/login/', LoginView.as_view(
+    path('accounts/login/', ratelimit(key='ip', rate='100/h')(LoginView.as_view(
             template_name='report_metadata/login.html'
-        ), name='login'),
-    
+        )), name='login'),
     path('accounts/logout', LogoutView.as_view(
             template_name='report_metadata/logged-out.html'
         ), name='logout'),
+    path('accounts/request-access', request_access, name='request_access'),
     path('accounts/change-password', PasswordChangeView.as_view(
             template_name='report_metadata/change-password.html'
         ), name='password_change'),

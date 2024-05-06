@@ -130,7 +130,24 @@ class DataElementType(models.Model):
         return  {"code":self.code, 
                  "name": self.name, 
                  "description": self.description,
-                 "uscdi_uuid":self.uscdi_uuid}
+                "domain":str(self.domain),
+                "data_class":str(self.data_class),
+                "use_case":str(self.use_case),           
+                "uscdi_uuid": self.uscdi_uuid,
+                "submission_status":self.submission_status,
+                "additional_information":self.additional_information,
+                "in_uscdi":self.in_uscdi,
+                "current_uscdi_level":self.current_uscdi_level,
+                "uscdi_url":self.uscdi_url,
+                "applicable_vocabulary_standards":self.applicable_vocabulary_standards,
+                "associated_project":self.associated_project,
+                "associated_project_urls":self.associated_project_urls,
+                "associated_reporting_program":self.associated_reporting_program,
+                "associated_ig_or_profile":self.associated_ig_or_profile,
+                "associated_ig_or_profile_urls":self.associated_ig_or_profile_urls,
+                "associated_us_core_profile":self.associated_us_core_profile,
+                "associated_us_core_profile_urls":self.associated_us_core_profile_urls,
+                "updated": str(self.updated) }
 
     def save(self, commit=True, **kwargs):
         if commit:
@@ -138,8 +155,5 @@ class DataElementType(models.Model):
                 self.code = "%s-%s-%s-%s" % (str.upper(slugify(self.name.upper())),
                                              self.data_class.code,
                                              self.domain.code,
-                                             self.use_case.code,
-                )
-                                             
-
+                                             self.use_case.code)
             super(DataElementType, self).save(**kwargs)
