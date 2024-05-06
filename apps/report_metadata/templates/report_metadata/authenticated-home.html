@@ -2,36 +2,7 @@
 {% load i18n %}
 {% load static %}
 {% block Content %}
-<main class="container">
-    <header class="container">
 
-        <nav>
-            <ul>
-                <li><h1><strong>CDC Meta</strong></h1></li>
-              </ul>
-          <ul>
-            <li>
-              <details class="dropdown">
-                <summary role="button" class="secondary">Theme</summary>
-                <ul>
-                  <li><a href="#" data-theme-switcher="auto">Auto</a></li>
-                  <li><a href="#" data-theme-switcher="light">Light</a></li>
-                  <li><a href="#" data-theme-switcher="dark">Dark</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
-        </nav>
-        <hgroup>
-            <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
-                CDC Meta is a data portal and set of APIs 
-                relevant to public health.
-                This is beta software for research and development purposes. 
-                Some data might be out of date, incorrect, or missing.
-
-            </p>
-          </hgroup>
-      </header>
 
 <main class="container">
     <header class="container">
