@@ -13,7 +13,7 @@ from .views import (annon_data_needs_csv, annon_data_needs_home,
 from .publicapi_views import public_type_csv, public_type_json, hello
 
 __author__ = "Alan Viars"
-app_name = 'rmeta'
+app_name = 'report_meta'
 admin.autodiscover()
 
 app_v1 = [

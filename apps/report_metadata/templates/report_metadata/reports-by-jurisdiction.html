@@ -8,7 +8,7 @@
 
 {% for j in jurisdictions %}    
     <p class="grid">
-        <a href="{% url 'rdata:jurisdiction_report' j.code %}"><button type="button" class="btn btn-primary">
+        <a href="{% url 'report_meta:jurisdiction_report' j.code %}"><button type="button" class="btn btn-primary">
             {{j.name}} ({{j.code}}) </button></a>
     </p>
 {% endfor%}

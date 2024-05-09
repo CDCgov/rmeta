@@ -3,10 +3,8 @@
 {% load static %}
 {% block Content %}
 
-
 <main class="container">
     <header class="container">
-
         <nav>
             <ul>
                 <li><h1><strong>CDC Meta</strong></h1></li>
@@ -37,87 +35,88 @@
 
 <section id="preview">
 
-    <h3>Reports</h3>
+    <h3> STILT Systems Reports</h3>
     <p class="grid" >
-    <a href="{% url 'rmeta:state_report_index' %}"><button type="button" class="outline">
+    <a href="{% url 'report_meta:state_report_index' %}"><button type="button" class="outline">
             By State </button></a>
-        <a href="{% url 'rmeta:jurisdiction_report_index' %}"><button type="button" class="outline">
+        <a href="{% url 'report_meta:jurisdiction_report_index' %}"><button type="button" class="outline">
             By Jurisdiction </button></a>
-        <a href="{% url 'rmeta:source_software_report_index' %}"><button type="button" class="outline">
+        <a href="{% url 'report_meta:source_software_report_index' %}"><button type="button" class="outline">
             By Source Software </button></a>
-        <a href="{% url 'rmeta:program_area_report_index' %}"><button type="button" class="outline">
-            By Program Area</button></a>   
+        <a href="{% url 'report_meta:program_area_report_index' %}"><button type="button" class="outline">
+            By Program Area</button></a> 
     </p>
+
+    <p class="grid" >
+
+                <a href="{% url 'report_meta:type_csv' 'SourceSystem' %}"><button type="button" class="outline">
+                    All Systems (CSV)</button></a>
+                    <a href="{% url 'report_meta:type_json' 'SourceSystem' %}"><button type="button" class="outline">
+                        All Systems (JSON)</button></a>
+        </p>
+
 
     <h3>Data Specifications</h3>
 
        <p class="grid">
-        <a href="{% url 'rmeta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
+        <a href="{% url 'report_meta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
                 Jurisdictions (CSV) </button></a>
-        <a href="{% url 'rmeta:type_json' 'Jurisdiction' %}"><button type="button" class="outline">
+        <a href="{% url 'report_meta:type_json' 'Jurisdiction' %}"><button type="button" class="outline">
                 Jurisdictions (JSON) </button></a>
         </p>
         
         <p class="grid">
-        <a href="{% url 'rmeta:type_csv' 'ProgramAreaType' %}"><button type="button" class="outline">
+        <a href="{% url 'report_meta:type_csv' 'ProgramAreaType' %}"><button type="button" class="outline">
             Program Areas (CSV) </button></a>
 
-            <a href="{% url 'rmeta:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
             Program Areas (JSON) </button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rmeta:type_csv' 'HealthDataType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_csv' 'HealthDataType' %}"><button type="button" class="outline">
                 Health Data Types (CSV) </button></a>
-            <a href="{% url 'rmeta:type_json' 'HealthDataType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'HealthDataType' %}"><button type="button" class="outline">
                 Health Data Types (JSON) </button></a>     
             </p>
 
         <p class="grid">
-            <a href="{% url 'rmeta:type_csv' 'DataTransportType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_csv' 'DataTransportType' %}"><button type="button" class="outline">
                 Data Transport Types (CSV) </button></a>
-            <a href="{% url 'rmeta:type_json' 'DataTransportType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'DataTransportType' %}"><button type="button" class="outline">
                 Data Transport Types (JSON) </button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rmeta:type_csv' 'PatientIDType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_csv' 'PatientIDType' %}"><button type="button" class="outline">
                 Patient ID Types (CSV) </button></a>
 
-            <a href="{% url 'rmeta:type_json' 'PatientIDType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'PatientIDType' %}"><button type="button" class="outline">
                 Patient ID Types (JSON) </button></a>
 
         </p>
         
         <p class="grid">
-            <a href="{% url 'rmeta:type_csv' 'ReportType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_csv' 'ReportType' %}"><button type="button" class="outline">
                 Report Types (CSV)</button></a>
 
-            <a href="{% url 'rmeta:type_json' 'ReportType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'ReportType' %}"><button type="button" class="outline">
                 Report Types (JSON)</button></a>
         </p>
     
         <p class="grid">
-            <a href="{% url 'rmeta:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
                 Person Hash Types (CSV)</button></a>
 
-            <a href="{% url 'rmeta:type_json' 'PersonHashType' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'PersonHashType' %}"><button type="button" class="outline">
                 Person Hash Types (JSON)</button></a>
         </p>
 
         <p class="grid">
-            <a href="{% url 'rmeta:annon_data_needs_csv' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:annon_data_needs_csv' %}"><button type="button" class="outline">
                 Anonyomized Data Needs (CSV) </button></a>
-            <a href="{% url 'rmeta:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
+            <a href="{% url 'report_meta:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
                 Anonyomized Data Needs (JSON)</button></a>     
-            </p>
-
-            <h3>API Messages (Experimental)</h3>
-            <p class="grid">
-                <a href="{% url 'rmeta:type_csv' 'RMetaMessage' %}"><button type="button" class="outline">
-                    All Messages (CSV)</button></a>
-                <a href="{% url 'rmeta:type_json' 'RMetaMessage' %}"><button type="button" class="outline">
-                    All Messages (JSON)</button></a>
             </p>
 
         {% if request.user.is_staff %}
