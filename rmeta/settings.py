@@ -163,3 +163,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Expire session. Default is 4 hours: 240 * 60 seconds
 SESSION_COOKIE_AGE = int(env('SESSION_COOKIE_AGE', int(240 * 60)))
+
+EMAIL_SUBJECT_PREFIX = env('EMAIL_SUBJECT_PREFIX', 'CDC Meta')
+EMAIL_BACKEND = env('EMAIL_BACKEND', 'django_ses.SESBackend')
+DEFAULT_ADMIN_EMAIL = env('ADMIN_EMAIL', 'no-reply@cdcmeta.com')
+DEFAULT_FROM_EMAIL = env('FROM_EMAIL', 'no-reply@cdcmeta.com')
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', "set-your-own-id")
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', "set-your-own-key")
+AWS_DEFAULT_REGION = env('AWS_DEFAULT_REGION', 'us-east-1')
+ORGANIZATION_NAME= env('ORGANIZATION_NAME', 'CDC Meta')

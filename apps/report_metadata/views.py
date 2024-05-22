@@ -11,12 +11,16 @@ from django.utils.translation import gettext_lazy as _
 from .models import (AnonyomizedDataNeed, Connection, 
                      Jurisdiction, SourceSystem, SourceSoftware,
                      ProgramAreaType)
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 from datetime import datetime
 import csv
 import importlib
 from django.contrib import messages
 from django_ratelimit.decorators import ratelimit
+from django.contrib.auth import get_user_model
+from .forms import RequestAccessForm
+from .emails import send_onboarding_request_received_to_approval_team, send_onboarding_request_received_to_applicant
 
 
 logger = logging.getLogger('report_metadata_.%s' % __name__)
@@ -190,6 +194,19 @@ def home(request):
     return render(request, template, context)
 
 def request_access(request):
-    template='report_metadata/request-access.html'
-    context = {}
-    return render(request, template, context)
+    
+    if request.method == 'POST':
+        form = RequestAccessForm(request.POST)
+        if form.is_valid():
+            access_request = form.save()
+            send_onboarding_request_received_to_approval_team(access_request)
+            send_onboarding_request_received_to_applicant(access_request)
+            messages.success(request, _('Your request was received.'))
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            messages.error(request, _('There are errors in the form.'))
+            return render(request, 'report_metadata/request-access.html',
+                              {'form': form})
+    # this is a GET
+    return render(request, 'report_metadata/request-access.html',
+                      {'form': RequestAccessForm()})

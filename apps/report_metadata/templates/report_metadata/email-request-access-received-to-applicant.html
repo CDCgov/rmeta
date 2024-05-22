@@ -1,0 +1,20 @@
+{% extends "report_metadata/email-base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<p>
+Hello {{request_access.first_name}} {{request_access.last_name}}. 
+You are receiveing this email because your request for access to
+CDC Meta has been receivied.
+
+Your request is pending approval.
+</p>
+
+<p>
+Sincerely,
+</p>
+CDC Meta Team
+{% endblock %}
+
+{% block subject %}
+{% endblock %}

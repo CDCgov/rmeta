@@ -1,15 +1,46 @@
 from django.db import models
 import uuid
-import json
 import bcrypt
-from localflavor.us.models import USPostalCodeField, USSocialSecurityNumberField, USZipCodeField
+from localflavor.us.models import USPostalCodeField, USZipCodeField
 from slugify import slugify
 from localflavor.us.us_states import USPS_CHOICES
 from django.conf import settings
+from .emails import send_onboarding_request_approved_to_applicant
+
+__author__ = "Alan Viars @ CDC"
 
 CASE_STATUS_CHOICES = (('SUSPECTED','SUSPECTED'),('PROBABLE','PROBABLE'),
                        ('CONFIRMED','CONFIRMED'))
 
+# Generate a RequestAccess model that has the same fields as the RequestAccessForm
+class RequestAccess(models.Model):  
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    notes = models.TextField()
+    math_quiz = models.IntegerField(blank=True, null=True)
+    approved = models.BooleanField(default=False)
+    rejected = models.BooleanField(default=False)
+    email_sent = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return "%s %s" % (self.first_name, self.last_name)
+    
+    def save(self, commit=True, **kwargs):
+        if commit:
+            if self.approved and not self.email_sent:
+                # send an email to the user saying the request has been approved
+                send_onboarding_request_approved_to_applicant(self)
+                self.email_sent = True
+            elif self.approved and not self.email_sent: 
+                # send an email to the user saying the request has been received
+                send_onboarding_request_received_to_approval_team(self)
+                # send an email to the admin saying a new request has been received
+                send_onboarding_request_received_to_applicant(self)
+                self.email_sent = True
+            super(RequestAccess, self).save(**kwargs)
 
 class PersonHashType(models.Model):
     code = models.CharField(max_length=255, default='', blank=True, unique=True)

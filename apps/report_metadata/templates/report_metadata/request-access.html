@@ -3,31 +3,11 @@
 {% load static %}
 {% block Content %}
 
-        <form method="POST" action="mailto: aviars@cdc.gov?subject=CDC Meta Access Request"
-        enctype="text/plain" class="login-form">
+        <form method="POST" action="{% url 'request_access' %}"
+       class="login-form">
           
-            <input
-              type="text"
-              name="firstname"
-              placeholder="First name"
-              aria-label="First name"
-              required
-            />            
-            <input
-            type="text"
-            name="lastname"
-            placeholder="Last name"
-            aria-label="Last name"
-            required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email address"
-              aria-label="Email address"
-              autocomplete="email"
-              required
-            />
+       {% csrf_token %}
+       {{form}}
             <div style="text-align: center;">
             <button type="submit">Request Access</button>
             </div>

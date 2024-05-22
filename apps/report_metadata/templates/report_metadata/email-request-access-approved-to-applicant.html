@@ -1,0 +1,19 @@
+{% extends "report_metadata/email-base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+<p>
+Hello {{request_access.first_name}} {{request_access.last_name}}:
+
+You access request to CDC Meta was approved. You will crecive another email to setup your password.
+
+</p>
+
+<p>
+Sincerely,
+</p>
+CDC Meta Team
+{% endblock %}
+
+{% block subject %}
+{% endblock %}

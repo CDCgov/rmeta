@@ -5,9 +5,16 @@ from .models import (HealthDataType, DataTransportType, PatientIDType,
                      CDCReceivingSystem, Connection, RMetaMessage,
                      AnonyomizedDataNeed,  ProgramAreaType,IntermediarySoftware,
                      IntermediarySystem, PersonHashType, InergrationEngineSoftware, 
-                     InergrationEngineSystem)
+                     InergrationEngineSystem, RequestAccess)
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+
+
+class RequestAccessAdmin(admin.ModelAdmin):
+    list_display = ('email', 'first_name', 'last_name', ) 
+
+
+admin.site.register(RequestAccess, RequestAccessAdmin)
 
 
 class CustomUserAdmin(UserAdmin):
