@@ -17,7 +17,10 @@ class RequestAccess(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    notes = models.TextField()
+    notes = models.TextField(help_text="""Please provide any additional information 
+                             that may be helpful in processing your request.
+                            If you are requesting write access, please indicate here.""",
+                             blank=True, null=True)
     math_quiz = models.IntegerField(blank=True, null=True)
     approved = models.BooleanField(default=False)
     rejected = models.BooleanField(default=False)

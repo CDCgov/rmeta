@@ -27,7 +27,7 @@ def send_onboarding_request_received_to_approval_team(request_access):
     subject = """[%s] A new access request was received by %s %s""" % (
         settings.ORGANIZATION_NAME, request_access.first_name, request_access.last_name)    
     from_email = settings.DEFAULT_FROM_EMAIL
-    to = settings.DEFAULT_FROM_EMAIL
+    to = settings.DEFAULT_ADMIN_EMAIL
     mail.send_mail(subject, plain_message, from_email, [to,], html_message=html_message)
 
 
