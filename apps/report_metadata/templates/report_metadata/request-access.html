@@ -3,12 +3,14 @@
 {% load static %}
 {% block Content %}
 <h1 style="text-align: center;" >Request Access</h1>
-        <form method="POST" action="{% url 'request_access' %}"
-       class="login-form">
+<br></br>
+        <form method="POST" action="{% url 'request_access' %}"class="login-form">
           
        {% csrf_token %}
+ 
        {{form}}
-            <div style="text-align: center;">
+ 
+       <div style="text-align: center;">
             <button type="submit">Request Access</button>
             </div>
         </form>
