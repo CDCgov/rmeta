@@ -157,3 +157,21 @@ class DataElementType(models.Model):
                                              self.domain.code,
                                              self.use_case.code)
             super(DataElementType, self).save(**kwargs)
+
+
+class CDCDataElements(models.Model):
+    UseCase = models.ForeignKey(UseCaseType, on_delete=models.CASCADE)
+    Requester = models.CharField(max_length=255)
+    DataElementName = models.CharField(max_length=255)
+    Description = models.TextField()
+    In_USCDI = models.CharField(max_length=255)
+    If_Data_Element_Is_In_USCDI_What_Level_Is_It = models.CharField(max_length=255)
+    Remarks = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.DataElementName
+
+
+    class Meta:
+        verbose_name_plural = 'USCDI+ CDC Recommended Data Elements'
+        verbose_name = 'USCDI+ CDC Recommended Data Element'
