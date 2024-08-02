@@ -1,4 +1,4 @@
-# RMeta
+# CDCMeta.com (RMeta)
 
 A research and development database, UI, and API for public health Metadata.
 
