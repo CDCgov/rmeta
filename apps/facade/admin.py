@@ -9,7 +9,7 @@ class DataStreamAdmin(admin.ModelAdmin):
 admin.site.register(DataStream, DataStreamAdmin)
 
 class IncommingAdmin(admin.ModelAdmin):
-    list_display = ('data_stream', 'origin_agency_identifier', 
+    list_display = ('status','data_stream', 'origin_agency_identifier', 
                     'intermediate_agency_identifier', 
                     'destination_agency_identifier', 'payload_type')
 
