@@ -17,9 +17,10 @@ class DataStream(models.Model):
 class Incomming(models.Model):
     data_stream = models.ForeignKey(DataStream, on_delete=models.CASCADE)
     origin_agency_identifier = models.CharField(max_length=100)
-    intermediate_agency_identifier = models.CharField(max_length=100) 
-    destination_agency_identifier = models.CharField(max_length=100)
+    intermediate_agency_identifier = models.CharField(max_length=100, blank=True) 
+    destination_agency_identifier = models.CharField(max_length=100, default="CDC-1CDP-1")
     url = models.URLField(blank=True)
+    status = models.CharField(max_length=100, choices=[('PENDING', 'PENDING'), ('REJECTED', 'REJECTED'), ('ACCEPTED', 'ACCEPTED')])
     payload_type = models.ForeignKey(HealthDataType, on_delete=models.CASCADE)
     payload = models.TextField()
     date_created = models.DateField(auto_now_add=True)
