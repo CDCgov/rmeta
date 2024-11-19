@@ -21,8 +21,10 @@ class Incomming(models.Model):
     destination_agency_identifier = models.CharField(max_length=100, default="CDC-1CDP-1")
     url = models.URLField(blank=True)
     status = models.CharField(max_length=100, choices=[('PENDING', 'PENDING'), ('REJECTED', 'REJECTED'), ('ACCEPTED', 'ACCEPTED')])
+    multiple_entries = models.BooleanField(default=False, blank=True)
     payload_type = models.ForeignKey(HealthDataType, on_delete=models.CASCADE)
-    payload = models.TextField()
+    payload = models.TextField(blank=True)
+    payload_file = models.FileField(upload_to='uploads/', blank=True)
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
 
