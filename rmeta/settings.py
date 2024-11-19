@@ -51,8 +51,10 @@ INSTALLED_APPS = [
     'apps.hashcow',
     'apps.anonymouser',
     'apps.uscdi',
+    'apps.roster',
+    'apps.facade',
 ]
-
+OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

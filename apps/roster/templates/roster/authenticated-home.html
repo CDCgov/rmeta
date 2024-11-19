@@ -1,0 +1,74 @@
+{% extends "roster/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+
+<main class="container">
+    <header class="container">
+        <nav>
+            <ul>
+                <li><h1><strong>Roster</strong></h1></li>
+              </ul>
+          <ul>
+            <li>
+              <details class="dropdown">
+                <summary role="button" class="secondary">Theme</summary>
+                <ul>
+                  <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                  <li><a href="#" data-theme-switcher="light">Light</a></li>
+                  <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+        <hgroup>
+            <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
+                Roster is proof of concept "State MPI" enumeration system that connects
+                vital statistics and health records together.
+                The core operator is intended to be a state (or territoriy , etc.) government.
+                The system is designed to be a "state" level system that can be used to
+                assign and issue a unique identifier to an individual for purposes of access to
+                health records.  End users include residents or individuals who interact with a state 
+                in some way such as birth or receiving medical care.
+            </p>
+          </hgroup>
+      </header>
+
+<section id="preview">
+
+    <h3> Register Systems</h3>
+    <p class="grid" >
+    <a href=""><button type="button" class="outline">
+            Birth </button></a>
+        <a href=""><button type="button" class="outline">
+            Death </button></a>
+        <a href=""><button type="button" class="outline">
+            Health ID </button></a>
+    </p>
+
+
+
+
+        {% if request.user.is_staff %}
+    <h3>Administrative Access</h3>
+        <p>
+            <a href="{% url 'admin:index' %}"><button type="button" class="outline">
+            Administrative "Back Office" Interface </button></a>
+       </p>
+    {% endif %}
+
+    <h3>Account</h3>
+    <form id="logout-form" method="post" action="{% url 'password_change' %}">
+        {% csrf_token %}
+        <button  class="secondary" type="submit">Change Password</button>
+    </form>
+
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button  class="secondary" type="submit">Logout</button>
+    </form>
+
+</section>
+</main>
+{% endblock %}

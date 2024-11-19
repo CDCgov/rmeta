@@ -1,0 +1,18 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+
+
+    <form method="post" action="{% url 'login' %}" class="login-form">
+        {% csrf_token %}
+      {{form}}
+      <div style="text-align: center;">
+        <button type="submit">
+          Login
+        </button>
+      </div>
+      <a href="{% url 'request_access' %}">Don't have an account? Request Access</a>
+    </form>
+
+  {% endblock %}
