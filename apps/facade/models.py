@@ -12,7 +12,7 @@ class DataStream(models.Model):
     date_updated = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name} - {self.url}"
+        return f"{self.name}"
 
 class Incomming(models.Model):
     data_stream = models.ForeignKey(DataStream, on_delete=models.CASCADE)
@@ -27,5 +27,5 @@ class Incomming(models.Model):
     date_updated = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.data_stream}-{self.origin_agency_identifier}-{self.destination_agency_identifier}-{self.payload_type}"
 
