@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'apps.uscdi',
     'apps.roster',
     'apps.facade',
+    'apps.sophv'
 ]
 OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
 MIDDLEWARE = [

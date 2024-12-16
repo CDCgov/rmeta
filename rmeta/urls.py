@@ -73,8 +73,8 @@ oauth2_management_urlpatterns = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('facade/', include('apps.facade.urls')),
+    path('sophv/', include('apps.sophv.urls')),
     path('roster/', include('apps.roster.urls')),
-    #path('state-mpi/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
     #path('api/', include('apps.report_metadata.urls')),
