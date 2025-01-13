@@ -22,7 +22,7 @@ from apps.report_metadata.views import home, request_access
 from django_ratelimit.decorators import ratelimit
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
 
-#admin.site.site_header = "CDC Meta Admin"
+admin.site.site_header = "CDC Meta Admin"
 admin.site.site_title = "CDC Meta Admin Portal"
 admin.site.index_title = "CDC Meta Administration"
 
@@ -72,7 +72,8 @@ oauth2_management_urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('facade/', include('apps.facade.urls')),
+    path('front-door/', include('apps.frontdoor.urls')),
+    path('dq/', include('apps.dq.urls')),
     path('sophv/', include('apps.sophv.urls')),
     path('roster/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),

@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-96i03%7gl51^)s2&0ov$oi!)x5b)y@%c)0zc#rgzov%g=f+kn@'
-
+HOSTNAME_URL = env("HOSTNAME_URL", 'http://localhost:8000')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -52,8 +52,9 @@ INSTALLED_APPS = [
     'apps.anonymouser',
     'apps.uscdi',
     'apps.roster',
-    'apps.facade',
-    'apps.sophv'
+    'apps.frontdoor',
+    'apps.sophv',
+    'apps.dq',
 ]
 OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
 MIDDLEWARE = [
