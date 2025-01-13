@@ -25,8 +25,12 @@ def load_flattened_valueset(valueset):
         result = DataElement.objects.create(
             oid=vs['oid'],
             common_name=vs['common_name'],
+            data_element_identifier_csv=vs['common_name'],
             name=vs['name'],
+            version=vs['version'],
             code=vs['code'],
+            fhir_code=vs['code'],
+            fhir_code_display=vs['code_display'],
             code_display=vs['code_display'],
             code_system=vs['code_system'],
             code_system_version=vs['code_version'],
@@ -34,7 +38,7 @@ def load_flattened_valueset(valueset):
         
    
 class Command(BaseCommand):
-    help = "Load a codeset from FHIR into the phinvads DB model"
+    help = "Load a codeset from PHINVADS FHIR into the DataElement DB model"
 
     def add_arguments(self, parser):
         # Positional arguments

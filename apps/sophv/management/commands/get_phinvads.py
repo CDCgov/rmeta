@@ -49,16 +49,13 @@ if __name__ == "__main__":
         dest='common_name',
         action='store',
         help="A common name identifer used for the data element. For example, sex.")
-
-    parser.add_argument('-o', '--output', dest='output', default='phinvads-out', action='store',
-                        help='Output file name. Default is phinvads-out')
     
     args = parser.parse_args()
 
 
     result = fetch(args.oid)
     parse_result = parse_valueset(result, args.common_name)
-    # print(json.dumps(parse_result, indent=4))
+    print(json.dumps(parse_result, indent=4))
 
 
 

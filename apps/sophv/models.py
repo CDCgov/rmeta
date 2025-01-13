@@ -5,7 +5,7 @@ class DataElement(models.Model):
     oid = models.CharField(max_length=64, db_index=True)
     common_name = models.CharField(max_length=100, db_index=True)
     name = models.CharField(max_length=200, blank=True)
-    data_element_identifier_csv = models.CharField(max_length=200)
+    data_element_identifier_csv = models.CharField(max_length=200, blank=True)
     version = models.CharField(max_length=10, blank=True)
     code = models.CharField(max_length=64, blank=True, db_index=True)
     code_display = models.CharField(max_length=200, blank=True)
