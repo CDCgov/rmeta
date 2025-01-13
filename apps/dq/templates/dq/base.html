@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+<head>
+
+    {% block head %}
+        {% include "dq/include/head.html" %}
+    {% endblock %}
+
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body class="no-js cdc-page">
+
+    {% include "dq/include/header.html" %}
+      {% block Content %}
+            {{ content|safe }}
+      {% endblock %}
+      {% include "dq/include/footer.html" %}
+      {% include "dq/include/jsfoot.html" %}
+   hello
+    {% block ExtraJS %}
+	{% endblock %}
+
+</body>
+
+</html>
