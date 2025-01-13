@@ -9,6 +9,8 @@ def check_data_element_common_name(request, common_name,
                                    code=""):
     if request.GET.get("output_format"):
         output_format = request.GET.get("output_format")
+    else:
+        output_format = "json"
     mylist = []
     if not code:
         for i in DataElement.objects.filter(common_name=common_name):
@@ -34,7 +36,7 @@ def check_data_element_common_name(request, common_name,
 
     else:
         
-        if message_type == "hl7v2":
+        if message_type == "hl7v2" or message_type == "csv":
             results = DataElement.objects.filter(common_name=common_name, 
                                              code=code)
             if len(results)>0:
@@ -44,7 +46,7 @@ def check_data_element_common_name(request, common_name,
                 msg = "Code %s is invalid for %s in a %s message" % (code, common_name, message_type)
                 return JsonResponse({"status":"fail", "msg":msg})
 
-        if message_type == "fhir":
+        elif message_type == "fhir":
             results = DataElement.objects.filter(common_name=common_name, 
                                              fhir_code=code)
             if len(results)>0:
@@ -53,3 +55,6 @@ def check_data_element_common_name(request, common_name,
             else:
                 msg = "Code '%s' is invalid for '%s' in a '%s' message" % (code, common_name, message_type)
                 return JsonResponse({"status":"fail", "msg":msg})
+        else:
+            msg = "Message type '%s' is invalid." % (message_type)
+            return JsonResponse({"status":"fail", "msg":msg})

@@ -11,7 +11,6 @@ def fetch(oid): # Check if the response is already in the cache
    response = requests.get(url)
    response.raise_for_status()  # Raise an exception for HTTP errors
    response_dict = response.json()
-   print("Fetched", response_dict['name'])
    return response.json()
 
 def parse_valueset(fhir_valuset, common_name):
@@ -54,14 +53,11 @@ if __name__ == "__main__":
 
 
     result = fetch(args.oid)
+    print("Fetched", result['name'])
     parse_result = parse_valueset(result, args.common_name)
+    
     print(json.dumps(parse_result, indent=4))
 
-
-
-
-    # output the JSON transaction summary
-    #print(json.dumps(result, indent=4))
 
 
 
