@@ -2,10 +2,10 @@ import requests
 import json
 import argparse
 from getenv import env
-RESOLVER_URL = env("RESOLVER_URL", 'https://dcmeta.com/sophv/api')
+RESOLVER_URL = env("RESOLVER_URL", 'https://cdcmeta.com/sophv/api')
 
 
-def validate_value(common_name, message_type, value): # Check if the response is already in the cache
+def validate_codeset_value(common_name, message_type, value): # Check if the response is already in the cache
    url = f'{RESOLVER_URL}/{common_name}/{message_type}/{value}'
    response = requests.get(url, timeout=5)
    response.raise_for_status()  # Raise an exception for HTTP errors
@@ -34,7 +34,7 @@ if __name__ == "__main__":
         help="The coded value to check.")
 
     args = parser.parse_args()
-    result = validate_value(args.common_name, args.message_type, args.value)
+    result = validate_codeset_value(args.common_name, args.message_type, args.value)
     print(json.dumps(result, indent=4))
 
 

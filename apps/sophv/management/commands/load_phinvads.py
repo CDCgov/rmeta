@@ -49,10 +49,13 @@ class Command(BaseCommand):
 
         oid = options['oid']
         common_name = options['common_name']
+        self.stdout.write(
+            self.style.NOTICE(f'Attempting fetch of {oid} for {common_name} from PHINVADS FHIR'))
+
         fhir_valueset = fetch(oid)
         parsed_valueset = parse_valueset(fhir_valueset, common_name)
         load_flattened_valueset(parsed_valueset)
     
         self.stdout.write(
-            self.style.SUCCESS('Successfully loaded data into DataElement model'))
+            self.style.SUCCESS(f'Successfully loaded {oid} {common_name} into DataElement model'))
 
