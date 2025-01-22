@@ -122,8 +122,8 @@ class OID(models.Model):
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
     class Meta:
-        verbose_name="OID"
-        verbose_name_plural="OIDs"
+        verbose_name="OID + Code Value"
+        verbose_name_plural="OID + Code Values"
     def __str__(self):
         return f"{self.oid}:{self.code}"
     

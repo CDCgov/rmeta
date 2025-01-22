@@ -15,7 +15,7 @@ class DataElementAdmin(admin.ModelAdmin):
     list_filter = ('common_name', 'code', 'code_display', 'code_system', 'code_system_version')
     ordering = ('common_name', 'code', 'code_display', 'code_system', 'code_system_version')
 
-admin.site.register(DataElement, DataElementAdmin)
+# admin.site.register(DataElement, DataElementAdmin)
 
 class OIDAdmin(admin.ModelAdmin):
     list_display = ('code_display', 'code', 'oid', 'name','title', 'fhir_code','code_system')
