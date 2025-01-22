@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDN Index</title>
+    <!-- Add your CSS files here -->
+</head>
+<body>
+    <header>
+        <h1>MDN Index Page</h1>
+        <!-- Add navigation links here -->
+    </header>
+    <main>
+        {% for mdn in mdns %}
+            <article>
+                <h2>{{mdn.data_element_name}}: {{mdn.common_name}}</h2>
+                <p><a href="{% url 'mdn:data_element_common_name' mdn.common_name %}">Data Element API</a>
+                {% if mdn.oid %}
+                | <a href="{{mdn.phinvads_hyperlink}}">PHINVADS Hyperlink</a> | 
+                <a href="{{mdn.phinvads_fhir_hyperlink}}">PHINVADS FHIR Valueset</a> |
+                <a href="{{mdn.static_csv_hyperlink}}">Static CSV</a></p>
+                {% endif %}
+                </p>
+            </article>
+            {% endfor %}
+    </main>
+    <footer>
+        <!-- Footer content goes here -->
+    </footer>
+</body>
+</html>
