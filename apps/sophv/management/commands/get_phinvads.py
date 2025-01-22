@@ -10,12 +10,16 @@ def fetch(oid): # Check if the response is already in the cache
    url = URL + oid
    response = requests.get(url)
    response.raise_for_status()  # Raise an exception for HTTP errors
-   response_dict = response.json()
    return response.json()
 
-def parse_valueset(fhir_valuset, common_name):
+def parse_valueset(fhir_valuset, common_name=""):
     codesets = []
-    parsed_valueset = {"common_name": common_name}
+    if not common_name:
+        common_name = fhir_valuset['name']
+    parsed_valueset = {"common_name": common_name,
+                       "title": fhir_valuset['title'],
+                       }
+    
     for key in ['id', 'name', 'version']:
         if key in fhir_valuset:
             parsed_valueset[key] = fhir_valuset[key]
@@ -30,7 +34,6 @@ def parse_valueset(fhir_valuset, common_name):
                     myset['code_system']= code['system']
                     myset['code_version'] = code['version']
                     myset['code_display'] = concept['display']
-    
                     codesets.append(myset.copy())
     return codesets
 
@@ -39,7 +42,7 @@ def parse_valueset(fhir_valuset, common_name):
 # Fetch all pages and cache the responses
 if __name__ == "__main__":
     # Parse args
-    parser = argparse.ArgumentParser(description='Get valuesets from PHINVADS FHIR service. Save as JSON and CSV')
+    parser = argparse.ArgumentParser(description='Get valuesets from PHINVADS FHIR service. Print JSON output to stdout')
     parser.add_argument(
         dest='oid',
         action='store',

@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'apps.frontdoor',
     'apps.sophv',
     'apps.dq',
+    'apps.mdn',
 ]
 OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
 MIDDLEWARE = [

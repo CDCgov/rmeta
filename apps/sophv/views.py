@@ -58,3 +58,4 @@ def check_data_element_common_name(request, common_name,
         else:
             msg = "Message type '%s' is invalid." % (message_type)
             return JsonResponse({"status":"fail", "msg":msg})
+    return JsonResponse({"status":"fail", "msg":"No data found."})

@@ -74,6 +74,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('front-door/', include('apps.frontdoor.urls')),
     path('dq/', include('apps.dq.urls')),
+    path('mdn/', include('apps.mdn.urls')),
     path('sophv/', include('apps.sophv.urls')),
     path('roster/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),

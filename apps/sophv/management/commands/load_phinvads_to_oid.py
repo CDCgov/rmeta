@@ -10,7 +10,9 @@ def flatten_valueset(valueset):
     results = []
     for c in valueset['codeset']:
         #print(json.dumps(c, indent=2))
-        result = {'oid': valueset['id'], 'common_name': valueset['title'], 
+        result = {'oid': valueset['id'], 
+                  'common_name': valueset['title'], 
+                  'title': valueset['title'], 
               'name': valueset['name'], 'version': valueset['version']}
         result['code'] = c['code']
         result['code_display'] = c['display']
@@ -25,8 +27,9 @@ def load_flattened_valueset(valueset):
         result = OID.objects.create(
             oid=vs['oid'],
             common_name=vs['common_name'],
-            data_element_identifier_csv=vs['common_name'],
+            data_element_identifier_csv=vs['name'],
             name=vs['name'],
+            title=vs['title'],
             version=vs['version'],
             code=vs['code'],
             fhir_code=vs['code'],
