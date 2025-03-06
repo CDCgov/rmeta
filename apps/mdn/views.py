@@ -3,6 +3,9 @@ from ..sophv.models import MDN, OID
 from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from apps.sophv.management.commands.read_oid_from_1cdp import get_by_oid_and_value, validate_codeset_value
+
+
 
 def convert_to_date(yyyymmdd):
     date_obj = datetime.strptime(yyyymmdd, '%Y%m%d')
@@ -51,6 +54,8 @@ def check_data_element_common_name(request, common_name, message_type, code):
 
         if mdn.data_element_type == 'coded':
             filtered_oid = OID.objects.filter(oid=mdn.oid, code=code)
+            
+            
             if filtered_oid:
                 response['status'] = 'pass'
                 response['message'] = f'Code {code} is a valid code for {mdn.data_element_name}'
