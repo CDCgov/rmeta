@@ -19,6 +19,7 @@ class MDN(models.Model):
     repeating_group_element = models.CharField(max_length=200, blank=True)
     repeating_group_name = models.CharField(max_length=200, blank=True)
     csv_implementation_notes = models.TextField(blank=True)
+    pa = models.BooleanField(blank=True, default=False)
     sample_value = models.TextField(blank=True)
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
@@ -50,8 +51,6 @@ class MDN(models.Model):
             "repeating_group_name": self.repeating_group_name,
             "csv_implementation_notes": self.csv_implementation_notes,
             "sample_value": self.sample_value,
-            "date_created": self.date_created,
-            "date_updated": self.date_updated,
         }
 
 
@@ -132,7 +131,7 @@ class OID(models.Model):
             return {
                 
                 "pk": self.oid+":"+self.code,
-                "oid": self.oid+":"+self.code,
+                "oid": self.oid,
                 "common_name": self.common_name,
                 "name": self.name,
                 "title": self.title,
@@ -148,7 +147,5 @@ class OID(models.Model):
                 "fhir_code_system": self.fhir_code_system,
                 "fhir_code_system_name": self.fhir_code_system_name,
                 "fhir_code_system_version": self.fhir_code_system_version,
-                "description": self.description,
-                "date_created": self.date_created,
-                "date_updated": self.date_updated,
+                "description": self.description
             }

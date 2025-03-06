@@ -3,8 +3,8 @@ import json
 import argparse
 import os
 RESOLVER_URL = os.getenv("RESOLVER_URL", 'https://cdcmeta.com/sophv/api')
- 
- 
+
+
 def validate_codeset_value(common_name, message_type, value): # Check if the response is already in the cache
    url = f'{RESOLVER_URL}/{common_name}/{message_type}/{value}'
    response = requests.get(url, verify=False, timeout=5)

@@ -1,0 +1,62 @@
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.8083
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.830
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.7205
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.3015
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.829
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.8082
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.968
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.3236
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.888
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.3030
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.8081
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.8084
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.7186
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.7187
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.1002
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.838
+python manage.py load_phinvads_to_oid 2.16.840.1.114222.4.11.946
+
+
+python manage.py load_phinvads 2.16.840.1.113883.1.11.1	sex
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7205	race_category1
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7205	race_category2
+python manage.py load_phinvads 2.16.840.1.114222.4.11.3015	ethnic_group
+python manage.py load_phinvads 2.16.840.1.114222.4.11.829	person_address_county
+python manage.py load_phinvads 2.16.840.1.114222.4.11.830	person_address_state
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8082	gender_identity1.gender_identity
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8082	gender_identity2.gender_identity
+python manage.py load_phinvads 2.16.840.1.114222.4.11.968	case_status
+python manage.py load_phinvads 2.16.840.1.114222.4.11.968	outbreak_case_status
+python manage.py load_phinvads 2.16.840.1.114222.4.11.968	notification_result_status
+python manage.py load_phinvads 2.16.840.1.114222.4.11.3236	national_reporting_jurisdiction
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	symptomatic_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	pregnancy_status
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	hospitalized
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	person_deceased
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	death_associated_with_condition
+python manage.py load_phinvads 2.16.840.1.114222.4.11.3030	case_disease_imported_code
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8081	disability1.disability_type
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	disability1.disability_type_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8081	disability2.disability_type
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	disability2.disability_type_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	exposure1.exposure_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	exposure2.exposure_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8084	clinical_manifestation1.clinical_manifestation
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	clinical_manifestation1.clinical_manifestation_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8084	clinical_manifestation2.clinical_manifestation
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	clinical_manifestation2.clinical_manifestation_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8084	clinical_manifestation3.clinical_manifestation
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	clinical_manifestation3.clinical_manifestation_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8084	underlying_health_condition1.underlying_health_condition
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	underlying_health_condition1.underlying_health_condition_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.8084	underlying_health_condition2.underlying_health_condition
+python manage.py load_phinvads 2.16.840.1.114222.4.11.888	underlying_health_condition2.underlying_health_condition_indicator
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7186	industry_and_occupation1.current_occupation_standardized
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7187	industry_and_occupation1.current_industry_standardized
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7186	industry_and_occupation2.current_occupation_standardized
+python manage.py load_phinvads 2.16.840.1.114222.4.11.7187	industry_and_occupation2.current_industry_standardized
+python manage.py load_phinvads 2.16.840.1.114222.4.11.1002	epidemiology_laboratory1.test_type
+python manage.py load_phinvads 2.16.840.1.114222.4.11.838	epidemiology_laboratory1.result_units
+python manage.py load_phinvads 2.16.840.1.114222.4.11.946	epidemiology_laboratory1.specimen_type
+python manage.py load_phinvads 2.16.840.1.114222.4.11.838	epidemiology_laboratory2.result_units
+python manage.py load_phinvads 2.16.840.1.114222.4.11.946	epidemiology_laboratory2.specimen_type
