@@ -1,0 +1,16 @@
+{
+    "transaction_control_number": "504aa64d-4957-4687-8a25-52a1599d15a9",
+    "originating_agency_identifier": "US-NC-DURHAM-PHD",
+    "contributiung_agency_identifiers": [
+        "US-NC-UNC-HEALTHCARE",
+        "US-NC-ST-DHHS",
+        "INTERM-ORG-AIMS",
+    ],
+    "destination_agency_identifier": "USCDC001",
+    "payload_reference": "./sample-fhir-bundle.json",
+    "type_of_transaction": "case_report",
+    "payload_type": "json",
+    "person_id": "hashed_id_456",
+    "person_id_type": "brand_x_pprl_token",
+    "person_id_issuer": "AIMS"
+}
