@@ -72,7 +72,7 @@ oauth2_management_urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('front-door/', include('apps.frontdoor.urls')),
+    path('frontdoor/', include('apps.frontdoor.urls', namespace='frontdoor')),
     path('dq/', include('apps.dq.urls')),
     path('mdn/', include('apps.mdn.urls')),
     path('sophv/', include('apps.sophv.urls')),
