@@ -7,6 +7,7 @@ import argparse
 import json
 import hl7
 
+
 # adt  msg_names
 adt_names = {}
 adt_names["A01"] = "Admit/visit notification"
@@ -78,44 +79,24 @@ hl7_transaction_names["ORU"] = oru_names
 hl7_transaction_names["ORM"] = orm_names
 
 
-def invalid_hl7(input_file):
+def invalid_hl7(message):
     """ check if the file is Hl7. return a blank string if"""
     result = ""
     list_of_messages = []
-    message=""
-    
-    try:
-        fh = open(input_file, "r")
-    except FileNotFoundError:
-        return "File not found."
-    except Exception:   # noqa
-        return "File not found."
 
-    with open(input_file, "r") as fh:
-        for line in fh:
-            # print(line)
-            if len(line) == 1:
-                list_of_messages.append(message)
-                message = ""
-            else:
-                if not line.endswith('\r'):
-                    line += "\r"
-                message += line
     try:
         h = hl7.parse(message)
-    except hl7.exceptions.ParseException:
-        result = "Parsing exception. Not an HL7 message."
-    except Exception:   # noqa  
-        return "Parsing exception. Not an HL7 message."
-    
+    #except hl7.exceptions.ParseException:
+    #    result = "Parsing exception. Not an HL7 message."
+    except Exception as e:
+        print(e)   # noqa  
+        return f"Parsing exception. Not an HL7 message. {e}"
     return result
 
 
-def parse_message(input_file):
-    """Parse hl7v2 message into a sensible json-like object"""
-    list_of_messages = []
-    responses = []
+def open_message(input_file):
     message = ""
+    list_of_messages = []
     with open(input_file, "r") as fh:
         for line in fh:
             if len(line) == 1:
@@ -125,7 +106,12 @@ def parse_message(input_file):
                 if not line.endswith('\r'):
                     line += "\r"
                 message += line
+    return message
 
+
+def parse_message(message):
+    """Parse hl7v2 message into a sensible json-like object"""
+    responses = []
     h = hl7.parse(message)
     message = {}
     message["message"] = {}
@@ -148,8 +134,16 @@ def parse_message(input_file):
 
         rd = {}
         rd['sub'] = h.segment('PID')[3][0]
-        rd['given_name'] = h.segment('PID')[5][0][1][0]
-        rd['family_name'] = h.segment('PID')[5][0][0][0]
+        try:
+
+            rd['given_name'] = h.segment('PID')[5][0][1][0]
+        except IndexError:
+            rd['given_name'] = ""
+        
+        try:
+            rd['family_name'] = h.segment('PID')[5][0][0][0]
+        except IndexError:
+            rd['family_name'] = ""
 
         # phone
         try:
@@ -222,7 +216,7 @@ def parse_message(input_file):
                 doc['issuer_meta'].append(
                     {"name": "ssn", "verbose_name": "Social Secuirity Number"})
                 rd['document'].append(doc)
-        except KeyError:
+        except IndexError:
             pass
 
         message["patient_identity"] = rd
@@ -236,7 +230,7 @@ def parse_message(input_file):
                 "date_time_planned_event": evn_segment[3][0],
                 "event_reason_code": evn_segment[4][0],
                 "operator_id": evn_segment[5][0],
-                "event_occurred": evn_segment[6][0]
+                #"event_occurred": evn_segment[6][0]
             }
         except KeyError:
             pass
@@ -280,50 +274,98 @@ def parse_message(input_file):
                 "admission_type": pv1_segment[4][0],
                 "preadmit_number": pv1_segment[5][0],
                 "prior_patient_location": pv1_segment[6][0],
-                "attending_doctor": pv1_segment[7][0],
-                "referring_doctor": pv1_segment[8][0],
-                "consulting_doctor": pv1_segment[9][0],
-                "hospital_service": pv1_segment[10][0],
-                "temporary_location": pv1_segment[11][0],
-                "preadmit_test_indicator": pv1_segment[12][0],
-                "readmission_indicator": pv1_segment[13][0],
-                "admit_source": pv1_segment[14][0],
-                "ambulatory_status": pv1_segment[15][0],
-                "vip_indicator": pv1_segment[16][0],
-                "admitting_doctor": pv1_segment[17][0],
-                "patient_type": pv1_segment[18][0],
-                "visit_number": pv1_segment[19][0],
-                "financial_class": pv1_segment[20][0],
-                "charge_price_indicator": pv1_segment[21][0],
-                "courtesy_code": pv1_segment[22][0],
-                "credit_rating": pv1_segment[23][0],
-                "contract_code": pv1_segment[24][0],
-                "contract_effective_date": pv1_segment[25][0],
-                "contract_amount": pv1_segment[26][0],
-                "contract_period": pv1_segment[27][0],
-                "interest_code": pv1_segment[28][0],
-                "transfer_to_bad_debt_code": pv1_segment[29][0],
-                "transfer_to_bad_debt_date": pv1_segment[30][0],
-                "bad_debt_agency_code": pv1_segment[31][0],
-                "bad_debt_transfer_amount": pv1_segment[32][0],
-                "bad_debt_recovery_amount": pv1_segment[33][0],
-                "delete_account_indicator": pv1_segment[34][0],
-                "delete_account_date": pv1_segment[35][0],
-                "discharge_disposition": pv1_segment[36][0],
-                "discharged_to_location": pv1_segment[37][0],
-                "diet_type": pv1_segment[38][0],
-                "servicing_facility": pv1_segment[39][0],
-                "bed_status": pv1_segment[40][0],
-                "account_status": pv1_segment[41][0],
-                "pending_location": pv1_segment[42][0],
-                "prior_temporary_location": pv1_segment[43][0],
-                "admit_date_time": pv1_segment[44][0],
-                "discharge_date_time": pv1_segment[45][0],
-                "current_patient_balance": pv1_segment[46][0],
-                "total_charges": pv1_segment[47][0],
-                "total_adjustments": pv1_segment[48][0],
-                "total_payments": pv1_segment[49][0]
+                #"attending_doctor": pv1_segment[7][0],
+                #"referring_doctor": pv1_segment[8][0],
             }
+        except KeyError:
+            pass
+
+        # Grab info from OBX segment if available
+        try:
+            obx_segments = h.segments('OBX')
+            message["observations"] = []
+            for obx_segment in obx_segments:
+                observation = {
+                    "set_id": obx_segment[1][0],
+                    "value_type": obx_segment[2][0],
+                    "observation_identifier": obx_segment[3][0],
+                    "observation_sub_id": obx_segment[4][0],
+                    "observation_value": obx_segment[5][0],
+                    "units": obx_segment[6][0],
+                    "references_range": obx_segment[7][0],
+                    "abnormal_flags": obx_segment[8][0],
+                    "probability": obx_segment[9][0],
+                    "nature_of_abnormal_test": obx_segment[10][0],
+                    "observ_result_status": obx_segment[11][0],
+                    "date_last_obs_normal_values": obx_segment[12][0],
+                    "user_defined_access_checks": obx_segment[13][0],
+                    "date_time_of_the_observation": obx_segment[14][0],
+                    "producer_id": obx_segment[15][0],
+                    "responsible_observer": obx_segment[16][0],
+                    "observation_method": obx_segment[17][0]
+                }
+                message["observations"].append(observation)
+        except KeyError:
+            pass
+
+        # Grab info from OBR segment if available
+        try:
+            obr_segments = h.segments('OBR')
+            message["orders"] = []
+            for obr_segment in obr_segments:
+                order = {
+                    "set_id": obr_segment[1][0],
+                    "placer_order_number": obr_segment[2][0],
+                    "filler_order_number": obr_segment[3][0],
+                    "universal_service_identifier": obr_segment[4][0],
+                    "priority": obr_segment[5][0],
+                    "requested_date_time": obr_segment[6][0],
+                    "observation_date_time": obr_segment[7][0],
+                    "observation_end_date_time": obr_segment[8][0],
+                    "collection_volume": obr_segment[9][0],
+                    "collector_identifier": obr_segment[10][0],
+                    "specimen_action_code": obr_segment[11][0],
+                    "danger_code": obr_segment[12][0],
+                    "relevant_clinical_info": obr_segment[13][0],
+                    "specimen_received_date_time": obr_segment[14][0],
+                    "specimen_source": obr_segment[15][0],
+                    "ordering_provider": obr_segment[16][0],
+                    "order_callback_phone_number": obr_segment[17][0],
+                    "placer_field_1": obr_segment[18][0],
+                    "placer_field_2": obr_segment[19][0],
+                    "filler_field_1": obr_segment[20][0],
+                    "filler_field_2": obr_segment[21][0],
+                    "results_rpt_status_chng_date_time": obr_segment[22][0],
+                    "charge_to_practice": obr_segment[23][0],
+                    "diagnostic_serv_sect_id": obr_segment[24][0],
+                    "result_status": obr_segment[25][0],
+                    "parent_result": obr_segment[26][0],
+                    "quantity_timing": obr_segment[27][0],
+                    "result_copies_to": obr_segment[28][0],
+                    "parent": obr_segment[29][0],
+                    "transportation_mode": obr_segment[30][0],
+                    "reason_for_study": obr_segment[31][0],
+                    "principal_result_interpreter": obr_segment[32][0],
+                    "assistant_result_interpreter": obr_segment[33][0],
+                    "technician": obr_segment[34][0],
+                    "transcriptionist": obr_segment[35][0],
+                    "scheduled_date_time": obr_segment[36][0],
+                    "number_of_sample_containers": obr_segment[37][0],
+                    "transport_logistics_of_collected_sample": obr_segment[38][0],
+                    "collectors_comment": obr_segment[39][0],
+                    "transport_arrangement_responsibility": obr_segment[40][0],
+                    "transport_arranged": obr_segment[41][0],
+                    "escort_required": obr_segment[42][0],
+                    "planned_patient_transport_comment": obr_segment[43][0],
+                    "procedure_code": obr_segment[44][0],
+                    "procedure_code_modifier": obr_segment[45][0],
+                    "placer_supplemental_service_info": obr_segment[46][0],
+                    "filler_supplemental_service_info": obr_segment[47][0],
+                    "medically_necessary_duplicate_procedure_reason": obr_segment[48][0],
+                    "result_handling": obr_segment[49][0],
+                    "parent_universal_service_identifier": obr_segment[50][0]
+                }
+                message["orders"].append(order)
         except KeyError:
             pass
 
@@ -341,7 +383,13 @@ if __name__ == "__main__":
         action='store',
         help='Input the HL7v2 source file.')
     args = parser.parse_args()
-    result = parse_message(args.input_file)
+   
+    result = invalid_hl7(args.input_file)
+    if result:
+        print(result)
+        exit(1)
+    message = open_message(args.input_file)
+    result = parse_message(message)
 
     # output the JSON transaction summary
     print(json.dumps(result, indent=4))

@@ -6,13 +6,13 @@ from oauth2_provider.decorators import protected_resource
 from django.http import JsonResponse
 from .utils import (check_origin, check_submitter, check_destination, check_json, 
                     check_transaction_type, check_health_data_type, check_facility, 
-                    check_payload_hash_exists, submit_to_1cdp)
+                    check_payload_hash_exists, submit_to_1cdp, hl7_lab_sanity_check)
 from django.conf import settings
 from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .forms import FileFieldForm, FileFieldForm2
 import json
-from .management.commands.parsehl7 import parse_message, invalid_hl7
+from .management.commands.parsehl7 import parse_message, invalid_hl7, open_message
 from .models import TransactionType, HealthDataType, Origin, Destination, Submitter, Facility, Submission
 from django.urls import reverse
 
@@ -94,9 +94,11 @@ def view_submission(request, transaction_control_number):
     return JsonResponse({'status': 'ok', 'response': submission.as_dict})
 
 @csrf_exempt
+@protected_resource()
 def restful_singleton_submission(request):
     inbound_transmission_type = 'REST-SUBMIT-API'
     duplicate_payload = False
+
     if request.method == 'POST':
         metadata_file = None
         payload_file = None
@@ -292,18 +294,26 @@ def restful_singleton_submission(request):
             # handle hl7v2 message
             hl7_message = ''
             if health_data_type == 'HL7V2':
-                hl7_errors = invalid_hl7(payload_file_path)
+                message = open_message(payload_file_path)
+                hl7_errors = invalid_hl7(message)
                 if hl7_errors:
-                    msg = 'Invalid HL7 message.'
+                    msg = hl7_errors
                     errors.append(msg)
                     return JsonResponse({'status': 'fail', 'errors': errors})
                 else:
-                    hl7_message =parse_message(payload_file_path)[0]
+                    hl7_message =parse_message(message)
+                    hl7_message =hl7_message[0]
                     hl7_facility_code = hl7_message['message'].get('from_location')
                     if facility_code != hl7_facility_code:
                         warnings.append(f'Facility code {facility_code} does not match the facility code in the HL7 message {hl7_facility_code}.')
                     if not facility_code:
                         facility_code=hl7_facility_code
+                    # hl7v2 lab sanity checks
+                    errors = hl7_lab_sanity_check(hl7_message)
+                    if errors:
+                        return JsonResponse({'status': 'fail', 'errors': errors})
+
+
 
             # grab the facility object if it exists?
             if facility_code:

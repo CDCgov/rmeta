@@ -79,7 +79,6 @@ urlpatterns = [
     path('roster/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
-    #path('api/', include('apps.report_metadata.urls')),
     
     # public URLs
     #path('public/api/v1/', include('apps.report_metadata.publicapi_urls')),

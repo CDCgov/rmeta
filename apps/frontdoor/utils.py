@@ -2,6 +2,17 @@ from .models import Origin, Submitter, Destination, Facility, TransactionType, S
 import json
 from ..report_metadata.models import HealthDataType
 
+
+def hl7_lab_sanity_check(message):
+    "return a list of errors if any"
+    errors = []
+    #print(dum)
+    if not message:
+        errors.append("Empty message")
+
+    return errors
+
+
 def submit_to_1cdp(submission):
     return True
 
