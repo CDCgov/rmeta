@@ -3,8 +3,8 @@ from ..report_metadata.models import HealthDataType, ProgramAreaType
 from oauth2_provider.models import Application
 import uuid
 from django.conf import settings
-# import reverse
 from django.urls import reverse
+
 __author__ = "Alan Viars"
 
 class DataStream(models.Model):
@@ -90,7 +90,9 @@ class Origin(models.Model):
     def save(self, *args, **kwargs):
         self.url = f"{settings.HOSTNAME_URL}/frontdoor/ori/{self.code}"
         super().save(*args, **kwargs)
-
+    class Meta:
+        verbose_name = "Agency ID"
+        verbose_name_plural = "Agency IDs"
 class Submitter(models.Model):
     origin = models.ForeignKey(Origin, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -161,7 +163,7 @@ class Submission(models.Model):
     transaction_control_number = models.CharField(max_length=64, verbose_name="Transaction Control Number", 
                            db_index=True)
     transaction_control_reference = models.CharField(max_length=64, blank=True, null=True,
-                            verbose_name="Transaction Control Reference",db_index=True)
+                            verbose_name="Transaction Control Reference",db_index=True, default = str(uuid.uuid4()))
     transaction_type = models.ForeignKey(TransactionType, 
                             on_delete=models.CASCADE, related_name='submission_tx_types')
     inbound_transmission_type = models.CharField(choices=INBOUND_TRANSACTION_TYPES, max_length=50, blank=True)
@@ -178,9 +180,9 @@ class Submission(models.Model):
     facility_postal_code = models.CharField(max_length=10, blank=True)
     subject_postal_code = models.CharField(max_length=10, blank=True)
     status_url = models.URLField(blank=True, default='')
-    status = models.CharField(max_length=20, blank=True, default="PENDING", choices=[('PENDING', 'PENDING'), ('REJECTED', 'REJECTED'), ('ACCEPTED', 'ACCEPTED')])
+    status = models.CharField(max_length=20, blank=True, choices=[('PENDING', 'PENDING'), ('REJECTED', 'REJECTED'), ('ACCEPTED', 'ACCEPTED')])
     inbound_source_type = models.CharField(max_length=120, blank=True, 
-                                           choices=INBOUND_TRANSACTION_TYPES)
+                                           choices=INBOUND_TRANSACTION_TYPES, default="REST-SUBMIT-API")
     payload_type = models.ForeignKey(HealthDataType, on_delete=models.CASCADE)
     person_id = models.CharField(max_length=100, blank=True)
     person_id_issuer = models.CharField(max_length=100, blank=True)
@@ -190,7 +192,7 @@ class Submission(models.Model):
     payload_bin = models.BinaryField(blank=True)
     payload_file = models.FileField(upload_to='uploads/payloads/', blank=True)
     payload_hash = models.CharField(max_length=100, blank=True, db_index=True)
-    duplicate_payload = models.BooleanField(default=False)
+    unique_payload = models.BooleanField(default=True)
     payload_server_reference = models.CharField(max_length=100, blank=True)
     hl7_parsed_message_json = models.TextField(blank=True)
     fhir_bundle_json = models.TextField(blank=True)
@@ -217,7 +219,6 @@ class Submission(models.Model):
     def contributor_codes(self):
         return [c.code for c in self.contributors.all()]
 
-
     @property
     def payload_reference(self):
         return self.payload_file.url
@@ -227,7 +228,6 @@ class Submission(models.Model):
         d= {"transaction_control_number": self.transaction_control_number,
             "transaction_control_reference": self.transaction_control_reference,
             "status": self.status,
-            "status_url": self.status_url,
             "originating_agency_identifer": self.origin.code,
             "destination_agency_identifier": self.destination.code,
             "submitter_agency_identifier": self.submitter.origin.code,
@@ -239,16 +239,24 @@ class Submission(models.Model):
                 "inbound_source_type": self.inbound_source_type,
                 "payload_type": self.payload_type.code,
                 "person_id_issuer": self.person_id_issuer,
-                "payload_server_reference": self.payload_server_reference,
                 "payload_hash": self.payload_hash,
                 "date_created": self.date_created,
                 "date_updated": self.date_updated,
-                'duplicate_payload' :self.duplicate_payload 
+                'unique_payload' :self.unique_payload 
                 }
         return d
+    @property
+    def as_dict_response(self):
+        d = self.as_dict
+        d["transaction_control_number"] = self.transaction_control_reference
+        d["transaction_control_reference"] = self.transaction_control_number
+        return d
+
 
     def save(self, *args, **kwargs):
+        self.transaction_control_reference = str(uuid.uuid4())
         reverse_url = reverse('frontdoor:view_submission', args= (self.transaction_control_number, ))   
+        self.transaction_control_reference = str(uuid.uuid4())
         self.status_url = f"{settings.HOSTNAME_URL}{reverse_url}"
         super().save(*args, **kwargs)
 

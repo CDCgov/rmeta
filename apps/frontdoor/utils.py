@@ -8,8 +8,7 @@ def hl7_lab_sanity_check(message):
     errors = []
     #print(dum)
     if not message:
-        errors.append("Empty message")
-
+        errors.append("Empty message.")
     return errors
 
 

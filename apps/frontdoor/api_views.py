@@ -15,7 +15,8 @@ import json
 from .management.commands.parsehl7 import parse_message, invalid_hl7, open_message
 from .models import TransactionType, HealthDataType, Origin, Destination, Submitter, Facility, Submission
 from django.urls import reverse
-
+from fhir_converter.renderers import  CcdaRenderer
+import difflib
 
 def api_home(request):
     submission_url = reverse('frontdoor:restful_singleton_submission')
@@ -109,13 +110,14 @@ def restful_singleton_submission(request):
             metadata_file = form.cleaned_data['metadata_field']
             payload_file = form.cleaned_data['payload_field']
             if not metadata_file:
-
                 return JsonResponse({'status': 'fail', 
                                      'message': 'metadata file was not found. Submission metadata is required on this endpoint.'}) 
             if not payload_file:
                 return JsonResponse({'status': 'fail', 'message': 'Payload file was not found. Payload is required on this endpoint.'}) 
+
             metadata_file = metadata_file[0]
             payload_file = payload_file[0]
+            
             # print("METADATA FILE", metadata_file, metadata_file.size, dir(metadata_file))
             # print("PAYLOAD FILE", payload_file, payload_file.size)
 
@@ -132,6 +134,25 @@ def restful_singleton_submission(request):
             with open(metadata_file_path, 'r') as fh:
                 metadata_json = fh.read()
 
+
+            # check if the metadata file is a valid json
+            jserrors = check_json(metadata_json)
+            if jserrors:
+                errors.append(jserrors)
+                return JsonResponse({'status': 'REJECTED', 'errors': errors, 'wanings': warnings})
+            
+            # its valid so load it into a dict.
+            metadata_json = json.loads(metadata_json)
+
+           # check if the tcn exists
+            tcn = metadata_json.get('transaction_control_number')
+        
+            if not tcn:
+                msg = 'Transaction control number is required.'
+                errors.append(msg)
+                return JsonResponse({'status': 'REJECTED', 'errors': errors, 'warnings':warnings})
+
+
             # get the hash of the payload.
             payload_hash = ''
             with open(payload_file_path, 'r', encoding='utf-8') as fh:
@@ -139,47 +160,36 @@ def restful_singleton_submission(request):
                 hash_object = hashlib.sha1(payload_bin.encode('utf-8'))
                 hex_dig = hash_object.hexdigest()
                 payload_hash=hex_dig
+            unique_payload = False # Payload is defaulted to unique unless proven otherwise in next step.
             if check_payload_hash_exists(payload_hash):
                 msg = f'Payload with identical hash {payload_hash} has already been submitted.  This appears to be a duplicate.'
-                duplicate_payload = True
+                unique_payload = False
                 warnings.append(msg)
-
-            # check if the metadata file is a valid json
-            jserrors = check_json(metadata_json)
-            if jserrors:
-                errors.append(jserrors)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'wanings': warnings})
-            
-            # its valid so load it into a dict.
-            metadata_json = json.loads(metadata_json)
 
 
             # check if valid transaction type
             transaction_type = metadata_json.get('transaction_type')
             if not transaction_type:
-                return JsonResponse({'status': 'fail', 'message': 'Transaction type is required.'})
+                msg = 'Transaction type is required.'
+                errors.append(msg)
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn,  'errors': errors, 'wanings': warnings})
             if not check_transaction_type(transaction_type):
-                return JsonResponse({'status': 'fail', 'message': f'Invalid transaction type {transaction_type}.'})
-            
+                msg = f'Invalid transaction type {transaction_type}.'
+                errors.append(msg)
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'wanings': warnings})          
             
             # check if the health data type exists
             health_data_type = metadata_json.get('health_data_type')
             if not health_data_type:
                 msg = 'Health data type is required.'
                 errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn,'errors': errors, 'warnings':warnings})
             if not check_health_data_type(health_data_type):
                 msg = f'Invalid health data type {health_data_type}.'
                 errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
-           # check if the tcn exists
-            tcn = metadata_json.get('transaction_control_number')
-        
-            if not tcn:
-                msg = 'Transaction control number is required'
-                errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+
 
             #check tcn has not already been used:
             
@@ -187,7 +197,7 @@ def restful_singleton_submission(request):
                 msg = f'transaction_control_number {tcn} has already been used.'
                 if settings.REQUIRE_UNIQUE_TRANSACTION_CONTROL_NUMBERS:
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn,'errors': errors, 'warnings':warnings})
 
                 else:
                         warnings.append(msg) 
@@ -199,7 +209,7 @@ def restful_singleton_submission(request):
                 if not Submission.objects.filter(transaction_control_number=tcr).exists():
                     msg = f'transaction_control_reference {tcr} does not reference a valid transaction_control_number.'
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
 
             # check if the origin exists
@@ -209,7 +219,7 @@ def restful_singleton_submission(request):
                 ori = originating_agency_identifier
                 msg = f'Invalid origin {ori}'
                 errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
            
             # check if contributing agencies exist
@@ -222,7 +232,7 @@ def restful_singleton_submission(request):
                 else:
                     msg = f'Invalid contributing agency identifer {agency}.'
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn,'errors': errors, 'warnings':warnings})
 
 
  
@@ -232,7 +242,7 @@ def restful_singleton_submission(request):
                 dai = metadata_json.get('destination_agency_identifier')
                 msg = f'Invalid destination {dai}.'
                 errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
 
             # check if the submitter exists
@@ -241,13 +251,13 @@ def restful_singleton_submission(request):
                 sai = metadata_json.get('submitting_agency_identifier')
                 msg = f'Invalid submitter {sai}.'
                 errors.append(msg)
-                return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
             # check if the submitter exists
             submission_agency_identifier = check_submitter(metadata_json.get('submitting_agency_identifier'))
             if not submission_agency_identifier:
                 sai = metadata_json.get('submitting_agency_identifier')
-                return JsonResponse({'status': 'fail', 'message': f'Invalid submitter {sai}.'})   
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'message': f'Invalid submitter {sai}.'})   
 
             #check if person_id is present
             person_id = metadata_json.get('person_id','')
@@ -256,7 +266,7 @@ def restful_singleton_submission(request):
                 if settings.REQUIRE_PERSON_ID:
                     msg = 'Person ID is required.'
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
                 else:
                     msg = 'Person ID is not present. Person ID should be provided with each subject record.'
                     warnings.append(msg)
@@ -268,7 +278,7 @@ def restful_singleton_submission(request):
                 if settings.REQUIRE_PERSON_ID_ISSUER:
                     msg = 'Person ID issuer is required.'
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors, 'warnings':warnings})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
                 else:
                     msg = 'Person ID issuer is not present. Person ID issuer should be provided with each subject record.'
                     warnings.append(msg)
@@ -277,7 +287,7 @@ def restful_singleton_submission(request):
             facility_code = metadata_json.get('facility_code','')
             if not facility_code:
                 if settings.REQUIRE_FACILITY_CODE:
-                    return JsonResponse({'status': 'fail', 'message': 'Facility code is required.'})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'message': 'Facility code is required.'})
                 else:
                     warnings.append('Facility code is not present. Facility code should should be provided with each subject record.')
             else:
@@ -299,7 +309,7 @@ def restful_singleton_submission(request):
                 if hl7_errors:
                     msg = hl7_errors
                     errors.append(msg)
-                    return JsonResponse({'status': 'fail', 'errors': errors})
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
                 else:
                     hl7_message =parse_message(message)
                     hl7_message =hl7_message[0]
@@ -311,7 +321,7 @@ def restful_singleton_submission(request):
                     # hl7v2 lab sanity checks
                     errors = hl7_lab_sanity_check(hl7_message)
                     if errors:
-                        return JsonResponse({'status': 'fail', 'errors': errors})
+                        return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
 
 
 
@@ -322,6 +332,20 @@ def restful_singleton_submission(request):
             else:
                 fc = ''
                 facility=None
+
+            # handle CCDA message
+            fhir_bundle_json = ""
+            if health_data_type == 'CCDA':
+                with open(payload_file_path) as xml_in:
+                    #print(CcdaRenderer().render_fhir_string("CCD", xml_in))
+                    fhir_bundle_json = CcdaRenderer().render_fhir_string("CCD", xml_in)
+
+            elif health_data_type == 'FHIRBUNDLE':
+                with open(payload_file_path) as json_in:
+                    # TODO add more validation here
+                    fhir_bundle_json = json_in.read()
+            else:
+                fhir_bundle_json = ""
 
             # create a new submission using the values above
             submission = Submission.objects.create(
@@ -342,9 +366,11 @@ def restful_singleton_submission(request):
                 metadata_file=metadata_file_path,
                 payload_file=payload_file_path,
                 payload_hash=payload_hash,
-                duplicate_payload=duplicate_payload,
+                unique_payload=unique_payload,
+                fhir_bundle_json=fhir_bundle_json,
                 metadata_json=json.dumps(metadata_json, indent=2),
-                hl7_parsed_message_json=json.dumps(hl7_message, indent=2)
+                hl7_parsed_message_json=json.dumps(hl7_message, indent=2),
+                status="ACCEPTED"
             )   
             submission.contributors.set(cris)
             submission.save()
@@ -352,10 +378,9 @@ def restful_singleton_submission(request):
             # Submit to 1CDP
             submit_to_1cdp(submission)
 
-
-
-
-            return JsonResponse({'status': 'ok', 'repsonse': submission.as_dict, 'warnings': warnings,
+            return JsonResponse({'status': submission.status, 
+                                 'status_url': submission.status_url,
+                                 'submission': submission.as_dict_response, 'warnings': warnings,
                                  'errors': errors})
         else:
             return JsonResponse({'status': 'fail', 'message': form.errors})

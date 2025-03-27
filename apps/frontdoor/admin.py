@@ -29,18 +29,18 @@ class SubmitterAdmin(admin.ModelAdmin):
 
 admin.site.register(Submitter, SubmitterAdmin)
 
-class SubmissionReceiptAdmin(admin.ModelAdmin):
-    list_display = ('submitter_code',
-                    'status')
-    search_fields = ('submitter__origin__code', 'submitter__tcn', 'submitter__tcr', 'status')
+#class SubmissionReceiptAdmin(admin.ModelAdmin):
+#    list_display = ('submitter_code',
+#                    'status')
+#    search_fields = ('submitter__origin__code', 'submitter__tcn', 'submitter__tcr', 'status')
 
-admin.site.register(SubmissionReceipt , SubmissionReceiptAdmin)
+#admin.site.register(SubmissionReceipt , SubmissionReceiptAdmin)
 
 
 class SubmissionAdmin(admin.ModelAdmin):
     list_display = ('submitter_code',
                     'origin_code', 
-                    'duplicate_payload', 
+                    'unique_payload', 
                     'contributor_codes',
                     'transaction_type',
                     'person_id',
