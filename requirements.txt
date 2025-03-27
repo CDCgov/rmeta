@@ -5,7 +5,7 @@ certifi==2024.07.04
 cffi==1.16.0
 charset-normalizer==3.3.2
 cryptography==44.0.1
-Django==5.0.11
+Django==5.0.13
 django-bootstrap-form==3.4
 django-cors-headers==4.3.1
 django-djmongo==0.7.9.6
