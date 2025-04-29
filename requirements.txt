@@ -42,7 +42,7 @@ rpds-py==0.18.0
 sqlparse==0.5.0
 typing_extensions==4.10.0
 urllib3==2.2.2
-django-ses=4.0.0
+django-ses==4.0.0
 hl7==0.4.5
 python-fhir-converter==0.3.0
 
