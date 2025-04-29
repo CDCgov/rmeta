@@ -12,8 +12,12 @@ from oauth2_provider import views as oauth2_views
 from django.conf import settings
 from django.urls import reverse
 
+@login_required
 def home(request):
-    return render(request, 'frondoor/home.html')
+    submission_url = reverse('frontdoor:restful_singleton_submission')
+    msg = f"""Send a POST request to {submission_url} with two files."""
+    curl_example = f"""curl -H "Authorization: Bearer <REPLACE WITH YOUR ACCESS TOKEN>" -F "metadata_file=@metadata_file.json" -F "payload_file=@payload_file.json" {settings.HOSTNAME_URL}{submission_url}"""
+    return render(request, 'frontdoor/index.html', {'curl_example': curl_example, 'msg': msg})
 
 
 def fhirspec_process_message(request, ori):
