@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+{% load static %}
+<html lang="en">
+<head>
+
+    {% block head %}
+        {% include "frontdoor/include/head.html" %}
+    {% endblock %}
+
+    {% block extra_head %}
+    {% endblock %}
+
+</head>
+<body class="no-js cdc-page">
+
+    {% include "frontdoor/include/header.html" %}
+      {% block Content %}
+            {{ content|safe }}
+      {% endblock %}
+      {% include "frontdoor/include/footer.html" %}
+      {% include "frontdoor/include/jsfoot.html" %}
+    {% block ExtraJS %}
+	{% endblock %}
+
+</body>
+
+</html>
