@@ -15,6 +15,8 @@ class MDN(models.Model):
     phinvads_hyperlink = models.CharField(max_length=200, blank=True)
     phinvads_fhir_hyperlink  = models.CharField(max_length=200, blank=True)
     static_csv_hyperlink= models.CharField(max_length=200, blank=True)
+    static_json_hyperlink= models.CharField(max_length=1024, blank=True)
+    static_json_api= models.CharField(max_length=1024, blank=True)
     value_set_code = models.CharField(max_length=200, blank=True)
     repeating_group_element = models.CharField(max_length=200, blank=True)
     repeating_group_name = models.CharField(max_length=200, blank=True)
@@ -32,26 +34,35 @@ class MDN(models.Model):
     def __str__(self):
         return f"{self.data_element_name}"
     
+
+    def keys(self):
+        return ("data_element_name", "common_name", "oid", "data_element_identifier_csv",
+                "data_element_description", "data_element_type", "cdc_priority", "may_repeat",
+                "value_set_name", "value_set_code", "static_json_hyperlink", 
+                "static_json_api", "csv_implementation_notes", "sample_value")
+
     def to_dict(self):
-        return {
-            "data_element_name": self.data_element_name,
-            "data_element_identifier_csv": self.data_element_identifier_csv,
+        d ={"data_element_name": self.data_element_name,
             "common_name": self.common_name,
-            "oid": self.oid,
+            "oid": self.oid}
+        if self.data_element_type == 'coded':
+            d["static_json_hyperlink"]= self.static_json_hyperlink
+            d["static_json_api"]= self.static_json_api
+
+        d.update({
+            "data_element_identifier_csv": self.data_element_identifier_csv,
             "data_element_description": self.data_element_description,
             "data_element_type": self.data_element_type,
             "cdc_priority": self.cdc_priority,
             "may_repeat": self.may_repeat,
             "value_set_name": self.value_set_name,
-            "phinvads_hyperlink": self.phinvads_hyperlink,
-            "phinvads_fhir_hyperlink": self.phinvads_fhir_hyperlink,
-            "static_csv_hyperlink": self.static_csv_hyperlink,
             "value_set_code": self.value_set_code,
-            "repeating_group_element": self.repeating_group_element,
-            "repeating_group_name": self.repeating_group_name,
+            #"repeating_group_element": self.repeating_group_element,
+            #"repeating_group_name": self.repeating_group_name,
             "csv_implementation_notes": self.csv_implementation_notes,
             "sample_value": self.sample_value,
-        }
+        })
+        return d
 
 
 class DataElement(models.Model):
@@ -126,10 +137,13 @@ class OID(models.Model):
     def __str__(self):
         return f"{self.oid}:{self.code}"
     
-    @property
+    def keys(self):
+        return ("pk", "oid", "common_name", "name", "title", "data_element_identifier_csv",
+                "version", "code", "code_display", "code_system", "code_system_name",
+                "code_system_version", "description")
+
     def to_dict(self):
             return {
-                
                 "pk": self.oid+":"+self.code,
                 "oid": self.oid,
                 "common_name": self.common_name,
@@ -142,10 +156,10 @@ class OID(models.Model):
                 "code_system": self.code_system,
                 "code_system_name": self.code_system_name,
                 "code_system_version": self.code_system_version,
-                "fhir_code": self.fhir_code,
-                "fhir_code_display": self.fhir_code_display,
-                "fhir_code_system": self.fhir_code_system,
-                "fhir_code_system_name": self.fhir_code_system_name,
-                "fhir_code_system_version": self.fhir_code_system_version,
+                #"fhir_code": self.fhir_code,
+                #"fhir_code_display": self.fhir_code_display,
+                #"fhir_code_system": self.fhir_code_system,
+                #"fhir_code_system_name": self.fhir_code_system_name,
+                #"fhir_code_system_version": self.fhir_code_system_version,
                 "description": self.description
             }
