@@ -7,10 +7,10 @@ def export_file(filename):
     oids = OID.objects.all()
     with open(filename, 'w', newline='') as csvfile:
         
-        writer = csv.DictWriter(csvfile, fieldnames=oids[0].to_dict.keys())
+        writer = csv.DictWriter(csvfile, fieldnames=oids[0].keys())
         writer.writeheader()
         for i in oids:
-            writer.writerow(i.to_dict)
+            writer.writerow(i.to_dict())
     
    
 class Command(BaseCommand):

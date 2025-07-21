@@ -16,11 +16,9 @@ def parse_valueset(fhir_valuset, common_name=""):
     codesets = []
     if not common_name:
         common_name = fhir_valuset['name']
-    parsed_valueset = {"common_name": common_name,
-                       "title": fhir_valuset['title'],
-                       }
+    parsed_valueset = {"common_name": common_name}
     
-    for key in ['id', 'name', 'version']:
+    for key in ['id', 'name', 'version', 'title']:
         if key in fhir_valuset:
             parsed_valueset[key] = fhir_valuset[key]
 
@@ -30,6 +28,9 @@ def parse_valueset(fhir_valuset, common_name=""):
                 for concept in code['concept']:
                     myset = parsed_valueset
                     myset["oid"]= fhir_valuset['id']
+                    if '/' in concept['code']:
+                        concept['code'] = concept['code'].replace('/','%2F')
+
                     myset['code'] = concept['code']
                     myset['code_system']= code['system']
                     myset['code_version'] = code['version']

@@ -6,8 +6,7 @@ import csv
 def export_file(filename):
     mdns = MDN.objects.filter(pa=False)
     with open(filename, 'w', newline='') as csvfile:
-        print(mdns[0].to_dict().keys())
-        writer = csv.DictWriter(csvfile, fieldnames=mdns[0].to_dict().keys())
+        writer = csv.DictWriter(csvfile, fieldnames=mdns[0].keys())
         writer.writeheader()
         for i in mdns:
             writer.writerow(i.to_dict())
