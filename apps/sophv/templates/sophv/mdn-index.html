@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Alan Viars">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Data Quality API</title>
+</head>
+
+<body>
+
+<main role="main" class="container">
+      <h1 class="mt-5">README for Data Quality API</h1>
+      <p class="lead">Use this API to look up field-level details and valid codesets for coded values.
+        See the <a href="./README.html">README</a> for more information.</p>
+      </p>
+
+ <table class="table">
+    <thead>
+        <tr>
+          <th>name</th>
+          <th>common_name</th>
+          <th>data_type</th>
+          <th>description</th>
+          <th>data element API link</th>
+          <th>codeset API index</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for mdn in mdns %}
+<tbody>
+  <tr>
+    <td>{{mdn.data_element_name}}</td>
+    <td>{{mdn.common_name}}</td>
+    <td>{{mdn.data_element_type}}</td>
+    <td>{{mdn.data_element_description}}</td>
+    <td><a href="{{host_prefix}}/{{mdn.common_name}}.json"> {{host_prefix}}/{{mdn.common_name}}.json </a></td>
+    <td>
+   {% if mdn.oid %}
+  
+      <a href="{{host_prefix}}/{{mdn.oid}}/index.html"> {{host_prefix}}/{{mdn.oid}}/index.html</a> 
+    {% else %}
+    <span class="text-muted">N/A</span>
+
+    {% endif %}
+    </td>
+</tr>
+</tbody>
+
+  
+  
+  {% endfor %}
+  
+
+
+</table>
+  
+  
+  </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">This is a working proof of concept of a CDN-based Health Data Quality API.</span>
+      </div>
+    </footer>
+
+</body>
+
+</html>

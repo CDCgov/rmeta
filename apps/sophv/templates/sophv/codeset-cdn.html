@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Alan Viars">
+  <title>Code Set API|{{oid}}</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+
+<main role="main" class="container">
+      <h1 class="mt-5">{{title}} API for:</h1>
+      <p class="lead">common_name = {{common_name}}</p>
+      <p class="lead">OID = {{oid}}</p>
+      <p class="lead">Code System Version = {{code_system_version}}</p>
+      <p class="lead">Code System = {{code_system}}</p>
+
+      <table class="table">
+    <thead>
+        <tr>
+          <th>Code</th>
+          <th>Description</th>
+          <th>Link</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for o in oids %}
+
+<tbody>
+  <tr>
+    <td>{{o.code}}</td>
+    <td>{{o.code_display}}</td>
+    <td><a href="{{host_prefix}}/{{oid}}/{{o.code}}.json">{{host_prefix}}/{{oid}}/{{o.code}}.json</a></td>
+</tr>
+</tbody>
+
+  {% endfor %}
+</table>
+  
+  
+  </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">This is a working proof of concept CDN-based Health Data Quality API.</span>
+      </div>
+    </footer>
+
+</body>
+
+</html>
