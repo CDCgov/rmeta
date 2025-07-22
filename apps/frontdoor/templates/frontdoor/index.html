@@ -11,22 +11,33 @@
     <div class="row">
         <div class="col content ">
             <div class="syndicate">
-                <h1 id="content" class="page-title">CDC Submission API (Frontdoor)</h1>
+                <h1 id="content" class="page-title">Submission API (ACME Intermediary, Inc.)</h1>
             </div>
 
             <div class="syndicate">
                 <div class="row ">
                     <div class="col-md-12">
                         <div class="cdc-textblock">
-                            Hello, Intermediaries and STLT Partners!
-    <p>Frontdoor is a new and straightforward way to submit data to the CDC.
-        It is in alpha testing phase right now.
+                            Hello, HCOs and STLT Partners!
+    <p>The Submission API is a new and straightforward way for health care organizations to submit data to 
+        health care authorities STLTs and other partners such as Intermediares such as AIMS.
+        Routing rules are published at https://example.cdc.gov/routing-rules as a set of machine-readable JSON documents.
+        The specification for the routing rules can be found at https://example.cdc.gov/routing-rules/specification.
+        The routing rules are used to determine the destination of the data and what event(s) trigger data exchange.  
+
+        In most insances, data is de-identifed by our intermediary partners prior to being submitted to CDC.
+        
+        This system is a proof-of concept-and supports ELR(Hl7v2), eCR(FHIR Bundle). This API has support eCR in CCDA format, but this method is
+        being planned for deprecation in favor of FHIR Bundle.
+        
+        
+        CDC Submissiopn API t is in alpha testing phase right now.
       </p>
 
-      <p>This site hosts RESTFul APIs for uploading data to CDC.
-        It is based on the "CDC Submission Specification", which is a 
+      <p>
+        The Submission API is based on the "CDC Submission Specification", which is a 
         set of APIs and data formats that CDC uses to receive data from its partners.
-      The basic premise of the API/Spec is that for a single item, two files are provided for submission.
+      The basic premise of the API/Spec is that for a single item, two files are provided per submission.
       The first file is the "payload" file, which contains the actual data in HL7v2, FHIRBundle or CCDA format.
       The second file is the "metadata" file, which describes and identifies the submission.
       The metadata file is a JSON file that contains information about the payload file, such as its origins, type, and other relevant details.

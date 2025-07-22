@@ -1,22 +1,27 @@
 from .models import Submission
 import logging
+from datetime import datetime
+import csv
 import hashlib
 from django.conf import settings
 from oauth2_provider.decorators import protected_resource
 from django.http import JsonResponse
 from .utils import (check_origin, check_submitter, check_destination, check_json, 
                     check_transaction_type, check_health_data_type, check_facility, 
-                    check_payload_hash_exists, submit_to_1cdp, hl7_lab_sanity_check)
+                    check_payload_hash_exists, hl7_lab_sanity_check,
+                    check_person_id_type)
 from django.conf import settings
-from django.views.decorators.http import require_GET, require_POST
+# from django.views.decorators.http import require_GET, require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .forms import FileFieldForm, FileFieldForm2
 import json
 from .management.commands.parsehl7 import parse_message, invalid_hl7, open_message
 from .models import TransactionType, HealthDataType, Origin, Destination, Submitter, Facility, Submission
+from ..report_metadata.models import PatientIDType
 from django.urls import reverse
 from fhir_converter.renderers import  CcdaRenderer
-import difflib
+import importlib
+from django.http import HttpResponse
 
 def api_home(request):
     submission_url = reverse('frontdoor:restful_singleton_submission')
@@ -160,7 +165,7 @@ def restful_singleton_submission(request):
                 hash_object = hashlib.sha1(payload_bin.encode('utf-8'))
                 hex_dig = hash_object.hexdigest()
                 payload_hash=hex_dig
-            unique_payload = False # Payload is defaulted to unique unless proven otherwise in next step.
+            unique_payload = True # Payload is defaulted to unique unless proven otherwise in next step.
             if check_payload_hash_exists(payload_hash):
                 msg = f'Payload with identical hash {payload_hash} has already been submitted.  This appears to be a duplicate.'
                 unique_payload = False
@@ -282,7 +287,31 @@ def restful_singleton_submission(request):
                 else:
                     msg = 'Person ID issuer is not present. Person ID issuer should be provided with each subject record.'
                     warnings.append(msg)
-            
+
+            # check if person_id_type is presentpresent
+            person_id_type = metadata_json.get('person_id_type','')
+            if not person_id_type:
+                if settings.REQUIRE_PERSON_ID_TYPE:
+                    msg = 'Person ID type is required.'
+                    errors.append(msg)
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
+            # check if valid person_id type
+            else:
+                if not check_person_id_type(person_id_type):
+                    msg = f'Invalid person ID type {person_id_type}.'
+                    errors.append(msg)
+                    return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
+
+
+            if settings.REQUIRE_PERSON_ID_ISSUER:
+                msg = 'Person ID issuer is required.'
+                errors.append(msg)
+                return JsonResponse({'status': 'REJECTED', 'transaction_control_reference': tcn, 'errors': errors, 'warnings':warnings})
+            else:
+                msg = 'Person ID issuer is not present. Person ID issuer should be provided with each subject record.'
+                warnings.append(msg)
+
+
             # check if the facility exists
             facility_code = metadata_json.get('facility_code','')
             if not facility_code:
@@ -361,6 +390,7 @@ def restful_singleton_submission(request):
                 facility_code=facility_code,
                 person_id=person_id,
                 person_id_issuer=person_id_issuer,
+                person_id_type=PatientIDType.objects.get(code=person_id_type),
                 subject_postal_code=subject_postal_code,
                 facility_postal_code=facility_postal_code,
                 metadata_file=metadata_file_path,
@@ -374,10 +404,7 @@ def restful_singleton_submission(request):
             )   
             submission.contributors.set(cris)
             submission.save()
-
-            # Submit to 1CDP
-            submit_to_1cdp(submission)
-
+            onecdp_success = submission.submit_to_1cdp()
             return JsonResponse({'status': submission.status, 
                                  'status_url': submission.status_url,
                                  'submission': submission.as_dict_response, 'warnings': warnings,
@@ -387,3 +414,15 @@ def restful_singleton_submission(request):
     return JsonResponse({'status': 'fail', 'message': 'Only POST method is allowed'})
 
 
+
+def type_csv(request, my_type_name):
+    MyClass = getattr(importlib.import_module("apps.frontdoor.models"), my_type_name)
+    js = MyClass.objects.all()
+    filename = my_type_name +"-types-" + datetime.now().strftime('%m-%d-%Y') + ".csv"
+    response = HttpResponse(content_type="text/csv")
+    response['Content-Disposition'] = 'attachment; filename=' + filename
+    writer = csv.DictWriter(response, js[0].as_dict.keys())
+    writer.writeheader()
+    for i in js:
+        writer.writerow(i.as_dict)
+    return response

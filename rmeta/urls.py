@@ -1,19 +1,4 @@
-"""
-URL configuration for cdcmeta project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path, include
 from django.urls import re_path as url
@@ -21,7 +6,7 @@ from oauth2_provider import views as oauth2_views
 from apps.report_metadata.views import home, request_access
 from django_ratelimit.decorators import ratelimit
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
-
+from .utils import IsAppInstalled
 admin.site.site_header = "CDC Meta Admin"
 admin.site.site_title = "CDC Meta Admin Portal"
 admin.site.index_title = "CDC Meta Administration"
@@ -72,18 +57,20 @@ oauth2_management_urlpatterns = [
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('frontdoor/', include('apps.frontdoor.urls', namespace='frontdoor')),
     path('dq/', include('apps.dq.urls')),
     path('mdn/', include('apps.mdn.urls')),
     path('sophv/', include('apps.sophv.urls')),
     path('roster/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
-    
-    # public URLs
-    #path('public/api/v1/', include('apps.report_metadata.publicapi_urls')),
-    path('hashcow/', include('apps.hashcow.urls')),
+    # 3rd party
+    url('social-auth/', include('social_django.urls', namespace='social')),
     path('o/',include((oauth2_management_urlpatterns + oauth2_base_urlpatterns, 'oauth2_provider'))),
+    
+    # Other URL
+    #path('public/api/v1/', include('apps.report_metadata.publicapi_urls')),
+    #path('hashcow/', include('apps.hashcow.urls')),
+    
     path('', home, name='home' ),
     path('accounts/login/', ratelimit(key='ip', rate='100/h')(LoginView.as_view(
             template_name='report_metadata/login.html'
@@ -98,5 +85,7 @@ urlpatterns = [
     path('accounts/change-password-done', PasswordChangeDoneView.as_view(
             template_name='report_metadata/change-password-done.html'
         ), name='password_change_done'),
-    # path("accounts/", include("django.contrib.auth.urls")),
+
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
+

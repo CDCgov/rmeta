@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import DataElement, OID, MDN
 
 class MDNAdmin(admin.ModelAdmin):
-    list_display = ('data_element_name', 'oid', 'data_element_identifier_csv', 'data_element_type', 'cdc_priority', 'static_csv_hyperlink')
-    search_fields = ('data_element_name', 'oid', 'data_element_identifier_csv', 'data_element_type', 'cdc_priority', 'static_csv_hyperlink')
-    list_filter = ('data_element_name', 'oid', 'data_element_identifier_csv', 'data_element_type', 'cdc_priority')
+    list_display = ('data_element_name', 'oid', 'common_name', 'data_element_type', 'cdc_priority' )
+    search_fields = ('data_element_name', 'oid', 'common_name', 'data_element_type', 'cdc_priority')
+    list_filter = ('data_element_name', 'oid', 'common_name', 'data_element_type', 'cdc_priority')
 
 
 admin.site.register(MDN, MDNAdmin)
@@ -15,7 +15,7 @@ class DataElementAdmin(admin.ModelAdmin):
     list_filter = ('common_name', 'code', 'code_display', 'code_system', 'code_system_version')
     ordering = ('common_name', 'code', 'code_display', 'code_system', 'code_system_version')
 
-# admin.site.register(DataElement, DataElementAdmin)
+#admin.site.register(DataElement, DataElementAdmin)
 
 class OIDAdmin(admin.ModelAdmin):
     list_display = ('code_display', 'code', 'oid', 'name','title', 'fhir_code','code_system')

@@ -3,7 +3,6 @@ from ..sophv.models import MDN, OID
 from datetime import datetime
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from apps.sophv.management.commands.read_oid_from_1cdp import get_by_oid_and_value, validate_codeset_value
 
 
 
@@ -21,11 +20,11 @@ def index(request):
 def check_data_element_common_name(request, common_name, message_type, code):
     mdn = MDN.objects.get(common_name=common_name)
     response = {}
-    if not message_type in ('hl7v2', 'csv', 'fhir'):
+    if not message_type in ('hl7v2', 'csv', 'fhir','cda'):
         response['status'] = 'fail'
         response['message'] = f'Message type {message_type} is invalid'
         return JsonResponse(response)
-    if message_type in ('hl7v2', 'csv', 'fhir'):
+    if message_type in ('hl7v2', 'csv', 'fhir', 'cda'):
         if mdn.data_element_type == 'text':
             try:
                 str(code)
@@ -59,6 +58,7 @@ def check_data_element_common_name(request, common_name, message_type, code):
             if filtered_oid:
                 response['status'] = 'pass'
                 response['message'] = f'Code {code} is a valid code for {mdn.data_element_name}'
+                response['details'] = mdn.to_dict()
             else:
                 response['status'] = 'fail'
                 response['message'] = f'Code {code} is an invalid code for {mdn.data_element_name}'

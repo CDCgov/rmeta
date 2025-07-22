@@ -1,6 +1,6 @@
 from .models import Origin, Submitter, Destination, Facility, TransactionType, Submission
 import json
-from ..report_metadata.models import HealthDataType
+from ..report_metadata.models import HealthDataType, PatientIDType
 
 
 def hl7_lab_sanity_check(message):
@@ -11,9 +11,6 @@ def hl7_lab_sanity_check(message):
         errors.append("Empty message.")
     return errors
 
-
-def submit_to_1cdp(submission):
-    return True
 
 def check_json(document):
     "Check if the initial document is a valid JSON object"
@@ -72,6 +69,14 @@ def check_health_data_type(health_data_type_code):
     except HealthDataType.DoesNotExist:
         return False
     return health_data_type
+
+def check_person_id_type(person_id_type):
+    "Check if the health data type exists"
+    try:
+        person_id_type = PatientIDType.objects.get(code=person_id_type)
+    except PatientIDType.DoesNotExist:
+        return False
+    return person_id_type
 
 def check_origin(origin_code):
     "Check if the origin exists"

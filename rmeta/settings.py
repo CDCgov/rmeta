@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 from django.contrib import messages
 from getenv import env
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -47,17 +47,18 @@ INSTALLED_APPS = [
     'oauth2_provider',
     'rest_framework',
     'corsheaders',
+    'social_django',
     'apps.report_metadata',
     'apps.hashcow',
     'apps.anonymouser',
     'apps.uscdi',
     'apps.roster',
-    'apps.frontdoor',
     'apps.sophv',
     'apps.dq',
     'apps.mdn',
 ]
 OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -67,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 REST_FRAMEWORK = {
@@ -76,6 +78,22 @@ REST_FRAMEWORK = {
 }
 ROOT_URLCONF = 'rmeta.urls'
 STATIC_ROOT = env("STATIC_ROOT", 'dist')
+
+# Microsoft Azure AD
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_KEY = env('SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_KEY', '')
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_SECRET = env('SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_SECRET', '')
+SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_TENANT_ID = env('SOCIAL_AUTH_AZUREAD_V2_TENANT_OAUTH2_TENANT_ID', 'common')
+SOCIAL_AUTH_PIPELINE = [
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.social_auth.associate_by_email',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details']
 
 TEMPLATES = [
     {
@@ -100,12 +118,10 @@ WSGI_APPLICATION = 'rmeta.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=env('DATABASES_CUSTOM',
+                    'sqlite:///{}/db.sqlite3'.format(BASE_DIR))),
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -161,7 +177,6 @@ MESSAGE_TAGS = {
 BCRYPT_SALT = env('BCRYPT_SALT', "")
 BCRYPT_ROUNDS = int(env('BCRYPT_ROUNDS', "13"))
 
-
 LOGIN_REDIRECT_URL = "/"
 # Expire session on browser close.
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
@@ -176,9 +191,10 @@ DEFAULT_FROM_EMAIL = env('FROM_EMAIL', 'no-reply@cdcmeta.com')
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', "set-your-own-id")
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', "set-your-own-key")
 AWS_DEFAULT_REGION = env('AWS_DEFAULT_REGION', 'us-east-1')
-ORGANIZATION_NAME= env('ORGANIZATION_NAME', 'CDC Meta')
+ORGANIZATION_NAME= env('ORGANIZATION_NAME', 'Organization Name for ')
 
-
+# CDC Submission API "/frontdoor" settings.
 REQUIRE_PERSON_ID = env('REQUIRE_PERSON_ID', False)
 REQUIRE_PERSON_ID_ISSUER = env('REQUIRE_PERSON_ID_ISSUER', False)
-REQUIRE_UNIQUE_TRANSACTION_CONTROL_NUMBERS = env('REQUIRE_UNIQUE_TRANSACTION_CONTROL_NUMBERS', False)
+REQUIRE_PERSON_ID_TYPE = env('REQUIRE_PERSON_ID_TYPE', False)
+REQUIRE_UNIQUE_TRANSACTION_CONTROL_NUMBERS = env('REQUIRE_UNIQUE_TRANSACTION_CONTROL_NUMBERS', True)

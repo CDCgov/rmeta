@@ -7,6 +7,7 @@
     <form method="post" action="{% url 'login' %}" class="login-form">
         {% csrf_token %}
       {{form}}
+      <input type="hidden" name="next" value="{{ request.GET.next }}">
       <div style="text-align: center;">
         <button type="submit">
           Login

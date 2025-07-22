@@ -38,13 +38,18 @@ admin.site.register(Submitter, SubmitterAdmin)
 
 
 class SubmissionAdmin(admin.ModelAdmin):
-    list_display = ('submitter_code',
-                    'origin_code', 
-                    'unique_payload', 
+    list_display = (
+                    'transaction_control_number',
+                    'onecdc_submitted',
+                    'submitter_code',
+                    'origin_code',
                     'contributor_codes',
-                    'transaction_type',
+                    'destination_code',
+                    'unique_payload', 
+                   'payload_type',
                     'person_id',
-                    'person_id_issuer', 
+                    'person_id_type', 
+                     'person_id_issuer', 
                      'status',)
     search_fields = ('origin_code', 'submitter__code', 'transaction_type__code', 
                      'destination__code', 'status_url', 'status')

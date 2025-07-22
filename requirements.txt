@@ -1,11 +1,11 @@
-asgiref==3.7.2
+asgiref==3.9.1
 attrs==23.2.0
 bcrypt==4.1.2
 certifi==2024.07.04
 cffi==1.16.0
 charset-normalizer==3.3.2
-cryptography==44.0.1
-Django==5.0.13
+cryptography==45.0.5
+Django==5.1.10
 django-bootstrap-form==3.4
 django-cors-headers==4.3.1
 django-djmongo==0.7.9.6
@@ -21,7 +21,7 @@ idna==3.7
 jdt==0.5.7
 jsonschema==4.21.1
 jsonschema-specifications==2023.12.1
-jwcrypto==1.5.6
+jwcrypto
 markdown2==2.4.13
 mnemonic==0.21
 ndjson==0.3.1
@@ -37,12 +37,15 @@ python-slugify==8.0.4
 python-stdnum==1.19
 pytz==2024.1
 referencing==0.33.0
-requests==2.32.0
+requests==2.32.4
 rpds-py==0.18.0
 sqlparse==0.5.0
 typing_extensions==4.10.0
-urllib3==2.2.2
+urllib3==2.5.0
 django-ses==4.0.0
 hl7==0.4.5
-python-fhir-converter==0.3.0
+python-fhir-converter
+dj-database-url==2.3.0
+social-auth-core[all]
+social-auth-app-django
 

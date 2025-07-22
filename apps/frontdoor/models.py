@@ -1,10 +1,11 @@
 from django.db import models
-from ..report_metadata.models import HealthDataType, ProgramAreaType
+from ..report_metadata.models import HealthDataType, ProgramAreaType, PatientIDType
 from oauth2_provider.models import Application
 import uuid
 from django.conf import settings
 from django.urls import reverse
-
+from .osdk_utils import sign_in
+from foundry_sdk_runtime.types import ActionConfig, ActionMode, ValidationResult, ReturnEditsMode
 __author__ = "Alan Viars"
 
 class DataStream(models.Model):
@@ -16,7 +17,6 @@ class DataStream(models.Model):
                                         related_name='allowable_payload_types')
     reviewers = models.ManyToManyField('auth.Group', related_name ='reviewers',
                                         blank=True)
-
     date_created = models.DateField(auto_now_add=True)
     date_updated = models.DateField(auto_now=True)
 
@@ -174,18 +174,21 @@ class Submission(models.Model):
     destination_tcn = models.CharField(max_length=100, blank=True, verbose_name="Destination Transaction Control Number", 
                                        default=uuid.uuid4,
                                        help_text="The server's tranaction control number, generated automatically.")
-
     facility = models.ForeignKey(Facility, on_delete=models.CASCADE, blank=True, null=True, related_name='facility')
     facility_code = models.CharField(max_length=100, blank=True, null=True)
     facility_postal_code = models.CharField(max_length=10, blank=True)
     subject_postal_code = models.CharField(max_length=10, blank=True)
     status_url = models.URLField(blank=True, default='')
     status = models.CharField(max_length=20, blank=True, choices=[('PENDING', 'PENDING'), ('REJECTED', 'REJECTED'), ('ACCEPTED', 'ACCEPTED')])
+    onecdc_status = models.CharField(max_length=20, blank=True, default="")
+    onecdc_submitted = models.BooleanField(default=False)
+    onecdc_response = models.TextField(blank=True) 
     inbound_source_type = models.CharField(max_length=120, blank=True, 
                                            choices=INBOUND_TRANSACTION_TYPES, default="REST-SUBMIT-API")
     payload_type = models.ForeignKey(HealthDataType, on_delete=models.CASCADE)
     person_id = models.CharField(max_length=100, blank=True)
     person_id_issuer = models.CharField(max_length=100, blank=True)
+    person_id_type = models.ForeignKey(PatientIDType, blank=True, null=True, on_delete=models.CASCADE)
     metadata_json = models.TextField(blank=True)
     metadata_file = models.FileField(upload_to='uploads/metadata/', blank=True)
     payload_txt = models.TextField(blank=True)
@@ -218,10 +221,72 @@ class Submission(models.Model):
     @property
     def contributor_codes(self):
         return [c.code for c in self.contributors.all()]
+    @property
+    def contributor_codes_pipe_delimited(self):
+        joined = "".join([f"{c.code}|" for c in self.contributors.all()])
+        # strip off the ending |
+        if joined.endswith("|"):
+            joined = joined[:-1]
+        # if there are no contributors, return an empty string
+        if not joined:
+            return ""
+        return joined
 
     @property
     def payload_reference(self):
         return self.payload_file.url
+
+    @property
+    def payload_file_text(self):
+        opened_file = open(self.payload_file.path, 'r')
+        file_text = opened_file.read()
+        opened_file.close()
+        return file_text
+    
+    @property
+    def submit_to_1cdp(self):
+        if self.onecdc_submitted == False and self.status == "ACCEPTED":
+            # upload to 1CDP
+            print("Submitting to 1CDP")
+           
+
+            print(self.transaction_control_number)
+            client = sign_in()
+            response = client.ontology.actions.create_cdcspec_submissions(
+                                action_config=ActionConfig(mode=ActionMode.VALIDATE_AND_EXECUTE,
+                        return_edits=ReturnEditsMode.ALL),
+                transaction_control_number =int(self.transaction_control_number), 
+                transaction_control_reference=self.transaction_control_reference,
+                status=self.status, 
+                originating_agency_identifer=str(self.origin), 
+                destination_agency_identifier=str(self.destination), 
+                submitter_agency_identifier=str(self.submitter), 
+                transaction_type=str(self.transaction_type), 
+                contributing_agency_identifiers=str(self.contributor_codes_pipe_delimited),
+                unique_payload=self.unique_payload, 
+                facility=int(self.facility.code), 
+                facility_postal_code=int(self.facility_postal_code), 
+                subject_postal_code=int(self.subject_postal_code),
+                inbound_source_type=self.inbound_source_type, 
+                payload_type=str(self.payload_type),
+                person_id=self.person_id, 
+                person_id_issuer=self.person_id_issuer,
+                person_id_type=str(self.person_id_type),
+                payload_hash=self.payload_hash, 
+                hl7v2_payload=self.hl7_parsed_message_json, 
+                fhirbundle_payload=self.fhir_bundle_json, 
+                payload_file=self.payload_file_text, 
+                date_created=str(self.date_created), 
+                date_updated=str(self.date_updated))
+    
+            # Check if the validation was successful
+            print("VALIDATION", response.validation)
+            if response.validation.validation_result == ValidationResult.VALID:
+                print(response.edits)
+                self.onecdc_response = str(response.edits)
+                self.onecdc_submitted = True
+                self.save()
+
 
     @property
     def as_dict(self):
@@ -231,23 +296,29 @@ class Submission(models.Model):
             "originating_agency_identifer": self.origin.code,
             "destination_agency_identifier": self.destination.code,
             "submitter_agency_identifier": self.submitter.origin.code,
-                "transaction_type": self.transaction_type.code,
-                "contributing_agency_identifiers": self.contributor_codes,
-                "facility": self.facility.code,
-                "facility_postal_code": self.facility_postal_code,
-                "subject_postal_code": self.subject_postal_code,
-                "inbound_source_type": self.inbound_source_type,
-                "payload_type": self.payload_type.code,
-                "person_id_issuer": self.person_id_issuer,
-                "payload_hash": self.payload_hash,
-                "date_created": self.date_created,
-                "date_updated": self.date_updated,
-                'unique_payload' :self.unique_payload 
-                }
+            "transaction_type": self.transaction_type.code,
+            "contributing_agency_identifiers": self.contributor_codes_pipe_delimited,
+            'unique_payload' :self.unique_payload,
+            "facility": self.facility.code,
+            "facility_postal_code": self.facility_postal_code,
+            "subject_postal_code": self.subject_postal_code,
+            "inbound_source_type": self.inbound_source_type,
+            "payload_type": self.payload_type.code,
+            "person_id": self.person_id,
+            "person_id_issuer": self.person_id_issuer,
+            "person_id_type": self.person_id_type.code,
+            "payload_hash": self.payload_hash,
+            'hl7v2_payload':self.hl7_parsed_message_json,
+            'fhirbundle_payload': self.fhir_bundle_json,
+            'payload_file': self.payload_file_text,
+            "date_created": self.date_created,
+            "date_updated": self.date_updated,
+            }
         return d
     @property
     def as_dict_response(self):
         d = self.as_dict
+        d["onecdc_submitted"]= self.onecdc_submitted,
         d["transaction_control_number"] = self.transaction_control_reference
         d["transaction_control_reference"] = self.transaction_control_number
         return d
