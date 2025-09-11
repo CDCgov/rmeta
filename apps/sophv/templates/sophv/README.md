@@ -22,15 +22,28 @@ The `csv` folder contains the same data in the JSON format, but in only two file
 2. Using the Web-based JSON API
 ===============================
 
+Please the content of the JSON folder into a web server or CDN.  
+The web server should be configured to serve the JSON files 
+as static content.  The web server should also be configured to 
+return `HTTP 404` for any file that does not exist. In the examples below,
+the webserver is assumed to be running on `localhost` and the 
+port is `80`, buy you may adjust this to your environment. Just replace
+`localhost` with your web server's hostname or IP address add a port number 
+if your webserver is not running on the default port `80`. For example, 
+if your web server is running on `8080`, your URL would look like:
+
+    [http://localhost:8080/age](http://localhost:8080/age)
+
+
 At the top level, items are arranged by data element.  For each data element, it is accessed by its `common_name` like so.
 
- `https://[HOST]/[common_name]`
+ `http://[HOST]/[common_name]`
 
 
 For example, to access `age`, your url may look like:
 
 
-   [https://dataquality.cdcmeta.com/age](https://dataquality.cdcmeta.com/age)
+   [http://localhost/age](http://localhost/age)
 
 This API call returns a JSON object with metadata about the data element.  Here is the `age` response body:
 
@@ -59,7 +72,7 @@ Accessing Data Elements with a Code Sets and their Code Set APIs
 
 Data elements with a `data_element_type` of `coded` contain a couple of extra values.  These are `static_json_hyperlink`, which contains a link to an HTML index of all possible code values. Use this to browse all possible coded values for a given data element. The field `static_json_api` shows how the API is to be called.  Let's take the coded data element `condition-code` as an example.
 
-[https://dataquality.cdcmeta.com/condition-code.json](https://dataquality.cdcmeta.com/condition-code.json)
+[http://localhost/condition-code.json](http://localhost/condition-code.json)
 
 This call returns `HTTP 200` and the following JSON body.
 
@@ -67,8 +80,8 @@ This call returns `HTTP 200` and the following JSON body.
     "data_element_name": "Condition Code",
       "common_name": "condition-code",
       "oid": "2.16.840.1.114222.4.11.1015",
-      "static_json_hyperlink": "https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/index.html",
-      "static_json_api": "https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/[CODE].json",
+      "static_json_hyperlink": "http://localhost/2.16.840.1.114222.4.11.1015/index.html",
+      "static_json_api": "http://localhost/2.16.840.1.114222.4.11.1015/[CODE].json",
       "data_element_identifier_csv": "condition_code",
       "data_element_description": "Condition or event that constitutes the reason the notification is being sent.",
       "data_element_type": "coded",
@@ -82,7 +95,7 @@ This call returns `HTTP 200` and the following JSON body.
 
 A given code can be checked by supplying a code to the API.  We will check the code `10056`.
 
- [https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/10056.json](https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/10056.json)
+ [http://localhost/2.16.840.1.114222.4.11.1015/10056.json](http://localhost/2.16.840.1.114222.4.11.1015/10056.json)
 
 This call retuns an HTTP 200 and the following JSON body:
 
@@ -110,9 +123,9 @@ ______
 If you supply any invalid `common_name`, you will get a `404/Not` Found.  Any response that does not return `HTTP 200` with JSON content is and invalid request or data element common)name.
 For example:
 
-[https://dataquality.cdcmeta.com/aaagggee](https://dataquality.cdcmeta.com/aaagggee)
+[http://localhost/aaagggee](http://localhost/aaagggee)
 
-This API call returns an HTTP 404 and the following message:
+This API call returns an HTTP 404. Confifgure your webserver to reurn a custom 404 message body:
 
 	{
     "code":404,
@@ -123,11 +136,8 @@ Provided the URL is otherwise correct, the "404/Not found" errors should means t
 
 Similarly, using the codeset lookup API, if you supply an invalid code, you also get a 404 Not Found. Lets supply the non-existent code `1234` for considtion-code codeset lookup API.
 
-[https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/1234.json](https://dataquality.cdcmeta.com/2.16.840.1.114222.4.11.1015/1234.json)
+[http://localhost/2.16.840.1.114222.4.11.1015/1234.json](http://localhost/2.16.840.1.114222.4.11.1015/1234.json)
 
 This API returns the same HTTP 404 and the following message:
 
-	{
-    "code":404,
-    "error":"Not Found"
-    }
+	{"code":404,"error":"Not Found"}

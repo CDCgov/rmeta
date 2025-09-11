@@ -17,6 +17,16 @@ def export_mdn_json(directory_name, host_prefix=""):
         filename = f"{directory_name}/{m.common_name}.json"
         with open(filename, 'w') as jsonfile:
             json.dump(m.to_dict(), jsonfile, indent=4)
+        #if it is of dat_element_type "coded"
+        if m.data_element_type == "coded" and m.fhir_body:
+            # write the FHIR JSON body to a file
+            os.makedirs(f"{directory_name}/fhir/R6/Valueset", exist_ok=True) 
+            with open(f"{directory_name}/fhir/R6/Valueset/{m.oid}", 'w') as vs_file:
+                vs_file.write(m.fhir_body)
+            # write the CSV body to a file
+            os.makedirs(f"{directory_name}/csv", exist_ok=True)
+            with open(f"{directory_name}/csv/{m.oid}.csv", 'w') as csv_file:
+                csv_file.write(m.csv_body) 
 
     context = {'mdns': mdns, 'host_prefix': host_prefix,}
     rendered_template = render_to_string('sophv/mdn-cdn.html', context)

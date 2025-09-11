@@ -3,6 +3,7 @@ from django.conf import settings
 from ...models import OID
 import csv
 
+
 def export_file(filename):
     oids = OID.objects.all()
     with open(filename, 'w', newline='') as csvfile:

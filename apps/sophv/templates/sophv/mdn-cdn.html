@@ -13,19 +13,24 @@
 
 <main role="main" class="container">
       <h1 class="mt-5">{{title}} Data Quality API</h1>
-      <p class="lead">Use this API to look up field-level details and valid codesets for coded values.
+      <p class="lead">Use this API to look up field-level details and valid 
+        value sets for coded values.  Every element has a Data Element API.
+        Coded data elements have a RESTful ValueSet API, a FHIR ValueSet API, 
+        and a CSV ValueSet API.
         See the <a href="README.html">README</a> for more information.</p>
       </p>
 
  <table class="table">
     <thead>
         <tr>
-          <th>name</th>
+          <th>Name</th>
           <th>common_name</th>
-          <th>data_type</th>
-          <th>description</th>
-          <th>data element API link</th>
-          <th>codeset API index</th>
+          <th>Data Type</th>
+          <th>Description</th>
+          <th>Data Element API</th>
+          <th>RESTful ValueSet API Index</th>
+          <th>FHIR ValuSet API</th>
+          <th>CSV ValueSet API</th>
         </tr>
     </thead>
     <tbody>
@@ -39,15 +44,19 @@
     <td>{{mdn.data_element_type}}</td>
     <td>{{mdn.data_element_description}}</td>
     <td><a href="{{host_prefix}}/{{mdn.common_name}}.json"> {{host_prefix}}/{{mdn.common_name}}.json </a></td>
-    <td>
-   {% if mdn.oid %}
-  
-      <a href="{{host_prefix}}/{{mdn.oid}}/index.html"> {{host_prefix}}/{{mdn.oid}}/index.html</a> 
-    {% else %}
-    <span class="text-muted">N/A</span>
+    
 
+    
+   {% if mdn.oid %}
+      <td><a href="{{host_prefix}}/{{mdn.oid}}/index.html"> {{host_prefix}}/{{mdn.oid}}/index.html</a> </td>
+      <td><a href="{{host_prefix}}/fhir/R6/ValueSet/{{mdn.oid}}"> {{host_prefix}}/fhir/R6/ValueSet/{{mdn.oid}}</a> </td>
+      <td><a href="{{host_prefix}}/csv/{{mdn.oid}}.csv"> {{host_prefix}}/{{mdn.oid}}.csv</a> </td>
+      
+      {% else %}
+      <td> <span class="text-muted">N/A</span></td>
+      <td> <span class="text-muted">N/A</span></td>
+      <td> <span class="text-muted">N/A</span></td>
     {% endif %}
-    </td>
 </tr>
 </tbody>
 
