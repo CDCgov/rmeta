@@ -7,7 +7,7 @@
     <header class="container">
         <nav>
             <ul>
-                <li><h1><strong>CDC Meta</strong></h1></li>
+                <li><h1><strong>Publicm Health Data Utilities</strong></h1></li>
               </ul>
           <ul>
             <li>
@@ -25,9 +25,12 @@
         <hgroup>
             <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
 
-                This is beta software for research and development purposes. 
-                Some data might be out of date, incorrect, or missing.
-
+                
+            Health Data Utilties experimental software for research and development purposes.
+            If you think something should be added here, please add an issue or do a pull request on
+            <a href="https://github.com/CDCGov/meta">GitHub</a>. Data might be out of date, incorrect, or missing. 
+                No warranties are provided. No PII or PHI is is stored here.
+            
             </p>
           </hgroup>
       </header>
@@ -55,7 +58,7 @@
         </p>
 
 
-    <h3>Data Specifications</h3>
+    <h3>Data Tables of Interest (Not a formal Specification)</h3>
 
        <p class="grid">
         <a href="{% url 'report_meta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
