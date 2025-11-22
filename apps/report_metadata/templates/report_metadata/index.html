@@ -5,9 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>CDC Meta</title>
-    <meta name="description" content="CDC Meta is a data portal and set of APIs 
-    relevant to public health." />
+    <title>Public Health Data Utilities</title>
+    <meta name="description" content="An informative collection of links to APIs, data sets, and endpoints that are relevant to efficient health information exchange." />
 
     <!-- Pico.css -->
     <link
@@ -24,7 +23,7 @@
       <nav>
 
           <ul>
-              <li><h1><strong>CDC Meta</strong></h1></li>
+              <li><h1><strong>Public Health Data Utilities</strong></h1></li>
             </ul>
 
           <ul>
@@ -40,58 +39,24 @@
           </li>
         </ul>
       </nav>
-      <hgroup>
-          <p>CDC Meta is a data portal and set of APIs 
-            relevant to public health.
-          This system does not contain patient Personal Health Information (PHI).
-      
-                This is beta software for research and development purposes. 
-                Some data might be out of date, incorrect, or missing.
-                To request access to the system, please  
-                <a href={% url 'request_access' %}>fill out this form</a>.
-            </p>
-          </hgroup>
-        </p>
-            
-        </hgroup>
+
     </header>
     <!-- ./ Header -->
 
     <!-- Main -->
     <main class="container">
 
-      <!-- Typography-->
-      <section id="typography">
-        <h2>Public Data</h2>
-        <p>
-          Some data is avaiable without a login or API token. We are working to make more data available.
-          Your <href="https://github.com/CDCgov/rmeta/issues">suggestions</a> are welcome.
-        </section>
-        
 
-      <!-- Article-->
-      <article id="article">
-        <h2>Jurisdictions</h2>
-        <p>
-          This table contains the names and 2-3 letter codes assigned to the 64 CDC Jurisdictions.
-          <ul>
-            <li>Jurisdictions Lookup Table:
-              <a href="{% url 'report_meta:public_type_csv' 'Jurisdiction' %}" >CSV</a> | 
-              <a href="{% url 'report_meta:public_type_json' 'Jurisdiction' %}" >JSON</a>
-            </li>
-          </ul>
-        </p>
-      </article>
-
+      
       <!-- Article-->
       <article id="article">
         <h2>USCDI+ Cheat Sheets</h2>
         <p>
-          These tables contain information about USCDI+ 
-          data elements that are part of the "Public Health" domain.
-          Field descriptions, URLs to relevant standards, 
-          and other information.
-          
+          These CSV files or JSON objects contain information about USCDI+ as part of the 
+          the "Public Health" Domain. This is a proof of concept. Some information might 
+          be missing, outdated, or incorrect.
+        </p>
+      </p>
           <ul>
           <li>Data Elements: <a href="{% url 'report_meta:public_type_csv_module' 'DataElementType' 'uscdi' %}" >CSV</a> | 
             <a href="{% url 'report_meta:public_type_json_module' 'DataElementType' 'uscdi' %}" >JSON</a></li>
@@ -104,18 +69,8 @@
           
             <li>Domains: <a href="{% url 'report_meta:public_type_csv_module' 'DomainType' 'uscdi' %}" >CSV</a> | 
             <a href="{% url 'report_meta:public_type_json_module' 'DomainType'  'uscdi' %}" >JSON</a></li>
-        
           </ul>
        
-        </p>
-      </article>
-      <!-- ./ Article-->
-
-      <!-- Article-->
-      <article id="article">
-        <h2>Other Data</h2>
-        <p>
-          Additional meta data is avaiable with a <a href="/accounts/login">login</a>.</p>
         </p>
       </article>
       <!-- ./ Article-->
@@ -126,12 +81,9 @@
 
     <!-- Footer -->
     <footer class="container">
-      <small
-        >Built with <a href="https://www.djangoproject.com/">Django</a> •
-        <a href="https://github.com/CDCgov/rmeta/"
-          >Source code</a
-        ></small
-      >
+      <p>
+         {% now "Y" %}. Public Health Data Utilities
+      </p>
     </footer>
     <!-- ./ Footer -->
 
