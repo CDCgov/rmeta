@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Alan Viars">
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>FHIR Value Set Index</title>
+</head>
+
+<body>
+
+<main role="main" class="container">
+      <h1 class="mt-5">FHIR Value Set Index</h1>
+
+
+ <table class="table">
+    <thead>
+        <tr>
+          <th>name</th>
+          <th>common_name</th>
+          <td>oid</td>
+          <th>description</th>
+          <th>FHIR API link</th>
+        </tr>
+    </thead>
+    <tbody>
+  {% for mdn in mdns %}
+<tbody>
+  <tr>
+    <td>{{mdn.data_element_name}}</td>
+    <td>{{mdn.common_name}}</td>
+    <td>{{mdn.oid}}</td>
+    <td>{{mdn.data_element_description}}</td>
+    <td><a href="{{ prefix }}/{{ mdn.oid }}">FHIR ValueSet</a></td>
+    </td>
+</tr>
+</tbody>
+
+  
+  
+  {% endfor %}
+  
+
+
+</table>
+  
+  
+  </main>
+
+    <footer class="footer">
+      <div class="container">
+        <span class="text-muted">This is a working proof-of-concept of a CDN-based API for FHIR ValueSet Endpoints.</span>
+      </div>
+    </footer>
+
+</body>
+
+</html>
