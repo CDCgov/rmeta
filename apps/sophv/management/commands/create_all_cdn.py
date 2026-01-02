@@ -11,7 +11,7 @@ from .create_valueset_api import export_oid_json
 
 def build_cdn(directory_name, host_prefix="", download=False):
     export_mdn_json(directory_name, host_prefix)
-    print("Exported MDN JSON files to", directory_name)
+    print("The export is complete. Exported to this path:", directory_name)
 
 
     # Now lets go back through ang get all the coded oids.
@@ -20,18 +20,15 @@ def build_cdn(directory_name, host_prefix="", download=False):
     for c in coded_data_elements:
         # Fetch the valueset from PHIN VADS
         if download:
-         print(f'Fetching {c.common_name} {c.oid} from PHIN VADS FHIR and loading into reltinal database.')
+         print(f'Fetching {c.common_name} {c.oid} from PHIN VADS FHIR and loading into a relational database.')
          load_data(c.oid, c.common_name)
         # Now export the data element to JSON files
         export_oid_json(directory_name, c.common_name, host_prefix=host_prefix)
 
 
-
-
-
    
 class Command(BaseCommand):
-    help = "Export MDN table to as JSON files"
+    help = "Export MDN table as JSON files"
 
     def add_arguments(self, parser):
         # Positional arguments
