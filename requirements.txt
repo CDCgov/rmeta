@@ -5,7 +5,7 @@ certifi==2024.07.04
 cffi==1.16.0
 charset-normalizer==3.3.2
 cryptography==45.0.5
-Django==5.1.14
+Django==5.1.15
 django-bootstrap-form==3.4
 django-cors-headers==4.3.1
 django-djmongo==0.7.9.6
@@ -41,7 +41,7 @@ requests==2.32.4
 rpds-py==0.18.0
 sqlparse==0.5.0
 typing_extensions==4.10.0
-urllib3==2.5.0
+urllib3==2.6.0
 django-ses==4.0.0
 hl7==0.4.5
 python-fhir-converter
