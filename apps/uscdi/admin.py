@@ -1,6 +1,14 @@
 from django.contrib import admin
-from .models import DataElementType, DomainType, DataClassType, UseCaseType, CDCDataElements
+from .models import DataElementType, DomainType, DataClassType, UseCaseType, CDCDataElements, DataElement
 
+
+class DataElementAdmin(admin.ModelAdmin):
+    list_display = ('name', 'code', 'data_class', 'uscdi_url',
+                    'hl7v2_segment_type', 'hl7v2_data_type', 'hl7v2_field_position',
+                    'hl7v2_component_position', 'hl7v2_usage', 'hl7v2_cardinality')
+    search_fields = ('name', 'description')
+
+admin.site.register(DataElement, DataElementAdmin)
 
 # create a model admin for CDCDataElements
 class CDCDataElementsAdmin(admin.ModelAdmin):
@@ -13,8 +21,9 @@ admin.site.register(CDCDataElements, CDCDataElementsAdmin)
 class DataElementTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 
                     'data_class', 'use_case', 'description',
-                    'additional_information',
-                    'in_uscdi', 'uscdi_url',
+                    'fhir_location', 'fhir_example_value_1', 'fhir_example_value_2',
+                    'hl7v2_location', 'hl7v2_example_value_1', 'hl7v2_example_value_2',
+                    'uscdi_url',
                     'associated_ig_or_profile_urls' ,
                     'associated_us_core_profile_urls' 
                     )

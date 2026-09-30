@@ -91,6 +91,113 @@ class UseCaseType(models.Model):
                 self.code = str.upper(slugify(self.name.upper()))
             super(UseCaseType, self).save(**kwargs)
 
+class DataElement(models.Model):
+    """One canonical USCDI data element with a representative MMG mapping."""
+
+    code = models.CharField(max_length=255, default='',unique=True, blank=True)
+    name = models.CharField(max_length=255, default='')
+    description = models.TextField(max_length=2048, blank=True, default='')
+    uscdi_uuid =  models.UUIDField(blank=True, null=True)
+    domain = models.ForeignKey(DomainType, on_delete=models.CASCADE)
+    data_class = models.ForeignKey(DataClassType, on_delete=models.CASCADE)
+    data_class_description = models.TextField(max_length=2048, blank=True, default='')
+    use_case = models.ForeignKey(UseCaseType, on_delete=models.CASCADE)
+    additional_information = models.TextField(default='', blank=True)
+    in_uscdi = models.BooleanField(default=False, blank=True)
+    uscdi_url = models.URLField(default='', blank=True)
+    applicable_vocabulary_standards = models.CharField(max_length=512, default='', blank=True)
+    classification_level = models.CharField(max_length=255, default='', blank=True)
+    data_element = models.CharField(max_length=255, default='', blank=True)
+    data_element_description = models.TextField(max_length=2048, blank=True, default='')
+    applicable_standards = models.TextField(max_length=2048, blank=True, default='')
+    fhir_associated_ig_or_profile_urls = models.CharField(max_length=512, default='', blank=True)
+    fhir_associated_us_core_profile_urls = models.CharField(max_length=512, default='', blank=True)
+    
+    fhir_path = models.CharField(max_length=256, blank=True, default='', help_text="e.g., Patient.birthDate")
+    
+    # Message Mapping Guides
+    mm_elementId = models.CharField(max_length=256, blank=True, default='')
+    mm_containingGuideId = models.CharField(max_length=256, blank=True, default='')
+    mm_containingGuideName = models.CharField(max_length=256, blank=True, default='')
+    mm_containingGuideStatus = models.CharField(max_length=64, blank=True, default='')
+    mm_containingBlockId = models.CharField(max_length=256, blank=True, default='')
+    mm_matchMethod = models.CharField(max_length=32, blank=True, default='')
+    mm_matchScore = models.FloatField(blank=True, null=True)
+    mm_guideId = models.CharField(max_length=256, blank=True, default='')
+    mm_guideInternalVersion = models.CharField(max_length=256, blank=True, default='')
+    mm_blockId = models.CharField(max_length=256, blank=True, default='')
+    mm_ordinal = models.IntegerField(default=0, blank=True)
+    mm_name = models.CharField(max_length=256, blank=True, default='')
+    mm_description = models.TextField(blank=True, default='')
+    mm_shortName = models.CharField(max_length=256, blank=True, default='')
+    mm_comments = models.TextField(blank=True, default='')
+    mm_status = models.CharField(max_length=256, blank=True, default='')
+    mm_dataType = models.CharField(max_length=256, blank=True, default='')
+    mm_businessRules = models.TextField(blank=True, default='')
+    mm_isUnitOfMeasure = models.BooleanField(default=False, blank=True)
+    mm_codeSystem = models.CharField(max_length=256, blank=True, default='')
+    mm_legacyPriority = models.CharField(max_length=256, blank=True, default='')
+    mm_priority = models.CharField(max_length=256, blank=True, default='')
+    mm_isRepeat = models.BooleanField(default=False, blank=True)
+    # MMGAT uses values such as "N", "Y", "Y/2", and "Y/3".  Keeping the
+    # source value preserves the repetition bound that a BooleanField loses.
+    mm_mayRepeat = models.CharField(max_length=16, blank=True, default='')
+    mm_valueSetCode = models.CharField(max_length=256, blank=True, default='')
+
+
+    #hl7v2Fields
+    hl7v2_legacy_identifier = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_identifier = models.CharField(max_length=255, default='', blank=True) 
+    hl7v2_message_context = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_data_type = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_segment_type = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_field_position = models.IntegerField(default=0, blank=True)
+    hl7v2_component_position = models.IntegerField(default=0, blank=True)
+    hl7v2_usage = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_cardinality = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_literalFieldValues = models.TextField(max_length=2048, blank=True, default='')
+    hl7v2_repeatingGroupElementType = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_sampleSegment = models.TextField(max_length=2048, blank=True, default='')
+
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+    @property
+    def as_dict(self):
+        return  {"code":self.code, 
+                 "name": self.name, 
+                 "description": self.description,
+                "domain":str(self.domain),
+                "data_class":str(self.data_class),
+                "use_case":str(self.use_case),           
+                "uscdi_uuid": self.uscdi_uuid,
+                "additional_information":self.additional_information,
+                "in_uscdi":self.in_uscdi,
+                "uscdi_url":self.uscdi_url,
+                "applicable_vocabulary_standards":self.applicable_vocabulary_standards,
+                "fhir_associated_ig_or_profile_urls":self.fhir_associated_ig_or_profile_urls,
+                "fhir_associated_us_core_profile_urls":self.fhir_associated_us_core_profile_urls,
+                "mm_elementId":self.mm_elementId,
+                "mm_containingGuideId":self.mm_containingGuideId,
+                "mm_containingGuideName":self.mm_containingGuideName,
+                "mm_containingGuideStatus":self.mm_containingGuideStatus,
+                "mm_containingBlockId":self.mm_containingBlockId,
+                "mm_matchMethod":self.mm_matchMethod,
+                "mm_matchScore":self.mm_matchScore,
+                "mm_guideId":self.mm_guideId,
+                "updated": str(self.updated) }
+
+    def save(self, commit=True, **kwargs):
+        if commit:
+            if not self.code:
+                self.code = "%s-%s-%s-%s" % (str.upper(slugify(self.name.upper())),
+                                             self.data_class.code,
+                                             self.domain.code,
+                                             self.use_case.code)
+            super(DataElement, self).save(**kwargs)
 
 class DataElementType(models.Model):
     code = models.CharField(max_length=255, default='',unique=True, blank=True)
@@ -116,6 +223,18 @@ class DataElementType(models.Model):
     cda_xpath = models.TextField(max_length=2048, blank=True, default='')
     fhir_path = models.TextField(max_length=2048, blank=True, default='')
     hl7v2_path = models.TextField(max_length=2048, blank=True, default='')
+
+
+    fhir_location = models.CharField(max_length=256, default='', blank=True)
+    fhir_example_value_1 = models.CharField(max_length=128, default='', blank=True)
+    fhir_example_value_2 = models.CharField(max_length=128, default='', blank=True)
+    fhir_more_details = models.TextField(max_length=2048, blank=True, default='')
+
+    hl7v2_location = models.CharField(max_length=32, default='', blank=True)
+    hl7v2_example_value_1 = models.CharField(max_length=128, default='', blank=True)
+    hl7v2_example_value_2 = models.CharField(max_length=128, default='', blank=True)
+    hl7v2_more_details = models.TextField(max_length=2048, blank=True, default='')
+    
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
