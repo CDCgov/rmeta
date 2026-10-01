@@ -63,6 +63,7 @@ urlpatterns = [
     path('roster/', include('apps.roster.urls')),
     path('anonymouser/', include('apps.anonymouser.urls')),
     path('reporting/', include('apps.report_metadata.urls')),
+    path('guidemap/', include('apps.uscdi.urls')),
     # 3rd party
     url('social-auth/', include('social_django.urls', namespace='social')),
     path('o/',include((oauth2_management_urlpatterns + oauth2_base_urlpatterns, 'oauth2_provider'))),

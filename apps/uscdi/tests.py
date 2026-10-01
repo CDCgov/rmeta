@@ -3,16 +3,21 @@ import json
 from io import StringIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.core.management.base import CommandError
+from django.http import HttpResponse
+from django.template.loader import get_template
 from django.test import TestCase
+from django.urls import reverse
 
 from .management.commands.loaduscdi31dataelements import (
     _load_mmg_index,
     _select_mmg_mapping,
 )
-from .models import DataElement, DomainType, UseCaseType
+from .models import DataClassType, DataElement, DomainType, UseCaseType
 
 
 CANONICAL_FIELDS = [
@@ -527,3 +532,140 @@ class LoadUSCDI31DataElementsTests(TestCase):
             set(DataElement.objects.values_list("code", flat=True)),
             existing_codes,
         )
+
+
+class DataElementViewTests(TestCase):
+    def setUp(self):
+        self.user = get_user_model().objects.create_user(
+            username="uscdi-viewer",
+            password="test-password",
+        )
+        domain = DomainType.objects.create(code="USCDI", name="USCDI")
+        data_class = DataClassType.objects.create(
+            code="PATIENT-DEMOGRAPHICS",
+            name="Patient Demographics/Information",
+        )
+        use_case = UseCaseType.objects.create(
+            code="USCDI-V3-1",
+            name="USCDI V3.1",
+        )
+        self.element = DataElement.objects.create(
+            code="USCDI-V3-1-736",
+            name="Date of Birth",
+            description="The patient's date of birth.",
+            domain=domain,
+            data_class=data_class,
+            use_case=use_case,
+            classification_level="USCDI V3.1",
+            data_element="Date of Birth",
+            data_element_description="The patient's date of birth.",
+            in_uscdi=True,
+            uscdi_url=(
+                "https://isp.healthit.gov/taxonomy/term/736/uscdi-v3-1"
+            ),
+            mm_name="Birth Date",
+            mm_matchMethod="alias",
+            mm_matchScore=0.925,
+            mm_containingGuideName="Generic v3.0 - full",
+            hl7v2_identifier="N/A: PID-7",
+            hl7v2_segment_type="PID",
+            hl7v2_field_position=7,
+            hl7v2_component_position=-1,
+            hl7v2_data_type="TS",
+        )
+
+    def test_as_json_contains_every_model_field_in_export_order(self):
+        content = self.element.as_json
+
+        self.assertEqual(tuple(content), DataElement.export_field_names())
+        self.assertNotIn("id", content)
+        self.assertNotIn("uscdi_uuid", content)
+        self.assertEqual(content["data_element"], "Date of Birth")
+        self.assertEqual(content["domain"], "USCDI")
+        self.assertEqual(content["data_class"], "Patient Demographics/Information")
+        self.assertEqual(content["mm_matchScore"], 0.925)
+        self.assertIsInstance(content["created"], str)
+        json.dumps(content)
+
+    def test_export_exclusion_list_controls_headers_and_as_json(self):
+        with patch.object(
+            DataElement,
+            "EXPORT_EXCLUDED_COLUMNS",
+            ["id", "created", "updated"],
+        ):
+            content = self.element.as_json
+
+            self.assertNotIn("id", DataElement.export_field_names())
+            self.assertNotIn("created", DataElement.export_field_names())
+            self.assertNotIn("updated", DataElement.export_field_names())
+            self.assertNotIn("id", content)
+            self.assertNotIn("created", content)
+            self.assertNotIn("updated", content)
+
+    def test_index_neatly_lists_data_and_both_download_actions(self):
+        self.client.force_login(self.user)
+
+        template = get_template("uscdi/index.html")
+        template_source = template.template.source
+        self.assertEqual(template_source.count("Download as CSV"), 2)
+        self.assertEqual(template_source.count("Download as JSON"), 2)
+
+        with patch(
+            "apps.uscdi.views.render", return_value=HttpResponse("rendered")
+        ) as render_mock:
+            response = self.client.get(reverse("uscdi:uscdi_index"))
+
+        self.assertEqual(response.status_code, 200)
+        _, template_name, context = render_mock.call_args.args
+        self.assertEqual(template_name, "uscdi/index.html")
+        self.assertEqual(context["total_count"], 1)
+        self.assertEqual(context["mapped_count"], 1)
+        self.assertEqual(context["rows"][0]["element"], self.element)
+
+    def test_csv_download_uses_complete_model_export(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("uscdi:export_to_csv"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response["Content-Type"].startswith("text/csv"))
+        self.assertIn("attachment;", response["Content-Disposition"])
+        self.assertIn("uscdi-v3.1-data-elements-", response["Content-Disposition"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        reader = csv.DictReader(StringIO(response.content.decode("utf-8-sig")))
+        rows = list(reader)
+        self.assertEqual(tuple(reader.fieldnames), DataElement.export_field_names())
+        self.assertNotIn("id", reader.fieldnames)
+        self.assertNotIn("uscdi_uuid", reader.fieldnames)
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["data_element"], "Date of Birth")
+        self.assertEqual(rows[0]["domain"], "USCDI")
+        self.assertEqual(rows[0]["hl7v2_identifier"], "N/A: PID-7")
+
+    def test_json_download_uses_complete_model_export(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse("uscdi:export_to_json"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response["Content-Type"], "application/json")
+        self.assertIn("attachment;", response["Content-Disposition"])
+        self.assertIn("no-cache", response["Cache-Control"])
+        payload = response.json()
+        self.assertEqual(payload["count"], 1)
+        self.assertNotIn("id", payload["content"][0])
+        self.assertNotIn("uscdi_uuid", payload["content"][0])
+        self.assertEqual(payload["content"][0]["data_element"], "Date of Birth")
+        self.assertEqual(payload["content"][0]["data_class"], "Patient Demographics/Information")
+        self.assertEqual(payload["content"][0]["hl7v2_field_position"], 7)
+
+    def test_views_require_authentication(self):
+        for url_name in (
+            "uscdi:uscdi_index",
+            "uscdi:export_to_csv",
+            "uscdi:export_to_json",
+        ):
+            with self.subTest(url_name=url_name):
+                response = self.client.get(reverse(url_name))
+                self.assertEqual(response.status_code, 302)
+                self.assertIn("/accounts/login/", response.url)

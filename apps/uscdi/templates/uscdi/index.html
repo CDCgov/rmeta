@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <title>USCDI 3.1 Data Element Glide Map</title>
+    <meta
+      name="description"
+      content="Browse and download USCDI v3.1 data elements with pointer for FHIR and HL7v2."
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2.0.3/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'uscdi/css/index.css' %}" />
+  </head>
+
+  <body>
+    <header class="page-shell page-header">
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a class="brand" href="{% url 'uscdi:uscdi_index' %}">Guide Map</a></li>
+        </ul>
+        <ul>
+          <li>
+            <details class="dropdown">
+              <summary role="button" class="secondary outline">Theme</summary>
+              <ul>
+                <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                <li><a href="#" data-theme-switcher="light">Light</a></li>
+                <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </nav>
+
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Public Health Interoperability Grants (PHIG)</p>
+          <h1>Data Element Guide Map</h1>
+          <p>
+            Browse USCDI data element mappings between FHIR and HL7v2.
+            Download links are all rows and columns. This resource is intended to 
+            assist those implementing USCDI in their programs or systems. 
+          </p>
+        </div>
+        <dl class="summary" aria-label="Inventory summary">
+          <div><dt>Total</dt><dd>{{ total_count }}</dd></div>
+          <div><dt>Mapped</dt><dd>{{ mapped_count }}</dd></div>
+          <div><dt>Unmapped</dt><dd>{{ unmapped_count }}</dd></div>
+        </dl>
+      </section>
+    </header>
+
+    <main class="page-shell">
+      <nav class="download-bar" aria-label="Download data at top of page">
+        <strong>Download the full table</strong>
+        <div class="download-actions">
+          <a role="button" href="{% url 'uscdi:export_to_csv' %}">Download as CSV</a>
+          <a role="button" class="secondary" href="{% url 'uscdi:export_to_json' %}">Download as JSON</a>
+        </div>
+      </nav>
+
+      <section class="filter-panel" aria-labelledby="filter-heading">
+        <div class="filter-heading">
+          <div>
+            <h2 id="filter-heading">Browse data elements</h2>
+            <p>
+              Showing <strong id="visible-count">{{ total_count }}</strong> of
+              {{ total_count }} data elements.
+            </p>
+          </div>
+          <button id="clear-filters" type="button" class="secondary outline">Clear filters</button>
+        </div>
+
+        <div class="filters">
+          <label>
+            Search
+            <input
+              id="element-search"
+              type="search"
+              placeholder="Name, class, code, MMG, HL7v2…"
+              autocomplete="off"
+            />
+          </label>
+          <label>
+            Mapping status
+            <select id="mapping-filter">
+              <option value="all">All elements</option>
+              <option value="mapped">Mapped only</option>
+              <option value="unmapped">Unmapped only</option>
+            </select>
+          </label>
+          <label>
+            Data class
+            <select id="class-filter">
+              <option value="all">All data classes</option>
+              {% for data_class in data_classes %}
+                <option value="{{ data_class }}">{{ data_class }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <div class="table-shell">
+        <table id="data-elements-table">
+          <caption class="visually-hidden">
+            USCDI 3.1 data elements with FHIR HL7v2, MMG standards information
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Data Class</th>
+              <th scope="col">Data Element</th>
+              <th scope="col">Description and Standards</th>
+              <th scope="col">HL7v2 Mapping</th>
+              <th scope="col">References</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rows %}
+              {% with element=row.element %}
+                <tr
+                  data-mapped="{% if element.mm_name %}mapped{% else %}unmapped{% endif %}"
+                  data-class="{{ element.data_class.name }}"
+                >
+                  <td>
+                    <strong>{{ element.data_class.name }}</strong>
+                    {% if element.classification_level %}
+                      <small>{{ element.classification_level }}</small>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <strong class="element-name">{{ element.data_element|default:element.name }}</strong>
+                    <code>{{ element.code }}</code>
+                  </td>
+                  <td>
+                    <p class="description">
+                      {{ element.data_element_description|default:element.description|default:"No description available." }}
+                    </p>
+                    {% if element.applicable_standards %}
+                      <details>
+                        <summary>Applicable standards</summary>
+                        <p class="detail-text">{{ element.applicable_standards|linebreaksbr }}</p>
+                      </details>
+                    {% endif %}
+                    {% if element.applicable_vocabulary_standards %}
+                      <details>
+                        <summary>Vocabulary standards</summary>
+                        <p class="detail-text">{{ element.applicable_vocabulary_standards|linebreaksbr }}</p>
+                      </details>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if element.mm_name %}
+                      <span class="status-badge mapped">Mapped</span>
+                      <strong class="mapping-name">{{ element.mm_name }}</strong>
+                      {% if element.hl7v2_identifier %}<code>{{ element.hl7v2_identifier }}</code>{% endif %}
+                      <details>
+                        <summary>Mapping details</summary>
+                        <dl class="mapping-details">
+                          <dt>Guide</dt>
+                          <dd>{{ element.mm_containingGuideName|default:"Not specified" }}</dd>
+                          <dt>Match</dt>
+                          <dd>
+                            {{ element.mm_matchMethod|default:"Not specified" }}
+                            {% if element.mm_matchScore != None %}({{ element.mm_matchScore|floatformat:3 }}){% endif %}
+                          </dd>
+                          <dt>Segment</dt>
+                          <dd>
+                            {{ element.hl7v2_segment_type|default:"—" }}
+                            {% if element.hl7v2_field_position %}-{{ element.hl7v2_field_position }}{% endif %}
+                            {% if element.hl7v2_component_position > 0 %}.{{ element.hl7v2_component_position }}{% endif %}
+                          </dd>
+                          <dt>Datatype</dt>
+                          <dd>{{ element.hl7v2_data_type|default:"—" }}</dd>
+                          <dt>Usage</dt>
+                          <dd>{{ element.hl7v2_usage|default:"—" }} {{ element.hl7v2_cardinality }}</dd>
+                        </dl>
+                      </details>
+                    {% else %}
+                      <span class="status-badge unmapped">No source mapping</span>
+                      <small>No defensible MMG/HL7v2 match was selected.</small>
+                    {% endif %}
+                  </td>
+                  <td>
+                    <ul class="reference-list">
+                      {% if element.uscdi_url %}
+                        <li><a href="{{ element.uscdi_url }}" target="_blank" rel="noopener">USCDI definition</a></li>
+                      {% endif %}
+                      {% for url in row.us_core_urls %}
+                        <li><a href="{{ url }}" target="_blank" rel="noopener">US Core profile</a></li>
+                      {% endfor %}
+                      {% for url in row.ig_urls %}
+                        <li><a href="{{ url }}" target="_blank" rel="noopener">FHIR implementation guide</a></li>
+                      {% endfor %}
+                    </ul>
+                    {% if not element.uscdi_url and not row.us_core_urls and not row.ig_urls %}
+                      <span aria-hidden="true">—</span>
+                      <span class="visually-hidden">No reference links</span>
+                    {% endif %}
+                  </td>
+                </tr>
+              {% endwith %}
+            {% empty %}
+              <tr>
+                <td colspan="5" class="empty-state">
+                  No data elements are loaded. Run the USCDI 3.1 data-loading command first.
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p id="no-filter-results" class="empty-state" hidden>
+          No data elements match the selected filters.
+        </p>
+      </div>
+
+      <nav class="download-bar bottom" aria-label="Download data at bottom of page">
+        <strong>Need the complete data set?</strong>
+        <div class="download-actions">
+          <a role="button" href="{% url 'uscdi:export_to_csv' %}">Download as CSV</a>
+          <a role="button" class="secondary" href="{% url 'uscdi:export_to_json' %}">Download as JSON</a>
+        </div>
+      </nav>
+    </main>
+
+    <footer class="page-shell">
+      <small>USCDI 3.1 mapping explorer · {% now "Y" %}</small>
+    </footer>
+
+    <script src="{% static 'report_metadata/js/minimal-theme-switcher.js' %}"></script>
+    <script src="{% static 'uscdi/js/index.js' %}"></script>
+  </body>
+</html>

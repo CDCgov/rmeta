@@ -94,8 +94,16 @@ class UseCaseType(models.Model):
 class DataElement(models.Model):
     """One canonical USCDI data element with a representative MMG mapping."""
 
-    code = models.CharField(max_length=255, default='',unique=True, blank=True)
+    # Add model field names to this list to omit their column from both the
+    # CSV and JSON downloads. These names are also the exported column headers.
+    EXPORT_EXCLUDED_COLUMNS = [
+        "id",
+        "uscdi_uuid",
+    ]
+
     name = models.CharField(max_length=255, default='')
+    code = models.CharField(max_length=255, default='',unique=True, blank=True)
+    uscdi_url = models.URLField(default='', blank=True)
     description = models.TextField(max_length=2048, blank=True, default='')
     uscdi_uuid =  models.UUIDField(blank=True, null=True)
     domain = models.ForeignKey(DomainType, on_delete=models.CASCADE)
@@ -104,17 +112,32 @@ class DataElement(models.Model):
     use_case = models.ForeignKey(UseCaseType, on_delete=models.CASCADE)
     additional_information = models.TextField(default='', blank=True)
     in_uscdi = models.BooleanField(default=False, blank=True)
-    uscdi_url = models.URLField(default='', blank=True)
+
     applicable_vocabulary_standards = models.CharField(max_length=512, default='', blank=True)
     classification_level = models.CharField(max_length=255, default='', blank=True)
     data_element = models.CharField(max_length=255, default='', blank=True)
     data_element_description = models.TextField(max_length=2048, blank=True, default='')
     applicable_standards = models.TextField(max_length=2048, blank=True, default='')
     fhir_associated_ig_or_profile_urls = models.CharField(max_length=512, default='', blank=True)
-    fhir_associated_us_core_profile_urls = models.CharField(max_length=512, default='', blank=True)
-    
+    fhir_associated_us_core_profile_urls = models.CharField(max_length=512, default='', blank=True)    
     fhir_path = models.CharField(max_length=256, blank=True, default='', help_text="e.g., Patient.birthDate")
-    
+
+
+    # HL7v2 mapping Fields
+    hl7v2_legacy_identifier = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_identifier = models.CharField(max_length=255, default='', blank=True) 
+    hl7v2_message_context = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_data_type = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_segment_type = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_field_position = models.IntegerField(default=0, blank=True)
+    hl7v2_component_position = models.IntegerField(default=0, blank=True)
+    hl7v2_usage = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_cardinality = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_literalFieldValues = models.TextField(max_length=2048, blank=True, default='')
+    hl7v2_repeatingGroupElementType = models.CharField(max_length=255, default='', blank=True)
+    hl7v2_sampleSegment = models.TextField(max_length=2048, blank=True, default='')
+
+
     # Message Mapping Guides
     mm_elementId = models.CharField(max_length=256, blank=True, default='')
     mm_containingGuideId = models.CharField(max_length=256, blank=True, default='')
@@ -144,51 +167,47 @@ class DataElement(models.Model):
     mm_mayRepeat = models.CharField(max_length=16, blank=True, default='')
     mm_valueSetCode = models.CharField(max_length=256, blank=True, default='')
 
-
-    #hl7v2Fields
-    hl7v2_legacy_identifier = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_identifier = models.CharField(max_length=255, default='', blank=True) 
-    hl7v2_message_context = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_data_type = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_segment_type = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_field_position = models.IntegerField(default=0, blank=True)
-    hl7v2_component_position = models.IntegerField(default=0, blank=True)
-    hl7v2_usage = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_cardinality = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_literalFieldValues = models.TextField(max_length=2048, blank=True, default='')
-    hl7v2_repeatingGroupElementType = models.CharField(max_length=255, default='', blank=True)
-    hl7v2_sampleSegment = models.TextField(max_length=2048, blank=True, default='')
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
-    
+
+    @classmethod
+    def export_field_names(cls):
+        """Return the stable model-field order used by CSV and JSON exports."""
+
+        excluded_columns = set(cls.EXPORT_EXCLUDED_COLUMNS)
+        return tuple(
+            field.name
+            for field in cls._meta.concrete_fields
+            if field.name not in excluded_columns
+        )
+
+    @property
+    def as_json(self):
+        """Return all concrete fields as a JSON-compatible ordered dictionary."""
+
+        result = {}
+        export_fields = set(self.export_field_names())
+        for field in self._meta.concrete_fields:
+            if field.name not in export_fields:
+                continue
+            value = getattr(self, field.name)
+            if field.is_relation:
+                value = str(value) if value is not None else None
+            elif value is not None and hasattr(value, "isoformat"):
+                value = value.isoformat()
+            elif value is not None and field.get_internal_type() == "UUIDField":
+                value = str(value)
+            result[field.name] = value
+        return result
+
     @property
     def as_dict(self):
-        return  {"code":self.code, 
-                 "name": self.name, 
-                 "description": self.description,
-                "domain":str(self.domain),
-                "data_class":str(self.data_class),
-                "use_case":str(self.use_case),           
-                "uscdi_uuid": self.uscdi_uuid,
-                "additional_information":self.additional_information,
-                "in_uscdi":self.in_uscdi,
-                "uscdi_url":self.uscdi_url,
-                "applicable_vocabulary_standards":self.applicable_vocabulary_standards,
-                "fhir_associated_ig_or_profile_urls":self.fhir_associated_ig_or_profile_urls,
-                "fhir_associated_us_core_profile_urls":self.fhir_associated_us_core_profile_urls,
-                "mm_elementId":self.mm_elementId,
-                "mm_containingGuideId":self.mm_containingGuideId,
-                "mm_containingGuideName":self.mm_containingGuideName,
-                "mm_containingGuideStatus":self.mm_containingGuideStatus,
-                "mm_containingBlockId":self.mm_containingBlockId,
-                "mm_matchMethod":self.mm_matchMethod,
-                "mm_matchScore":self.mm_matchScore,
-                "mm_guideId":self.mm_guideId,
-                "updated": str(self.updated) }
+        """Backward-compatible alias for the complete export representation."""
+
+        return self.as_json
 
     def save(self, commit=True, **kwargs):
         if commit:

@@ -1,0 +1,319 @@
+:root {
+  --uscdi-accent: #166a72;
+  --uscdi-accent-soft: color-mix(in srgb, var(--uscdi-accent) 12%, transparent);
+  --uscdi-border: color-mix(in srgb, currentColor 16%, transparent);
+}
+
+body {
+  min-width: 20rem;
+}
+
+.page-shell {
+  width: min(100% - 2rem, 110rem);
+  margin-inline: auto;
+}
+
+.page-header {
+  padding-top: 1rem;
+}
+
+.brand {
+  color: inherit;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: end;
+  margin-block: 1rem 2rem;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--uscdi-border);
+  border-radius: 1rem;
+  background:
+    radial-gradient(circle at 90% 10%, var(--uscdi-accent-soft), transparent 45%),
+    var(--pico-card-background-color);
+}
+
+.hero h1 {
+  margin-bottom: 0.75rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.hero p:last-child {
+  max-width: 70ch;
+  margin-bottom: 0;
+}
+
+.eyebrow {
+  margin-bottom: 0.5rem;
+  color: var(--uscdi-accent);
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(5.5rem, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.summary div {
+  min-width: 6rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--uscdi-border);
+  border-radius: 0.75rem;
+  background: var(--pico-background-color);
+  text-align: center;
+}
+
+.summary dt {
+  color: var(--pico-muted-color);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.summary dd {
+  margin: 0.2rem 0 0;
+  font-size: 1.6rem;
+  font-weight: 750;
+}
+
+.download-bar,
+.filter-heading,
+.download-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.download-bar {
+  justify-content: space-between;
+  margin-block: 1.5rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--uscdi-border);
+  border-radius: 0.75rem;
+  background: var(--pico-card-background-color);
+}
+
+.download-bar [role="button"] {
+  margin: 0;
+  padding: 0.65rem 1rem;
+}
+
+.filter-panel {
+  margin-bottom: 1rem;
+  padding: 1.25rem;
+  border: 1px solid var(--uscdi-border);
+  border-radius: 0.75rem;
+}
+
+.filter-heading {
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filter-heading h2,
+.filter-heading p {
+  margin-bottom: 0.25rem;
+}
+
+.filter-heading button {
+  width: auto;
+  margin: 0;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(16rem, 2fr) repeat(2, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.filters label,
+.filters input,
+.filters select {
+  margin-bottom: 0;
+}
+
+.table-shell {
+  overflow-x: auto;
+  border: 1px solid var(--uscdi-border);
+  border-radius: 0.75rem;
+}
+
+table {
+  min-width: 76rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--pico-card-background-color);
+  white-space: nowrap;
+}
+
+tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--pico-card-background-color) 55%, transparent);
+}
+
+tbody tr:hover {
+  background: var(--uscdi-accent-soft);
+}
+
+th:nth-child(1) { width: 14%; }
+th:nth-child(2) { width: 15%; }
+th:nth-child(3) { width: 31%; }
+th:nth-child(4) { width: 25%; }
+th:nth-child(5) { width: 15%; }
+
+td {
+  vertical-align: top;
+}
+
+td > strong,
+td > code,
+td > small,
+.mapping-name {
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.element-name {
+  font-size: 1rem;
+}
+
+td code {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.description,
+.detail-text {
+  margin-bottom: 0.6rem;
+  line-height: 1.45;
+}
+
+details {
+  margin-bottom: 0.3rem;
+}
+
+details summary {
+  color: var(--pico-primary);
+  font-size: 0.82rem;
+}
+
+.status-badge {
+  display: inline-block;
+  margin-bottom: 0.45rem;
+  padding: 0.18rem 0.48rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.status-badge.mapped {
+  color: #0c5a40;
+  background: #d8f4e8;
+}
+
+.status-badge.unmapped {
+  color: var(--pico-muted-color);
+  background: color-mix(in srgb, var(--pico-muted-color) 14%, transparent);
+}
+
+.mapping-details {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.25rem 0.65rem;
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+}
+
+.mapping-details dt {
+  font-weight: 700;
+}
+
+.mapping-details dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.reference-list {
+  margin: 0;
+  padding-left: 1rem;
+}
+
+.reference-list li {
+  margin-bottom: 0.35rem;
+}
+
+.empty-state {
+  padding: 2rem;
+  color: var(--pico-muted-color);
+  text-align: center;
+}
+
+.bottom {
+  margin-top: 1.5rem;
+}
+
+footer {
+  padding-block: 1rem 2rem;
+  color: var(--pico-muted-color);
+  text-align: center;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 64rem) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .summary {
+    width: 100%;
+  }
+
+  .filters {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 42rem) {
+  .page-shell {
+    width: min(100% - 1rem, 110rem);
+  }
+
+  .download-bar,
+  .filter-heading,
+  .download-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .download-bar [role="button"],
+  .filter-heading button {
+    width: 100%;
+    text-align: center;
+  }
+}
