@@ -622,6 +622,46 @@ class DataElementViewTests(TestCase):
         self.assertEqual(context["mapped_count"], 1)
         self.assertEqual(context["rows"][0]["element"], self.element)
 
+    def test_index_starts_with_data_element_and_hl7v2_segment_columns(self):
+        template = get_template("uscdi/index.html")
+        content = template.render(
+            {
+                "rows": [
+                    {
+                        "element": self.element,
+                        "ig_urls": [],
+                        "us_core_urls": [],
+                    }
+                ],
+                "total_count": 1,
+                "mapped_count": 1,
+                "unmapped_count": 0,
+                "data_classes": [self.element.data_class.name],
+            }
+        )
+        table_head = content.split("<thead>", 1)[1].split("</thead>", 1)[0]
+        expected_headers = (
+            "Data Element",
+            "HL7v2 Segment",
+            "Data Class",
+            "Description and Standards",
+            "HL7v2 Mapping",
+            "References",
+        )
+        header_positions = [table_head.index(header) for header in expected_headers]
+        self.assertEqual(header_positions, sorted(header_positions))
+
+        first_row = content.split("<tbody>", 1)[1].split("</tr>", 1)[0]
+        first_row_cells = first_row.split(">", 1)[1]
+        self.assertLess(
+            first_row_cells.index("Date of Birth"), first_row_cells.index("PID")
+        )
+        self.assertLess(
+            first_row_cells.index("PID"),
+            first_row_cells.index("Patient Demographics/Information"),
+        )
+        self.assertIn('colspan="6"', template.template.source)
+
     def test_csv_download_uses_complete_model_export(self):
         self.client.force_login(self.user)
 

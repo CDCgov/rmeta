@@ -169,11 +169,12 @@ tbody tr:hover {
   background: var(--uscdi-accent-soft);
 }
 
-th:nth-child(1) { width: 14%; }
-th:nth-child(2) { width: 15%; }
-th:nth-child(3) { width: 31%; }
-th:nth-child(4) { width: 25%; }
-th:nth-child(5) { width: 15%; }
+th:nth-child(1) { width: 16%; }
+th:nth-child(2) { width: 8%; }
+th:nth-child(3) { width: 14%; }
+th:nth-child(4) { width: 28%; }
+th:nth-child(5) { width: 22%; }
+th:nth-child(6) { width: 12%; }
 
 td {
   vertical-align: top;

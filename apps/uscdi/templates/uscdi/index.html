@@ -113,8 +113,9 @@
           </caption>
           <thead>
             <tr>
-              <th scope="col">Data Class</th>
               <th scope="col">Data Element</th>
+              <th scope="col">HL7v2 Segment</th>
+              <th scope="col">Data Class</th>
               <th scope="col">Description and Standards</th>
               <th scope="col">HL7v2 Mapping</th>
               <th scope="col">References</th>
@@ -128,14 +129,17 @@
                   data-class="{{ element.data_class.name }}"
                 >
                   <td>
+                    <strong class="element-name">{{ element.data_element|default:element.name }}</strong>
+                    <code>{{ element.code }}</code>
+                  </td>
+                  <td>
+                    <code>{{ element.hl7v2_segment_type|default:"—" }}</code>
+                  </td>
+                  <td>
                     <strong>{{ element.data_class.name }}</strong>
                     {% if element.classification_level %}
                       <small>{{ element.classification_level }}</small>
                     {% endif %}
-                  </td>
-                  <td>
-                    <strong class="element-name">{{ element.data_element|default:element.name }}</strong>
-                    <code>{{ element.code }}</code>
                   </td>
                   <td>
                     <p class="description">
@@ -207,7 +211,7 @@
               {% endwith %}
             {% empty %}
               <tr>
-                <td colspan="5" class="empty-state">
+                <td colspan="6" class="empty-state">
                   No data elements are loaded. Run the USCDI 3.1 data-loading command first.
                 </td>
               </tr>
