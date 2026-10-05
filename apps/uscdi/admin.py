@@ -1,6 +1,25 @@
 from django.contrib import admin
-from .models import DataElementType, DomainType, DataClassType, UseCaseType, CDCDataElements, DataElement
+from .models import (DataElementType, DomainType, DataClassType, 
+                     UseCaseType, CDCDataElements, DataElement,
+                     HL7Segment, HL7Message, MessageMappingGuide)
 
+class MessageMappingGuideAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'csv_guide_url', 'hl7v2_guide_url')
+    search_fields = ('code', 'name')
+
+admin.site.register(MessageMappingGuide, MessageMappingGuideAdmin)
+
+class HL7SegmentAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'example')
+    search_fields = ('code', 'name')
+
+admin.site.register(HL7Segment, HL7SegmentAdmin)
+
+class HL7MessageAdmin(admin.ModelAdmin):
+    list_display = ('code', 'name', 'get_segments', 'pub_health_germain', 'example')
+    search_fields = ('code', 'name')
+
+admin.site.register(HL7Message, HL7MessageAdmin)
 
 class DataElementAdmin(admin.ModelAdmin):
     list_display = ('name', 'code', 'data_class', 'uscdi_url',

@@ -2,6 +2,7 @@ from django.db import models
 
 from django.db import models
 import uuid
+from localflavor import de
 from slugify import slugify
 from django.conf import settings
 
@@ -36,6 +37,7 @@ class DomainType(models.Model):
                 self.code = str.upper(slugify(self.name.upper()))
             super(DomainType, self).save(**kwargs)
 
+
 class DataClassType(models.Model):
     code = models.CharField(max_length=255, default='',unique=True, blank=True)
     name = models.CharField(max_length=255, default='')
@@ -62,6 +64,7 @@ class DataClassType(models.Model):
             if not self.code:
                 self.code = str.upper(slugify(self.name.upper()))
             super(DataClassType, self).save(**kwargs)
+
 
 class UseCaseType(models.Model):
 
@@ -90,6 +93,51 @@ class UseCaseType(models.Model):
             if not self.code:
                 self.code = str.upper(slugify(self.name.upper()))
             super(UseCaseType, self).save(**kwargs)
+
+
+class MessageMappingGuide(models.Model):
+    name = models.CharField(max_length=255, default='')
+    code = models.CharField(max_length=255, default='', unique=True, blank=True)
+    csv_guide_url = models.URLField(blank=True, default='')
+    hl7v2_guide_url = models.URLField(blank=True, default='')
+    comments = models.TextField(max_length=2048, blank=True, default='')
+
+    def __str__(self):
+        return self.name
+
+
+class HL7Message(models.Model):
+    code = models.CharField(max_length=255, default='', unique=True, blank=True)
+    name = models.CharField(max_length=255, default='')
+    example = models.TextField(max_length=512, blank=True, default='')
+    segments = models.ManyToManyField('HL7Segment', blank=True)
+    uscdi_elements = models.ManyToManyField('DataElement', blank=True)
+    mmgs = models.ManyToManyField('MessageMappingGuide', blank=True)
+    pub_health_germain = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.code
+    
+    
+    class Meta:
+        ordering = ['-pub_health_germain', 'code'] 
+
+    @property
+    def get_segments(self):
+        retval = []
+        for segment in self.segments.all():
+            retval.append(segment.code)
+        return retval
+
+
+class HL7Segment(models.Model):
+    name = models.CharField(max_length=255, default='')
+    code = models.CharField(max_length=255, default='', unique=True, blank=True)
+    example = models.TextField(max_length=512, blank=True, default='')
+    def __str__(self):
+        return self.code
+
+
 
 class DataElement(models.Model):
     """One canonical USCDI data element with a representative MMG mapping."""
