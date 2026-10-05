@@ -62,7 +62,7 @@
     "code": "COVID-19-HL7",
     "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/COVID19_Lite_v1_2_nmi_implementation_spreadsheet_and_instructions_20220930.xlsx",
     "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/COVID-19_V1_2_MMG-and-TS_F_20220930.xlsx",
-    "comments": "CDC status: Current. Index version: 1.2 (updated 09/30/22). Vocabulary version: 17 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: COVID-19 v1.2 Message Mapping Guide & Test Case Scenarios (09/30/2022). CSV link label: “COVID Lite” v1.2 Implementation Spreadsheet (09/30/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/covid-19-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=8C245766-15ED-EE11-81D6-005056ABE2F0."
+    "comments": "CDC status: Current. Index version: 1.2 (updated 09/30/22). Vocabulary version: 17 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: COVID-19 v1.2 Message Mapping Guide & Test Case Scenarios (09/30/2022). CSV link label: ï¿½COVID Liteï¿½ v1.2 Implementation Spreadsheet (09/30/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/covid-19-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=8C245766-15ED-EE11-81D6-005056ABE2F0."
   }
 },
 {
