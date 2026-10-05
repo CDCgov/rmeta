@@ -1,0 +1,1148 @@
+[
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 1,
+  "fields": {
+    "name": "Arboviral (HL7)",
+    "code": "ARBOVIRAL-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/2021/02/Arboviral_nmi_implementation_spreadsheet_and-instructions_20200724.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Arboviral_v1.3.2_MMG_20210721.xlsx",
+    "comments": "CDC status: Current. Index version: 1.3.2 (updated 07/21/21). Vocabulary version: 25 (updated 05/19/20). Open for general onboarding: yes. HL7 link label: Arboviral v1.3.2 Message Mapping Guide (07/21/2021). CSV link label: Arboviral v1.3.x Implementation Spreadsheet  (07/24/2020). CDC detail page: https://ndc.services.cdc.gov/mmgpage/arboviral-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=ADE3A668-E799-EA11-818C-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 2,
+  "fields": {
+    "name": "Babesiosis (HL7)",
+    "code": "BABESIOSIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Babesiosis_v1_1_nmi_implementation_spreadsheet_and_instructions_20220802.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Babesiosis_v1_1_MMG-and-TS_F_20220802.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1 (updated 08/02/22). Vocabulary version: 5 (updated 10/18/21). Open for general onboarding: yes. HL7 link label: Babesiosis v1.1 Message Mapping Guide and Test Case Scenarios (08/02/2022). CSV link label: Babesiosis v1.1 Implementation Spreadsheet (08/02/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/babesiosis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=75B60821-721D-EC11-81A5-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 3,
+  "fields": {
+    "name": "Carbon Monoxide (HL7)",
+    "code": "CARBON-MONOXIDE-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Carbon_Monoxide_Poisoning_nmi_implementation_spreadsheet_and_instructions_20220912.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Carbon-Monoxide_V1.0_MMG_TCSW_20240308.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0 (updated 03/08/24). Vocabulary version: 2 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: Carbon Monoxide v1.0 Message Mapping Guide & Test Case Scenario (03/08/2024). CSV link label: Carbon Monoxide v1.0 Implementation Spreadsheet (03/08/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/carbon-monoxide-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=4CE78C8F-12ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 4,
+  "fields": {
+    "name": "Case Notification Minimal Data Necessary for Public Health Emergency Response",
+    "code": "CASE-NOTIFICATION-MINIMAL-DATA-NECESSARY-FOR-PUBLIC-HEALTH-EMERGENCY-RESPONSE",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Case-Notification-MDN-CSV-Implementation-Guide-v1.1-and-TS_F_20250616.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Case-Notification-MDN-HL7-Implementation-Guide-v1.1.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1 (updated 01/07/26). Vocabulary version: 2 (updated 07/01/25). Open for general onboarding: not marked. HL7 link label: Case Notification MDN HL7 Implementation Guide v1.1 (1/7/2026). CSV link label: Case Notification MDN CSV Implementation Guide v1.1 (6/16/2025). CDC detail page: https://ndc.services.cdc.gov/mmgpage/case-notification-minimal-data-necessary-for-public-health-emergency-response-implementation-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=FE6BF8AD-A556-F011-81F3-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 5,
+  "fields": {
+    "name": "Congenital Syphilis (HL7)",
+    "code": "CONGENITAL-SYPHILIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/CS_v1_1_2_nmi_implementation_spreadsheet_and_instructions_20220318.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/CS_V1_1_2_MMG-and-TS_F_20220324.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1.2 (updated 03/24/22). Vocabulary version: 3 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: Congenital Syphilis v1.1.2 Message Mapping Guide and Test Case Scenarios (03/24/2022). CSV link label: Congenital Syphilis v1.1.2 Implementation Spreadsheet (03/24/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/congenital-syphilis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=28A4502B-13ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 6,
+  "fields": {
+    "name": "COVID-19 (HL7)",
+    "code": "COVID-19-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/COVID19_Lite_v1_2_nmi_implementation_spreadsheet_and_instructions_20220930.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/COVID-19_V1_2_MMG-and-TS_F_20220930.xlsx",
+    "comments": "CDC status: Current. Index version: 1.2 (updated 09/30/22). Vocabulary version: 17 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: COVID-19 v1.2 Message Mapping Guide & Test Case Scenarios (09/30/2022). CSV link label: “COVID Lite” v1.2 Implementation Spreadsheet (09/30/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/covid-19-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=8C245766-15ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 7,
+  "fields": {
+    "name": "Draft Generic v3",
+    "code": "DRAFT-GENERIC-V3",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Generic-v3.0_NNDSS-Implementation-Spreadsheet_20260401.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Generic-v3.0_HL7-Message_Mapping_Guide_20260401.xlsx",
+    "comments": "CDC status: Current (draft). Index version: 3.0 (updated 04/27/26). Vocabulary version: 1 (updated 04/15/26). Open for general onboarding: not marked. HL7 link label: Generic v3.0 HL7 v2 Implementation Guide (04/01/2026). CSV link label: Generic v3.0 Implementation Spreadsheet (04/01/2026). CDC detail page: https://ndc.services.cdc.gov/mmgpage/draft-generic-v3-0/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=E1175B81-F938-F111-BAF1-0050569763C5."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 8,
+  "fields": {
+    "name": "Foodborne and Diarrheal Diseases (HL7)",
+    "code": "FOODBORNE-AND-DIARRHEAL-DISEASES-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/2021/02/FDD_EIP_nmi_implementation_spreadsheet_and_instructions_20190102-508.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/FDD_v1.0.1_MMG_20210721.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.1 (updated 07/21/21). Vocabulary version: 8 (updated 03/28/24). Open for general onboarding: not marked. HL7 link label: Foodborne and Diarrheal Diseases v1.0.1 Message Mapping Guide (7/21/2021). CSV link label: EIP Foodborne and Diarrheal Diseases v1.0.x Implementation Spreadsheet (01/02/2019). CDC detail page: https://ndc.services.cdc.gov/mmgpage/foodborne-and-diarrheal-diseases-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=482849BD-14ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 9,
+  "fields": {
+    "name": "Generic (HL7)",
+    "code": "GENERIC-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/generic_v2.0.1_nmi_implementation_spreadsheet_and_instructions_20210722.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Generic_V2_0_1_MMG-and-TS_F_20210722.xlsx",
+    "comments": "CDC status: Current. Index version: 2.0.1 (updated 07/22/21). Vocabulary version: 16 (updated 01/08/21). Open for general onboarding: yes. HL7 link label: Generic v2.0.1 Message Mapping Guide and Test Case Scenarios (07/22/2021). CSV link label: Generic v2.0.1 Implementation Spreadsheet (07/22/2021. CDC detail page: https://ndc.services.cdc.gov/mmgpage/generic-v2-0-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=4474B613-B551-EB11-8197-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 10,
+  "fields": {
+    "name": "Healthcare-Associated Infections, Multidrug-Resistant Organisms (HAI MDRO) (HL7)",
+    "code": "HEALTHCARE-ASSOCIATED-INFECTIONS-MULTIDRUG-RESISTANT-ORGANISMS-HAI-MDRO-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/HAI-MDRO_nmi_implementation_spreadsheet_and_instructions_20240801.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/HAI-MDRO_V1_1_MMG-and-TS_F_20240820.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1 (updated 08/20/24). Vocabulary version: 6 (updated 09/25/24). Open for general onboarding: yes. HL7 link label: Healthcare-Associated Infections, Multidrug-Resistant Organisms (HAI MDRO) v1.1 Message Mapping Guide and Test Case Scenarios (08/20/2024). CSV link label: HAI MDRO v1.1 Implementation Spreadsheet (08/01/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/healthcare-associated-infections-multidrug-resistant-organisms-hai-mdro-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=8D502B85-9D7A-EF11-81E7-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 11,
+  "fields": {
+    "name": "Hepatitis (HL7)",
+    "code": "HEPATITIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/2021/02/hepatitis_nmi_implementation_spreadsheet_and_instructions_20180730.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Hepatitis_v1.0.1_MMG_20210721.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.1 (updated 07/21/21). Vocabulary version: 7 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: Hepatitis v1.0.1 Message Mapping Guide (07/21/2021). CSV link label: Hepatitis v1.0.x Implementation Spreadsheet (07/30/2018). CDC detail page: https://ndc.services.cdc.gov/mmgpage/hepatitis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=D8665AB8-15ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 12,
+  "fields": {
+    "name": "Legionellosis (HL7)",
+    "code": "LEGIONELLOSIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Legionellosis_v1_0_nmi_implementation_spreadsheet_and_instructions_20240614.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Legionellosis_V1_0_MMG-and-TS_F_20240614.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0 (updated 06/14/24). Vocabulary version: 1 (updated 05/08/24). Open for general onboarding: yes. HL7 link label: Legionellosis v1.0 Message Mapping Guide & Test Case Scenarios (06/14/2024). CSV link label: Legionellosis v1.0 Implementation Spreadsheet (06/14/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/legionellosis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=86302E86-870D-EF11-81D7-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 13,
+  "fields": {
+    "name": "Lyme and Tickborne Rickettsial Diseases (HL7)",
+    "code": "LYME-AND-TICKBORNE-RICKETTSIAL-DISEASES-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Lyme_TBRD_v1_0_2_nmi_implementation_spreadsheet_and_instructions_20220510.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Lyme_TBRD_v1_0_2_MMG-and-TS_F_20220510.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.2 (updated 05/10/22). Vocabulary version: 6 (updated 07/16/26). Open for general onboarding: yes. HL7 link label: Lyme and Tickborne Rickettsial Diseases v1.0.2 Message Mapping Guide and Test Case Scenarios (05/10/2022). CSV link label: Lyme and Tickborne Rickettsial Diseases v1.0.2 Implementation Spreadsheet (05/10/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/lyme-and-tickborne-rickettsial-diseases-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=E700A51E-2B81-F111-BAF8-0050569763C5."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 14,
+  "fields": {
+    "name": "Malaria (HL7)",
+    "code": "MALARIA-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Malaria_V1_1_nmi_implementation_spreadsheet_and_instructions_20240918.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Malaria_V1_1_MMG-and-TS_F_202401918.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1 (updated 09/18/24). Vocabulary version: 6 (updated 05/06/23). Open for general onboarding: yes. HL7 link label: Malaria v1.1 Message Mapping Guide & Test Case Scenarios (9/18/2024). CSV link label: Malaria v1.1 Implementation Spreadsheet (9/18/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/malaria-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=F5287F42-8AD4-ED11-81C4-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 15,
+  "fields": {
+    "name": "Measles (HL7)",
+    "code": "MEASLES-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Measles_v1_0_nmi_implementation_spreadsheet_and_instructions_20230224.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Measles_V1_0_MMG-and-TS_F_20240318.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0 (updated 03/21/24). Vocabulary version: 9 (updated 03/28/24). Open for general onboarding: yes. HL7 link label: Measles v1.0 Message Mapping Guide & Test Case Scenarios (03/18/2024). CSV link label: Measles v1.0 Implementation Spreadsheet (02/24/2023). CDC detail page: https://ndc.services.cdc.gov/mmgpage/measles-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=B804C4DA-15ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 16,
+  "fields": {
+    "name": "Mumps (HL7)",
+    "code": "MUMPS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Mumps_v1.0.2_NNDSS_IS_20240822.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Mumps_V1_0_2_MMG-and-TS_F_20240822.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.2 (updated 08/22/24). Vocabulary version: 15 (updated 08/22/24). Open for general onboarding: yes. HL7 link label: Mumps v1.0.2 Message Mapping Guide (08/22/24). CSV link label: Mumps v1.0.2 Implementation Spreadsheet (08/22/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/mumps-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=7DDFD2F5-BA63-EF11-81E5-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 17,
+  "fields": {
+    "name": "Pertussis (HL7)",
+    "code": "PERTUSSIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Pertussis_v1.0.2_NNDSS_IS_20240822.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Pertussis_V1_0_2_MMG-and-TS_F_20240822.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.2 (updated 08/22/24). Vocabulary version: 15 (updated 08/22/24). Open for general onboarding: yes. HL7 link label: Pertussis v1.0.2 Message Mapping Guide (08/22/24). CSV link label: Pertussis v1.0.2 Implementation Spreadsheet (08/22/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/pertussis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=2CA6D4B4-BE63-EF11-81E5-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 18,
+  "fields": {
+    "name": "Respiratory and Invasive Bacterial Diseases (RIBD) (HL7)",
+    "code": "RESPIRATORY-AND-INVASIVE-BACTERIAL-DISEASES-RIBD-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/2021/02/RIBD_nmi_implementation_spreadsheet_and_instructions_20200309.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/RIBD_v1.1.1_MMG_20210721.xlsx",
+    "comments": "CDC status: Current. Index version: 1.1.1 (updated 07/21/21). Vocabulary version: 6 (updated 03/28/24). Open for general onboarding: not marked. HL7 link label: RIBD v1.1.1 Message Mapping Guide (07/21/2021). CSV link label: RIBD v1.1.x Implementation Spreadsheet (03/06/2020). CDC detail page: https://ndc.services.cdc.gov/mmgpage/respiratory-and-invasive-bacterial-diseases-ribd-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=16DD5EA9-13ED-EE11-81D6-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 19,
+  "fields": {
+    "name": "STD (HL7)",
+    "code": "STD-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/STD_v1_3_0_nmi_implementation_spreadsheet_and_instructions_20250131.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/STD_V1_3_0_MMG-and-TS_F_20250131.xlsx",
+    "comments": "CDC status: Current. Index version: 1.3.0 (updated 01/31/25). Vocabulary version: 1 (updated 01/31/25). Open for general onboarding: yes. HL7 link label: STD v1.3.0 Message Mapping Guide and Test Case Scenarios (01/31/2025). CSV link label: STD v1.3.0 Implementation Spreadsheet (01/31/2025). CDC detail page: https://ndc.services.cdc.gov/mmgpage/std-message-mapping-guide/."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 20,
+  "fields": {
+    "name": "Trichinellosis (HL7)",
+    "code": "TRICHINELLOSIS-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Trichinellosis_V1_0_3_nmi_implementation_spreadsheet_and_instructions_20211018.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Trichinellosis_V1_0_3_MMG-and-TS_F_20211018.xlsx",
+    "comments": "CDC status: Current. Index version: 1.0.3 (updated 10/18/21). Vocabulary version: 3 (updated 10/18/21). Open for general onboarding: yes. HL7 link label: Trichinellosis v1.0.3 Message Mapping Guide & Test Case Scenarios (10/18/2021). CSV link label: Trichinellosis v1.0.3 Implementation Spreadsheet (10/18/2021). CDC detail page: https://ndc.services.cdc.gov/mmgpage/trichinellosis-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=3E0DABBB-BB17-EC11-81A3-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 21,
+  "fields": {
+    "name": "Tuberculosis and Latent TB Infection (HL7)",
+    "code": "TUBERCULOSIS-AND-LATENT-TB-INFECTION-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/TB_v3.0.3_nmi_implementation_spreadsheet_and_instructions_20220711.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Tuberculosis-and-LTBI_MMG_v3.0.3_20220711.xlsx",
+    "comments": "CDC status: Current. Index version: 3.0.3 (updated 07/11/22). Vocabulary version: 7 (updated 06/14/22). Open for general onboarding: yes. HL7 link label: Tuberculosis and Latent TB Infection v3.0.3 Message Mapping Guide and Test Case Scenarios (07/11/2022). CSV link label: Tuberculosis and Latent TB Infection v3.0.3 Implementation Spreadsheet (07/11/2022). CDC detail page: https://ndc.services.cdc.gov/mmgpage/tuberculosis-and-latent-tb-infection-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=A1286853-27EC-EC11-81AF-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 22,
+  "fields": {
+    "name": "Varicella (HL7)",
+    "code": "VARICELLA-HL7",
+    "csv_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Varicella_v3.0.2_NNDSS_IS_20240822.xlsx",
+    "hl7v2_guide_url": "https://ndc.services.cdc.gov/wp-content/uploads/Varicella_V3_0_2_MMG-and-TS_F_20240822.xlsx",
+    "comments": "CDC status: Current. Index version: 3.0.1 (updated 08/22/24). Vocabulary version: 13 (updated 08/22/24). Open for general onboarding: yes. HL7 link label: Varicella v3.0.2 Message Mapping Guide (08/22/2024). CSV link label: Varicella v3.0.2 Implementation Spreadsheet (08/22/2024). CDC detail page: https://ndc.services.cdc.gov/mmgpage/varicella-message-mapping-guide/. PHIN VADS: https://phinvads.cdc.gov/vads/ViewView.action?id=FB735C34-C063-EF11-81E5-005056ABE2F0."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 23,
+  "fields": {
+    "name": "Hepatitis V2",
+    "code": "HEPATITIS-V2",
+    "csv_guide_url": "",
+    "hl7v2_guide_url": "",
+    "comments": "CDC status: In development. No current HL7 guide, CSV implementation guide, or vocabulary version is linked on the CDC Implementation Guides page. Source: https://ndc.services.cdc.gov/implementation-guides/."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 24,
+  "fields": {
+    "name": "Congenital Rubella Syndrome",
+    "code": "CONGENITAL-RUBELLA-SYNDROME",
+    "csv_guide_url": "",
+    "hl7v2_guide_url": "",
+    "comments": "CDC status: In development. No current HL7 guide, CSV implementation guide, or vocabulary version is linked on the CDC Implementation Guides page. Source: https://ndc.services.cdc.gov/implementation-guides/."
+  }
+},
+{
+  "model": "uscdi.messagemappingguide",
+  "pk": 25,
+  "fields": {
+    "name": "Rubella",
+    "code": "RUBELLA",
+    "csv_guide_url": "",
+    "hl7v2_guide_url": "",
+    "comments": "CDC status: In development. No current HL7 guide, CSV implementation guide, or vocabulary version is linked on the CDC Implementation Guides page. Source: https://ndc.services.cdc.gov/implementation-guides/."
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 1,
+  "fields": {
+    "name": "Patient Identification",
+    "code": "PID",
+    "example": "MSH|^~\\&|SendingApp|SendingFac|ReceivingApp|ReceivingFac|20260819||ADT^A01|12345|P|2.5\r\nEVN|A01|202608191200"
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 2,
+  "fields": {
+    "name": "Observation Result",
+    "code": "OBX",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 3,
+  "fields": {
+    "name": "Observation Request",
+    "code": "OBR",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 4,
+  "fields": {
+    "name": "Patient Visit",
+    "code": "PV1",
+    "example": "PV1|1|I|ICU^101^1^Hospital||||1234^Smith^Jane"
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 5,
+  "fields": {
+    "name": "Common Order",
+    "code": "ORC",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 6,
+  "fields": {
+    "name": "Event Information",
+    "code": "EVN",
+    "example": "EVN|A01|202608191200"
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 7,
+  "fields": {
+    "name": "Message Acknowledgment",
+    "code": "MSA",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 8,
+  "fields": {
+    "name": "Diagnosis",
+    "code": "DG1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 9,
+  "fields": {
+    "name": "Message Header",
+    "code": "MSH",
+    "example": "MSH|^~\\&|SendingApp|SendingFac|ReceivingApp|ReceivingFac|20260819||ADT^A01|12345|P|2.5"
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 10,
+  "fields": {
+    "name": "Error",
+    "code": "ERR",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 11,
+  "fields": {
+    "name": "Next of Kin / Associated Parties",
+    "code": "NK1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 12,
+  "fields": {
+    "name": "Patient Allergy Information",
+    "code": "AL1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 13,
+  "fields": {
+    "name": "Procedures",
+    "code": "PR1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 14,
+  "fields": {
+    "name": "Insurance",
+    "code": "IN1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 15,
+  "fields": {
+    "name": "Guarantor",
+    "code": "GT1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 16,
+  "fields": {
+    "name": "Timing/Quantity",
+    "code": "TQ1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 17,
+  "fields": {
+    "name": "Financial Transaction",
+    "code": "FT1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 18,
+  "fields": {
+    "name": "Transcription Document Header",
+    "code": "TXA",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 19,
+  "fields": {
+    "name": "Master File Identification",
+    "code": "MFI",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 20,
+  "fields": {
+    "name": "Master File Acknowledgment",
+    "code": "MFA",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 21,
+  "fields": {
+    "name": "Master File Entry",
+    "code": "MFE",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 22,
+  "fields": {
+    "name": "Specimen",
+    "code": "SPM",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 23,
+  "fields": {
+    "name": "Specimen Container Detail",
+    "code": "SAC",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 24,
+  "fields": {
+    "name": "Problem Details",
+    "code": "PRB",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 25,
+  "fields": {
+    "name": "Pathway",
+    "code": "PTH",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 26,
+  "fields": {
+    "name": "Goal Detail",
+    "code": "GOL",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 27,
+  "fields": {
+    "name": "Query Parameter Definition",
+    "code": "QPD",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 28,
+  "fields": {
+    "name": "Response Control Parameter",
+    "code": "RCP",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 29,
+  "fields": {
+    "name": "Pharmacy/Treatment Order",
+    "code": "RXO",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 30,
+  "fields": {
+    "name": "Pharmacy/Treatment Encoded Order",
+    "code": "RXE",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 31,
+  "fields": {
+    "name": "Pharmacy/Treatment Administration",
+    "code": "RXA",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 32,
+  "fields": {
+    "name": "Pharmacy/Treatment Route",
+    "code": "RXR",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 33,
+  "fields": {
+    "name": "Pharmacy/Treatment Dispense",
+    "code": "RXD",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 34,
+  "fields": {
+    "name": "Referral Information",
+    "code": "RF1",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 35,
+  "fields": {
+    "name": "Query Acknowledgment",
+    "code": "QAK",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 36,
+  "fields": {
+    "name": "Table Row Definition",
+    "code": "RDF",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 37,
+  "fields": {
+    "name": "Table Row Data",
+    "code": "RDT",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 38,
+  "fields": {
+    "name": "Scheduling Activity Information",
+    "code": "SCH",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 39,
+  "fields": {
+    "name": "Resource Group",
+    "code": "RGS",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 40,
+  "fields": {
+    "name": "Appointment Information - Service",
+    "code": "AIS",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 41,
+  "fields": {
+    "name": "Appointment Information - General Resource",
+    "code": "AIG",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 42,
+  "fields": {
+    "name": "Appointment Information - Location Resource",
+    "code": "AIL",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7segment",
+  "pk": 43,
+  "fields": {
+    "name": "Appointment Information - Personnel Resource",
+    "code": "AIP",
+    "example": ""
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 1,
+  "fields": {
+    "code": "ORM",
+    "name": "General Order",
+    "example": "ORM^O01 New/update/cancel an order; common in older v2 interfaces",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      12,
+      14
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 2,
+  "fields": {
+    "code": "ORU",
+    "name": "Observation Result",
+    "example": "ORU^R01 is extremely common for lab, clinical, and other results",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      11,
+      22
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 3,
+  "fields": {
+    "code": "ADT",
+    "name": "Admit, Discharge, Transfer",
+    "example": "ADT^A01 Admit, A03 Discharge, A04 Register, A08 Update patient, A40 Merge patient",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 4,
+  "fields": {
+    "code": "OML",
+    "name": "Laboratory Order",
+    "example": "OML^O21, O23, etc.; lab-specific orders",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      11,
+      12,
+      14,
+      16,
+      22,
+      23
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 5,
+  "fields": {
+    "code": "SIU",
+    "name": "Scheduling Information Unsolicited",
+    "example": "SIU^S12 New appointment, S13 reschedule, S14 modification, S15 cancellation",
+    "pub_health_germain": false,
+    "segments": [
+      1,
+      2,
+      4,
+      8,
+      9,
+      16,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 6,
+  "fields": {
+    "code": "MDM",
+    "name": "Medical Document Management",
+    "example": "MDM^T02 document notification, T11 document cancel",
+    "pub_health_germain": false,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      9,
+      16,
+      18
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 7,
+  "fields": {
+    "code": "DFT",
+    "name": "Detailed Financial Transaction",
+    "example": "DFT^P03 charges and other financial transactions",
+    "pub_health_germain": false,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      8,
+      9,
+      13,
+      14,
+      15,
+      16,
+      17
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 8,
+  "fields": {
+    "code": "BAR",
+    "name": "Add/Change Billing Account",
+    "example": "Billing/account information",
+    "pub_health_germain": false,
+    "segments": [
+      1,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 9,
+  "fields": {
+    "code": "RDE",
+    "name": "Pharmacy/Treatment Encoded Order",
+    "example": "Pharmacy medication orders",
+    "pub_health_germain": false,
+    "segments": [
+      1,
+      2,
+      4,
+      5,
+      9,
+      12,
+      14,
+      16,
+      29,
+      30,
+      32
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 10,
+  "fields": {
+    "code": "RAS",
+    "name": "Pharmacy/Treatment Administration",
+    "example": "Medication administration information",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      4,
+      5,
+      9,
+      12,
+      16,
+      29,
+      30,
+      31,
+      32
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 11,
+  "fields": {
+    "code": "RDS",
+    "name": "Pharmacy/Treatment Dispense",
+    "example": "Medication dispensing",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      4,
+      5,
+      9,
+      12,
+      16,
+      32,
+      33
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 12,
+  "fields": {
+    "code": "VXU",
+    "name": "Unsolicited Vaccination Update",
+    "example": "VXU^V04; immunization reporting, including IIS interfaces",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      4,
+      5,
+      9,
+      11,
+      14,
+      16,
+      31,
+      32
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 13,
+  "fields": {
+    "code": "QBP",
+    "name": "Query by Parameter",
+    "example": "Query/request, e.g. patient or immunization-history queries",
+    "pub_health_germain": false,
+    "segments": [
+      9,
+      27,
+      28
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 14,
+  "fields": {
+    "code": "RSP",
+    "name": "Segment Pattern Response",
+    "example": "Response to many QBP queries",
+    "pub_health_germain": false,
+    "segments": [
+      7,
+      9,
+      10,
+      27,
+      35,
+      36,
+      37
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 15,
+  "fields": {
+    "code": "ACK",
+    "name": "General Acknowledgment",
+    "example": "Confirms acceptance/rejection/error processing of a message",
+    "pub_health_germain": false,
+    "segments": [
+      7,
+      9,
+      10
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 16,
+  "fields": {
+    "code": "MFN",
+    "name": "Master Files Notification",
+    "example": "Provider, location, test dictionaries, etc.",
+    "pub_health_germain": false,
+    "segments": [
+      9,
+      19,
+      21
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 17,
+  "fields": {
+    "code": "MFK",
+    "name": "Master Files Acknowledgment",
+    "example": "Response to an MFN",
+    "pub_health_germain": false,
+    "segments": [
+      7,
+      9,
+      10,
+      19,
+      20
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 18,
+  "fields": {
+    "code": "OMG",
+    "name": "General Clinical Order",
+    "example": "More modern general-order message structure",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      8,
+      9,
+      11,
+      12,
+      14,
+      16,
+      17,
+      22,
+      23
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 19,
+  "fields": {
+    "code": "OUL",
+    "name": "Unsolicited Laboratory Observation",
+    "example": "Laboratory observation/results workflows",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      16,
+      22,
+      23
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 20,
+  "fields": {
+    "code": "PPR",
+    "name": "Patient Problem",
+    "example": "Problem-list information",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      9,
+      24,
+      25,
+      26
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+},
+{
+  "model": "uscdi.hl7message",
+  "pk": 21,
+  "fields": {
+    "code": "REF",
+    "name": "Patient Referral",
+    "example": "Referral information",
+    "pub_health_germain": true,
+    "segments": [
+      1,
+      2,
+      3,
+      4,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      34
+    ],
+    "uscdi_elements": [],
+    "mmgs": []
+  }
+}
+]
