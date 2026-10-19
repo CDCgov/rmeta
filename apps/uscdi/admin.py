@@ -1,7 +1,9 @@
 from django.contrib import admin
+from django.db.models import Count
 from .models import (DataElementType, DomainType, DataClassType, 
                      UseCaseType, CDCDataElements, DataElement,
-                     HL7Segment, HL7Message, MessageMappingGuide)
+                     HL7Segment, HL7Message, MessageMappingGuide,
+                     CodeReference, Uses)
 
 class MessageMappingGuideAdmin(admin.ModelAdmin):
     list_display = ('code', 'name', 'csv_guide_url', 'hl7v2_guide_url')
@@ -71,3 +73,38 @@ class UseCaseTypeAdmin(admin.ModelAdmin):
     search_fields = ('code', 'name', 'uscdi_uuid')
 
 admin.site.register(UseCaseType, UseCaseTypeAdmin)
+
+
+@admin.register(Uses)
+class UsesAdmin(admin.ModelAdmin):
+    list_display = ('name', 'url', 'code_reference_count')
+    search_fields = ('name', 'url')
+    ordering = ('name', 'url')
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(
+            _code_reference_count=Count('code_references', distinct=True)
+        )
+
+    @admin.display(description='Code references', ordering='_code_reference_count')
+    def code_reference_count(self, obj):
+        return obj._code_reference_count
+
+
+@admin.register(CodeReference)
+class CodeReferenceAdmin(admin.ModelAdmin):
+    list_display = ('name', 'title', 'oid', 'version', 'status', 'use_count')
+    list_filter = ('status', 'version')
+    search_fields = ('name', 'title', 'url', 'oid', 'description',
+                     'uses__name', 'uses__url')
+    ordering = ('name', 'url')
+    autocomplete_fields = ('uses',)
+
+    def get_queryset(self, request):
+        return super().get_queryset(request).annotate(
+            _use_count=Count('uses', distinct=True)
+        )
+
+    @admin.display(description='Uses', ordering='_use_count')
+    def use_count(self, obj):
+        return obj._use_count

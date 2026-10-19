@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'apps.sophv',
     'apps.dq',
     'apps.mdn',
+    'apps.piqi_pcm',
+    'apps.phig_data_elements'
 ]
 OAUTH2_PROVIDER_APPLICATION_MODEL="oauth2_provider.Application"
 

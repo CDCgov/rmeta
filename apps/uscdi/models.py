@@ -361,3 +361,39 @@ class CDCDataElements(models.Model):
     class Meta:
         verbose_name_plural = 'USCDI+ CDC Recommended Data Elements'
         verbose_name = 'USCDI+ CDC Recommended Data Element'
+
+
+class Uses(models.Model):
+    """A value set or other resource that uses a code system."""
+
+    name = models.CharField(max_length=255)
+    # Source values include both absolute URLs and relative HTML paths.
+    url = models.CharField(max_length=2048, unique=True)
+
+    class Meta:
+        ordering = ('name', 'url')
+        verbose_name = 'Use'
+        verbose_name_plural = 'Uses'
+
+    def __str__(self):
+        return self.name
+
+
+class CodeReference(models.Model):
+    """A code system and its references in the supplied JSON list."""
+
+    url = models.CharField(max_length=2048, unique=True)
+    version = models.CharField(max_length=64, blank=True, null=True)
+    status = models.CharField(max_length=32)
+    name = models.CharField(max_length=255)
+    title = models.CharField(max_length=512)
+    description = models.TextField(blank=True)
+    # Each source oids array contains one textual OID.
+    oid = models.CharField(max_length=255, db_index=True)
+    uses = models.ManyToManyField(Uses, related_name='code_references', blank=True)
+
+    class Meta:
+        ordering = ('name', 'url')
+
+    def __str__(self):
+        return self.name

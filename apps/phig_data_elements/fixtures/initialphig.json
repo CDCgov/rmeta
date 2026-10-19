@@ -1,0 +1,2226 @@
+[
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 1,
+  "fields": {
+    "name": "Patient Last Name",
+    "field_name": "PatientLastName",
+    "section": "Patient",
+    "source_row": 3,
+    "uscdi_element": "Patient Demographics/Information: Last Name",
+    "rationale_for_inclusion": "Core identifier for patient matching, deduplication, and linking reports to existing public health records; needed for case investigation follow-up.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.name.family",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "Patient.name 1..*; Patient.name.family 0..1 (invariant us-core-6: family, given, or data-absent-reason extension required)",
+    "ig_value_set": "None (string, no binding)",
+    "value_set_name": "",
+    "value_set_oid": "",
+    "code_systems_name": "",
+    "notes": "USCDI v3 element supported by certified EHRs. Free text, so no value set applies. Populate when known; otherwise use data-absent-reason.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      16
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 2,
+  "fields": {
+    "name": "Patient First Name",
+    "field_name": "PatientFirstName",
+    "section": "Patient",
+    "source_row": 4,
+    "uscdi_element": "Patient Demographics/Information: First Name",
+    "rationale_for_inclusion": "Used with last name, address, and DOB as a primary patient-matching key and for contacting the patient during case investigation.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.name.given",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "Patient.name 1..*; Patient.name.given 0..* (invariant us-core-6 applies)",
+    "ig_value_set": "None (string, no binding)",
+    "value_set_name": "",
+    "value_set_oid": "",
+    "code_systems_name": "",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      15
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 3,
+  "fields": {
+    "name": "Patient Address",
+    "field_name": "PatientAddress",
+    "section": "Patient",
+    "source_row": 5,
+    "uscdi_element": "Patient Demographics/Information: Current Address",
+    "rationale_for_inclusion": "US Public Health (PH) requires an address because residence determines the reporting jurisdiction. US PH adds county (district) as Must Support for local health department routing.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.address (use, line, city, district [county], state, postalCode)",
+    "ig_must_support": "Yes (address, line, city, district, state, postalCode)",
+    "ig_cardinality": "address 1..*; line 0..*; city 0..1; district 0..1; state 0..1; postalCode 0..1",
+    "ig_value_set": "state: http://hl7.org/fhir/us/core/ValueSet/us-core-usps-state (extensible); use: AddressUse (required)",
+    "value_set_name": "USPS Two Letter Alphabetic Codes; AddressUse",
+    "value_set_oid": "No OID in FHIR IG; C-CDA State Value Set equivalent 2.16.840.1.113883.3.88.12.80.1",
+    "code_systems_name": "USPS Two-Letter Alphabetic Codes; FHIR AddressUse",
+    "notes": "If homeless, populate what is known and use the US PH Characteristics of Home Environment profile. Masking allowed via data-absent-reason = 'masked'.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      18
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 4,
+  "fields": {
+    "name": "Patient Date of Birth",
+    "field_name": "PatientDateOfBirth",
+    "section": "Patient",
+    "source_row": 6,
+    "uscdi_element": "Patient Demographics/Information: Date of Birth",
+    "rationale_for_inclusion": "Key patient-matching element and needed to calculate age for age-stratified surveillance, case definitions, and age-specific interventions (e.g., pediatric cases).",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.birthDate",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (date datatype, no binding)",
+    "value_set_name": "",
+    "value_set_oid": "",
+    "code_systems_name": "",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      3
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 5,
+  "fields": {
+    "name": "Sex",
+    "field_name": "Sex",
+    "section": "Patient",
+    "source_row": 7,
+    "uscdi_element": "Patient Demographics/Information: Sex",
+    "rationale_for_inclusion": "Used for stratification by sex.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.extension:sex",
+    "ig_must_support": "No",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "US Core Sex value set: Male, Female, Patient Sex Unknown, asked-declined (binding: required)",
+    "value_set_name": "Sex (US Core)",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96); HL7 v3 NullFlavor (asked-declined)",
+    "notes": "Patient.gender (AdministrativeGender, 1..1, Must Support) is the only required sex-related field in US PH; the Birth Sex  extension (us-core-birthsex, 0..1) is also available but is no longer a USCDI requirement after US Core 6.0.",
+    "piqi_mapping_notes": "No exact PIQI equivalent: the workbook's US Core sex extension is not the same concept as PIQI birthSex or genderIdentity.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 6,
+  "fields": {
+    "name": "Race",
+    "field_name": "Race",
+    "section": "Patient",
+    "source_row": 8,
+    "uscdi_element": "Patient Demographics/Information: Race",
+    "rationale_for_inclusion": "US PH makes race required for health disparities analysis.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.extension:race → ombCategory, detailed, text",
+    "ig_must_support": "Yes (extension, ombCategory, text)",
+    "ig_cardinality": "extension 1..1; ombCategory 0..5; detailed 0..*; text 1..1",
+    "ig_value_set": "ombCategory: http://hl7.org/fhir/us/core/ValueSet/omb-race-category (required); detailed: http://hl7.org/fhir/us/core/ValueSet/detailed-race (required)",
+    "value_set_name": "OMB Race Categories; Detailed Race",
+    "value_set_oid": "No OID in FHIR IG; PHIN VADS Race Category equivalent 2.16.840.1.114222.4.11.836",
+    "code_systems_name": "CDC Race and Ethnicity (urn:oid:2.16.840.1.113883.6.238); HL7 v3 NullFlavor (UNK, ASKU)",
+    "notes": "To mask, add data-absent-reason = 'masked' and set text to 'masked'.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      7
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 7,
+  "fields": {
+    "name": "Ethnicity",
+    "field_name": "Ethnicity",
+    "section": "Patient",
+    "source_row": 9,
+    "uscdi_element": "Patient Demographics/Information: Ethnicity",
+    "rationale_for_inclusion": "US PH makes ethnicity required alongside race for disparities analysis.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.extension:ethnicity → ombCategory, detailed, text",
+    "ig_must_support": "Yes (extension, ombCategory, text)",
+    "ig_cardinality": "extension 1..1; ombCategory 0..1; detailed 0..*; text 1..1",
+    "ig_value_set": "ombCategory: http://hl7.org/fhir/us/core/ValueSet/omb-ethnicity-category (required); detailed: http://hl7.org/fhir/us/core/ValueSet/detailed-ethnicity (required)",
+    "value_set_name": "OMB Ethnicity Categories; Detailed Ethnicity",
+    "value_set_oid": "No OID in FHIR IG; PHIN VADS Ethnicity Group equivalent 2.16.840.1.114222.4.11.837 (verify)",
+    "code_systems_name": "CDC Race and Ethnicity (urn:oid:2.16.840.1.113883.6.238); HL7 v3 NullFlavor (UNK, ASKU)",
+    "notes": "To mask, add data-absent-reason = 'masked' and set text to 'masked'.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      8
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 8,
+  "fields": {
+    "name": "Encounter Status",
+    "field_name": "EncounterStatus",
+    "section": "Encounter",
+    "source_row": 11,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Indicates whether the encounter is planned, in-progress, finished, cancelled, or entered-in-error. Lets public health tell active vs. completed visits, trigger report updates when an encounter closes, and exclude entered-in-error records.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.status",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/encounter-status (binding: required)",
+    "value_set_name": "EncounterStatus",
+    "value_set_oid": "2.16.840.1.113883.4.642.3.246",
+    "code_systems_name": "EncounterStatus (http://hl7.org/fhir/encounter-status)",
+    "notes": "Required by base FHIR and the IG; the required binding means only the defined codes are allowed, so receivers can rely on consistent values.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      178
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 9,
+  "fields": {
+    "name": "Encounter Classification",
+    "field_name": "EncounterClassification",
+    "section": "Encounter",
+    "source_row": 12,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Identifies the care setting (e.g., AMB ambulatory, EMER emergency, IMP inpatient, OBSENC observation, VR virtual). Setting drives case definitions, severity assessment (e.g., hospitalization), syndromic surveillance, and routing rules.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.class",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://terminology.hl7.org/ValueSet/v3-ActEncounterCode (binding: extensible)",
+    "value_set_name": "ActEncounterCode",
+    "value_set_oid": "2.16.840.1.113883.1.11.13955",
+    "code_systems_name": "HL7 v3 ActCode (2.16.840.1.113883.5.4)",
+    "notes": "Required on every Encounter; the extensible binding means ActEncounterCode must be used when a suitable code exists.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      179
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 10,
+  "fields": {
+    "name": "Encounter Type",
+    "field_name": "EncounterType",
+    "section": "Encounter",
+    "source_row": 13,
+    "uscdi_element": "Encounter Information: Encounter Type",
+    "rationale_for_inclusion": "Describes the specific kind of encounter (office visit, ED visit, telehealth). Adds detail beyond class for case investigation and utilization analysis; coded for consistent interpretation across senders.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.type",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..*",
+    "ig_value_set": "US Core Encounter Type",
+    "value_set_name": "",
+    "value_set_oid": "SNOMED CT (2.16.840.1.113883.6.96); CPT-4 (2.16.840.1.113883.6.12)",
+    "code_systems_name": "Describes the specific kind of encounter (office visit, ED visit, telehealth). Adds detail beyond class for case investigation and utilization analysis; coded for consistent interpretation across senders.",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      176
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 11,
+  "fields": {
+    "name": "Encounter Diagnosis",
+    "field_name": "EncounterDiagnosis",
+    "section": "Encounter",
+    "source_row": 14,
+    "uscdi_element": "Encounter Information: Encounter Diagnosis",
+    "rationale_for_inclusion": "Central to public health reporting: diagnosis codes drive reportable-condition trigger matching, case classification, and surveillance counts. Linking the diagnosis to the encounter establishes when and where it was made.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Condition.code (linked via Condition.encounter); also Encounter.reasonCode / reasonReference for visit reason",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "Condition.code 1..1; Condition.category 1..* (must include encounter-diagnosis); Condition.encounter 1..1",
+    "ig_value_set": "US Core Condition Codes, QI-Core, MENDS",
+    "value_set_name": "",
+    "value_set_oid": "SNOMED CT (2.16.840.1.113883.6.96); ICD-10-CM (2.16.840.1.113883.6.90)",
+    "code_systems_name": "Central to public health reporting: diagnosis codes drive reportable-condition trigger matching, case classification, and surveillance counts. Linking the diagnosis to the encounter establishes when and where it was made.",
+    "notes": "This is a reference to a US Public Health Condition Encounter Diagnosis.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      170
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 12,
+  "fields": {
+    "name": "Encounter Time",
+    "field_name": "EncounterTime",
+    "section": "Encounter",
+    "source_row": 15,
+    "uscdi_element": "Encounter Information: Encounter Time",
+    "rationale_for_inclusion": "Establishes the timing of care, used for onset and reporting timeliness, outbreak timelines, MMWR week assignment, and length of stay.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.period (start / end)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (Period datatype, no binding)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "Period start is generally expected for reportable encounters even though the IG allows 0..1.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      173,
+      174
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 13,
+  "fields": {
+    "name": "Encounter Location",
+    "field_name": "EncounterLocation",
+    "section": "Encounter",
+    "source_row": 16,
+    "uscdi_element": "Encounter Information: Encounter Location",
+    "rationale_for_inclusion": "Identifies the facility where care occurred, supporting facility-level surveillance, outbreak and cluster detection, jurisdiction determination, and follow-up with the reporting facility.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.location.location (Reference to US Core Location)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "Encounter.location 0..*; Encounter.location.location 1..1",
+    "ig_value_set": "None on Encounter (reference). Location.type may carry facility type codes.",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A (reference to Location resource)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      175
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 14,
+  "fields": {
+    "name": "Blood Pressure (panel)",
+    "field_name": "BloodPressurePanel",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 18,
+    "uscdi_element": "Vital Signs: Systolic and Diastolic Blood Pressure",
+    "rationale_for_inclusion": "Groups systolic and diastolic readings taken together. Both components are required on every blood pressure observation.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.code = LOINC 85354-9 (Blood pressure panel)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed); no top-level value – results go in the two required components",
+    "ig_value_set": "Vital Sign Result Type (code binding: extensible; profile fixes the LOINC code)",
+    "value_set_name": "Vital Sign Result Type",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 15,
+  "fields": {
+    "name": "Systolic Blood Pressure",
+    "field_name": "SystolicBloodPressure",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 19,
+    "uscdi_element": "Vital Signs: Systolic Blood Pressure",
+    "rationale_for_inclusion": "Required component of every BP observation. If not measured, a data-absent reason must be sent; servers must support it even if they always send values.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.component:systolic – code = LOINC 8480-6; valueQuantity in mm[Hg]",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "component:systolic 1..1; code 1..1 (fixed); value 0..1 – value OR component.dataAbsentReason required (vs-3)",
+    "ig_value_set": "Code fixed to 8480-6; unit fixed to UCUM mm[Hg]",
+    "value_set_name": "N/A (fixed code and unit)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 16,
+  "fields": {
+    "name": "Diastolic Blood Pressure",
+    "field_name": "DiastolicBloodPressure",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 20,
+    "uscdi_element": "Vital Signs: Diastolic Blood Pressure",
+    "rationale_for_inclusion": "Required component of every BP observation, paired with systolic.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.component:diastolic – code = LOINC 8462-4; valueQuantity in mm[Hg]",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "component:diastolic 1..1; code 1..1 (fixed); value 0..1 – value OR component.dataAbsentReason required (vs-3)",
+    "ig_value_set": "Code fixed to 8462-4; unit fixed to UCUM mm[Hg]",
+    "value_set_name": "N/A (fixed code and unit)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 17,
+  "fields": {
+    "name": "Body Height",
+    "field_name": "BodyHeight",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 21,
+    "uscdi_element": "Vital Signs: Body Height",
+    "rationale_for_inclusion": "Used for BMI, growth tracking and dosing. More specific codes (e.g., 8306-3 body height lying) MAY be added as additional codings.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.code = LOINC 8302-2; Observation.valueQuantity",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed LOINC); value[x] 0..1 – value OR dataAbsentReason required (vs-2)",
+    "ig_value_set": "Code: Vital Sign Result Type (code binding: extensible; profile fixes the LOINC code); unit: Body Length Units http://hl7.org/fhir/ValueSet/ucum-bodylength (binding: required – cm or [in_i])",
+    "value_set_name": "Vital Sign Result Type; Body Length Units",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62 (code)",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 18,
+  "fields": {
+    "name": "Body Weight",
+    "field_name": "BodyWeight",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 22,
+    "uscdi_element": "Vital Signs: Body Weight",
+    "rationale_for_inclusion": "Used for BMI, weight-based dosing, growth and nutrition monitoring.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.code = LOINC 29463-7; Observation.valueQuantity",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed LOINC); value[x] 0..1 – value OR dataAbsentReason required (vs-2)",
+    "ig_value_set": "Code: Vital Sign Result Type (code binding: extensible; profile fixes the LOINC code); unit: Body Weight Units http://hl7.org/fhir/ValueSet/ucum-bodyweight (binding: required – kg, g or [lb_av])",
+    "value_set_name": "Vital Sign Result Type; Body Weight Units",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62 (code)",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 19,
+  "fields": {
+    "name": "Heart Rate",
+    "field_name": "HeartRate",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 23,
+    "uscdi_element": "Vital Signs: Heart Rate",
+    "rationale_for_inclusion": "Core vital sign for acuity and severity assessment.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.code = LOINC 8867-4; Observation.valueQuantity",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed LOINC); value[x] 0..1 – value OR dataAbsentReason required (vs-2)",
+    "ig_value_set": "Code: Vital Sign Result Type (code binding: extensible; profile fixes the LOINC code); unit fixed to UCUM /min (verify)",
+    "value_set_name": "Vital Sign Result Type",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62 (code)",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 20,
+  "fields": {
+    "name": "Respiratory Rate",
+    "field_name": "RespiratoryRate",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 24,
+    "uscdi_element": "Vital Signs: Respiratory Rate",
+    "rationale_for_inclusion": "Core vital sign; important for respiratory illness severity.",
+    "base_fhir_profile": "US Core Vital Signs Profile 6.1.0",
+    "profile_data_element": "Observation.code = LOINC 9279-1; Observation.valueQuantity",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed LOINC); value[x] 0..1 – value OR dataAbsentReason required (vs-2)",
+    "ig_value_set": "Code: Vital Sign Result Type (code binding: extensible; profile fixes the LOINC code); unit fixed to UCUM /min (verify)",
+    "value_set_name": "Vital Sign Result Type",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62 (code)",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 21,
+  "fields": {
+    "name": "Observation Status",
+    "field_name": "ObservationStatus",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 25,
+    "uscdi_element": "No – not a separate USCDI element",
+    "rationale_for_inclusion": "Tells receivers whether a measurement is final, amended, preliminary or entered-in-error, so erroneous or unverified vitals can be excluded.",
+    "base_fhir_profile": "US Core Vital Signs Profile (us-core-vital-signs), US Core 9.0.0 – profile OID 2.16.840.1.113883.4.642.40.2.42.68; base for all US Core vital sign profiles",
+    "profile_data_element": "Observation.status",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/observation-status (binding: required)",
+    "value_set_name": "ObservationStatus",
+    "value_set_oid": "",
+    "code_systems_name": "FHIR ObservationStatus (http://hl7.org/fhir/observation-status)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      105
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 22,
+  "fields": {
+    "name": "Vital Sign Type (Code)",
+    "field_name": "VitalSignTypeCode",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 26,
+    "uscdi_element": "Yes – Vital Signs data class (each vital sign is a USCDI element)",
+    "rationale_for_inclusion": "Identifies what was measured. LOINC is required where a code exists; additional or more specific codes (e.g., 8306-3 body height lying) and local codes MAY be added.",
+    "base_fhir_profile": "US Core Vital Signs Profile (us-core-vital-signs), US Core 9.0.0 – profile OID 2.16.840.1.113883.4.642.40.2.42.68; base for all US Core vital sign profiles",
+    "profile_data_element": "Observation.code",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "Vital Sign Result Type (binding: extensible); each derived profile fixes a specific LOINC code (see 'Vital Sign Profiles' tab)",
+    "value_set_name": "Vital Sign Result Type",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 23,
+  "fields": {
+    "name": "Result Value or Absent Reason (conditional)",
+    "field_name": "ResultValueOrAbsentReasonConditional",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 27,
+    "uscdi_element": "Yes – the measured value",
+    "rationale_for_inclusion": "Every vital sign needs either a value with a standard UCUM unit or a coded reason it is missing (e.g., patient refused, unable to obtain). The two cannot both be sent (rule obs-6).",
+    "base_fhir_profile": "US Core Vital Signs Profile (us-core-vital-signs), US Core 9.0.0 – profile OID 2.16.840.1.113883.4.642.40.2.42.68; base for all US Core vital sign profiles",
+    "profile_data_element": "Observation.value[x] (valueQuantity Must Support, UCUM) OR Observation.dataAbsentReason",
+    "ig_must_support": "Yes (both)",
+    "ig_cardinality": "value[x] 0..1; dataAbsentReason 0..1 – one of them is required unless component or hasMember is present (rule vs-2)",
+    "ig_value_set": "value: Vital Signs Units http://hl7.org/fhir/ValueSet/ucum-vitals-common (extensible); dataAbsentReason: http://hl7.org/fhir/ValueSet/data-absent-reason (extensible)",
+    "value_set_name": "Vital Signs Units; DataAbsentReason",
+    "value_set_oid": "",
+    "code_systems_name": "UCUM (2.16.840.1.113883.6.8); FHIR DataAbsentReason",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      102,
+      103,
+      111
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 24,
+  "fields": {
+    "name": "Component Code and Value (conditional)",
+    "field_name": "ComponentCodeAndValueConditional",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 28,
+    "uscdi_element": "Yes – e.g., systolic and diastolic BP",
+    "rationale_for_inclusion": "Used for multi-part vitals such as blood pressure (systolic + diastolic) and pulse oximetry (O2 flow rate, concentration). Each component needs a code and a value or absent reason.",
+    "base_fhir_profile": "US Core Vital Signs Profile (us-core-vital-signs), US Core 9.0.0 – profile OID 2.16.840.1.113883.4.642.40.2.42.68; base for all US Core vital sign profiles",
+    "profile_data_element": "Observation.component.code + component.value[x] OR component.dataAbsentReason",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "component 0..*; component.code 1..1 when sent; value or dataAbsentReason required per component (rule vs-3)",
+    "ig_value_set": "component.code: Vital Sign Result Type (extensible); component.value: Vital Signs Units (extensible)",
+    "value_set_name": "Vital Sign Result Type; Vital Signs Units",
+    "value_set_oid": "2.16.840.1.113883.3.88.12.80.62 (code)",
+    "code_systems_name": "LOINC; UCUM",
+    "notes": "",
+    "piqi_mapping_notes": "Partial mapping to vital sign code/value/absent reason. PIQI does not represent Observation.component grouping separately.",
+    "piqi_attributes": [
+      101,
+      102,
+      111
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 25,
+  "fields": {
+    "name": "Lab Encounter",
+    "field_name": "LabEncounter",
+    "section": "Laboratory Data",
+    "source_row": 30,
+    "uscdi_element": "N/A (link)",
+    "rationale_for_inclusion": "Visit associated with the test.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.encounter (Reference to US Core Encounter)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 26,
+  "fields": {
+    "name": "Specimen Collection Time",
+    "field_name": "SpecimenCollectionTime",
+    "section": "Laboratory Data",
+    "source_row": 31,
+    "uscdi_element": "Related – Laboratory",
+    "rationale_for_inclusion": "Clinically relevant time, usually specimen collection. effectivePeriod SHOULD be supported for timed collections.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.effective[x] (effectiveDateTime Must Support)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1 (if dateTime, precise to day – us-core-1)",
+    "ig_value_set": "None",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "Mapped by the workbook's element name to specimenCollectionDateTime. The workbook lists Observation.effective[x]; confirm that the source actually represents specimen collection time.",
+    "piqi_attributes": [
+      67
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 27,
+  "fields": {
+    "name": "Lab Result Performer",
+    "field_name": "LabResultPerformer",
+    "section": "Laboratory Data",
+    "source_row": 32,
+    "uscdi_element": "Related – Provenance",
+    "rationale_for_inclusion": "Who is responsible for the result.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.performer (US Core Practitioner – Must Support target)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      70,
+      71
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 28,
+  "fields": {
+    "name": "Result Interpretation",
+    "field_name": "ResultInterpretation",
+    "section": "Laboratory Data",
+    "source_row": 33,
+    "uscdi_element": "Related – Values/Results",
+    "rationale_for_inclusion": "High, low, normal, abnormal flags; supports alerting and reportable-result triage.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.interpretation",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "Observation Interpretation Codes (binding: extensible)",
+    "value_set_name": "ObservationInterpretation",
+    "value_set_oid": "N/A (FHIR core value set)",
+    "code_systems_name": "HL7 v3 ObservationInterpretation",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      57
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 29,
+  "fields": {
+    "name": "Reference Range",
+    "field_name": "ReferenceRange",
+    "section": "Laboratory Data",
+    "source_row": 34,
+    "uscdi_element": "Related – Values/Results",
+    "rationale_for_inclusion": "Normal range used to interpret the result.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.referenceRange (low/high/text)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..* (needs low, high or text – obs-3; UCUM units – us-core-22)",
+    "ig_value_set": "UCUM for low/high units",
+    "value_set_name": "UCUM",
+    "value_set_oid": "N/A",
+    "code_systems_name": "UCUM",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      62
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 30,
+  "fields": {
+    "name": "Specimen",
+    "field_name": "Specimen",
+    "section": "Laboratory Data",
+    "source_row": 35,
+    "uscdi_element": "Yes – Specimen Type (verify v3.1 naming)",
+    "rationale_for_inclusion": "Specimen type (blood, serum, urine). SHOULD be sent even when implied by the LOINC code, and SHOULD not conflict with it.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.specimen (Reference to US Core Specimen)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "See US Core Specimen Profile",
+    "value_set_name": "",
+    "value_set_oid": "",
+    "code_systems_name": "SNOMED CT (specimen type)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 31,
+  "fields": {
+    "name": "Test Name (text) [Additional USCDI]",
+    "field_name": "TestNameTextAdditionalUSCDI",
+    "section": "Laboratory Data",
+    "source_row": 36,
+    "uscdi_element": "Yes – Laboratory: Tests",
+    "rationale_for_inclusion": "Name of the test as performed; required for ONC certification testing.",
+    "base_fhir_profile": "US Core Laboratory Result Observation Profile, US Core 9.0",
+    "profile_data_element": "Observation.code.text",
+    "ig_must_support": "No (Additional USCDI requirement)",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (string)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      54
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 32,
+  "fields": {
+    "name": "Lab Report Status [Required]",
+    "field_name": "LabReportStatusRequired",
+    "section": "Laboratory Data",
+    "source_row": 37,
+    "uscdi_element": "Related – Laboratory",
+    "rationale_for_inclusion": "Status of the overall report; drives whether effective time and issued time are required.",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.status",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/diagnostic-report-status (binding: required)",
+    "value_set_name": "DiagnosticReportStatus",
+    "value_set_oid": "N/A (FHIR core value set)",
+    "code_systems_name": "FHIR DiagnosticReportStatus",
+    "notes": "",
+    "piqi_mapping_notes": "Partial mapping to lab resultStatus; PIQI has no separate DiagnosticReport status attribute.",
+    "piqi_attributes": [
+      59
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 33,
+  "fields": {
+    "name": "Lab Report Category [Required]",
+    "field_name": "LabReportCategoryRequired",
+    "section": "Laboratory Data",
+    "source_row": 38,
+    "uscdi_element": "Related – Laboratory",
+    "rationale_for_inclusion": "Identifies the report as a laboratory report.",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.category (LAB slice: http://terminology.hl7.org/CodeSystem/v2-0074 | LAB)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "category 1..*; LAB slice 1..1 (verify)",
+    "ig_value_set": "HL7 v2 Table 0074 Diagnostic Service Section ID",
+    "value_set_name": "Diagnostic Service Section Codes",
+    "value_set_oid": "N/A",
+    "code_systems_name": "HL7 v2-0074",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      69
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 34,
+  "fields": {
+    "name": "Lab Report Order Code [Required]",
+    "field_name": "LabReportOrderCodeRequired",
+    "section": "Laboratory Data",
+    "source_row": 39,
+    "uscdi_element": "Yes – Laboratory: Tests",
+    "rationale_for_inclusion": "The test or panel ordered (e.g., CBC, basic metabolic panel).",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.code",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "US Core Laboratory Test Codes (binding: extensible)",
+    "value_set_name": "US Core Laboratory Test Codes",
+    "value_set_oid": "N/A (IG value set)",
+    "code_systems_name": "LOINC",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      53
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 35,
+  "fields": {
+    "name": "Lab Report Patient [Required]",
+    "field_name": "LabReportPatientRequired",
+    "section": "Laboratory Data",
+    "source_row": 40,
+    "uscdi_element": "N/A (link)",
+    "rationale_for_inclusion": "Who the report is about.",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.subject (Reference to US Core Patient)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 36,
+  "fields": {
+    "name": "Report Effective Time [Conditional]",
+    "field_name": "ReportEffectiveTimeConditional",
+    "section": "Laboratory Data",
+    "source_row": 41,
+    "uscdi_element": "Related – Laboratory",
+    "rationale_for_inclusion": "Clinically relevant time of the report (usually specimen collection).",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.effective[x]",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1 – required when status is partial, preliminary, final, amended, corrected or appended (us-core-8)",
+    "ig_value_set": "None",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "Partial mapping to lab performedDateTime; PIQI has no separate DiagnosticReport effective time attribute.",
+    "piqi_attributes": [
+      60
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 37,
+  "fields": {
+    "name": "Report Issued Time [Conditional]",
+    "field_name": "ReportIssuedTimeConditional",
+    "section": "Laboratory Data",
+    "source_row": 42,
+    "uscdi_element": "Related – Laboratory",
+    "rationale_for_inclusion": "When the report was released; important for reporting timeliness.",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.issued",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1 – required when status is partial, preliminary, final, amended, corrected or appended (us-core-9)",
+    "ig_value_set": "None (instant)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      61
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 38,
+  "fields": {
+    "name": "Responsible Lab / Performer",
+    "field_name": "ResponsibleLabPerformer",
+    "section": "Laboratory Data",
+    "source_row": 43,
+    "uscdi_element": "Related – Provenance",
+    "rationale_for_inclusion": "Responsible diagnostic service (performing lab).",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.performer (US Core Practitioner – Must Support target; Organization allowed)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      63,
+      70,
+      71
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationaldataset",
+  "pk": 39,
+  "fields": {
+    "name": "Report Results",
+    "field_name": "ReportResults",
+    "section": "Laboratory Data",
+    "source_row": 44,
+    "uscdi_element": "Yes – Values/Results",
+    "rationale_for_inclusion": "Links the report to its individual result Observations.",
+    "base_fhir_profile": "US Core DiagnosticReport Profile for Laboratory Results Reporting, US Core 9.0",
+    "profile_data_element": "DiagnosticReport.result (Reference to US Core Laboratory Result Observation)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 1,
+  "fields": {
+    "name": "Phone Number",
+    "field_name": "PhoneNumber",
+    "section": "Patient",
+    "source_row": 3,
+    "uscdi_element": "Patient Demographics/Information: Phone Number",
+    "rationale_for_inclusion": "US PH adds Must Support and makes telecom required so public health can reach the patient for case investigation, contact tracing, and result notification.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.telecom, sliced: telecom:phone (system = phone)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "telecom 1..*; telecom:phone 0..*",
+    "ig_value_set": "system: http://hl7.org/fhir/ValueSet/contact-point-system (required); use: http://hl7.org/fhir/ValueSet/contact-point-use (required)",
+    "value_set_name": "ContactPointSystem; ContactPointUse",
+    "value_set_oid": "Verify in VSAC (FHIR core value sets; canonical URLs above)",
+    "code_systems_name": "ContactPointSystem (http://hl7.org/fhir/contact-point-system); ContactPointUse (http://hl7.org/fhir/contact-point-use)",
+    "notes": "Masking allowed via data-absent-reason = 'masked'.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      20
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 2,
+  "fields": {
+    "name": "Phone Number Type",
+    "field_name": "PhoneNumberType",
+    "section": "Patient",
+    "source_row": 4,
+    "uscdi_element": "Patient Demographics/Information: Phone Number Type",
+    "rationale_for_inclusion": "US PH adds Must Support and makes telecom required so public health can reach the patient for case investigation, contact tracing, and result notification.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.telecom, sliced: telecom:phone (system = phone) and telecom:email (system = email); each with value and use",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "telecom 1..*; telecom:phone 0..*",
+    "ig_value_set": "system: http://hl7.org/fhir/ValueSet/contact-point-system (required); use: http://hl7.org/fhir/ValueSet/contact-point-use (required)",
+    "value_set_name": "ContactPointSystem; ContactPointUse",
+    "value_set_oid": "Verify in VSAC (FHIR core value sets; canonical URLs above)",
+    "code_systems_name": "ContactPointSystem (http://hl7.org/fhir/contact-point-system); ContactPointUse (http://hl7.org/fhir/contact-point-use)",
+    "notes": "Masking allowed via data-absent-reason = 'masked'.",
+    "piqi_mapping_notes": "Mapped to the telecom container; PIQI has no separate phone use/type attribute.",
+    "piqi_attributes": [
+      20
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 3,
+  "fields": {
+    "name": "Email Address",
+    "field_name": "EmailAddress",
+    "section": "Patient",
+    "source_row": 5,
+    "uscdi_element": "Patient Demographics/Information: Email Address",
+    "rationale_for_inclusion": "US PH adds Must Support and makes telecom required so public health can reach the patient for case investigation, contact tracing, and result notification.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.telecom, sliced: telecom:phone (system = phone) and telecom:email (system = email); each with value and use",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "telecom 1..*;  telecom:email 0..*",
+    "ig_value_set": "system: http://hl7.org/fhir/ValueSet/contact-point-system (required); use: http://hl7.org/fhir/ValueSet/contact-point-use (required)",
+    "value_set_name": "ContactPointSystem; ContactPointUse",
+    "value_set_oid": "Verify in VSAC (FHIR core value sets; canonical URLs above)",
+    "code_systems_name": "ContactPointSystem (http://hl7.org/fhir/contact-point-system); ContactPointUse (http://hl7.org/fhir/contact-point-use)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      19
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 4,
+  "fields": {
+    "name": "Tribal Affiliation",
+    "field_name": "TribalAffiliation",
+    "section": "Patient",
+    "source_row": 6,
+    "uscdi_element": "Patient Demographics/Information: Tribal Affiliation",
+    "rationale_for_inclusion": "Supports coordination with tribal health authorities, tribal data sovereignty, and surveillance of disease burden in American Indian / Alaska Native communities.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.extension:tribalAffiliation → tribalAffiliation, isEnrolled",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "extension 0..*; tribalAffiliation 1..1; isEnrolled 0..1",
+    "ig_value_set": "http://terminology.hl7.org/ValueSet/v3-TribalEntityUS (binding: extensible)",
+    "value_set_name": "TribalEntityUS",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "HL7 v3 TribalEntityUS (http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS)",
+    "notes": "Earlier US PH STU1 used its own us-ph-tribal-affiliation-extension; STU2 uses the US Core extension.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      13
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 5,
+  "fields": {
+    "name": "Date of Death",
+    "field_name": "DateOfDeath",
+    "section": "Patient",
+    "source_row": 7,
+    "uscdi_element": "Patient Demographics/Information:Date of Death",
+    "rationale_for_inclusion": "US PH requires deceased[x] on every patient (US Core: optional) to support mortality surveillance and case fatality rates.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.deceasedDateTime (choice of Patient.deceased[x])",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "deceased[x] 1..1",
+    "ig_value_set": "None (dateTime; deceasedBoolean also allowed)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "IG guidance: if the patient is deceased, use the dateTime type set to the date of death; otherwise send deceasedBoolean = false. The same element also serves as the Death Indicator (USCDI+ Patient Vital Status).",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      11
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 6,
+  "fields": {
+    "name": "Suffix",
+    "field_name": "Suffix",
+    "section": "Patient",
+    "source_row": 8,
+    "uscdi_element": "Patient Demographics/Information:Name Suffix",
+    "rationale_for_inclusion": "Improves patient matching and deduplication (e.g., Jr./Sr., II/III in the same household). Send when known.",
+    "base_fhir_profile": "US Public Health Patient 2.0.0",
+    "profile_data_element": "Patient.name.suffix",
+    "ig_must_support": "No",
+    "ig_cardinality": "name 1..*; suffix 0..*",
+    "ig_value_set": "None (string)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 7,
+  "fields": {
+    "name": "Encounter Disposition",
+    "field_name": "EncounterDisposition",
+    "section": "Encounter",
+    "source_row": 10,
+    "uscdi_element": "Encounter Information: Encounter Disposition",
+    "rationale_for_inclusion": "Indicates the outcome of the encounter (home, transferred, admitted, expired). Supports severity and outcome tracking (hospitalization, death), case follow-up, and transfers between facilities. Example binding only, so local code agreements may be needed.",
+    "base_fhir_profile": "US Public Health Encounter 2.0.0",
+    "profile_data_element": "Encounter.hospitalization.dischargeDisposition",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "Encounter.hospitalization 0..1; dischargeDisposition 0..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/encounter-discharge-disposition (binding: example)",
+    "value_set_name": "Discharge Disposition",
+    "value_set_oid": "N/A (example binding; no required value set)",
+    "code_systems_name": "HL7 Discharge Disposition (http://terminology.hl7.org/CodeSystem/discharge-disposition); NUBC Patient Discharge Status (2.16.840.1.113883.6.301.5) commonly used in US",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      171
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 8,
+  "fields": {
+    "name": "Medication Category",
+    "field_name": "MedicationCategory",
+    "section": "Medication Data",
+    "source_row": 12,
+    "uscdi_element": "Related – Medications",
+    "rationale_for_inclusion": "Where the medication is used (e.g., discharge medication). Helps build discharge and community medication lists.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.category (us-core slice)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "medicationRequest Category Codes (binding: required on us-core slice; example on others)",
+    "value_set_name": "Medication request category codes",
+    "value_set_oid": "N/A (FHIR core value set)",
+    "code_systems_name": "FHIR MedicationRequest Category (inpatient | outpatient | community | discharge)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      88
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 9,
+  "fields": {
+    "name": "Reported (secondary source)",
+    "field_name": "ReportedSecondarySource",
+    "section": "Medication Data",
+    "source_row": 13,
+    "uscdi_element": "Related – Provenance",
+    "rationale_for_inclusion": "Flags that the record came from a secondary source (e.g., patient-reported). Servers SHALL support at least one form; clients both.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.reportedBoolean OR reportedReference",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 10,
+  "fields": {
+    "name": "Medication Encounter",
+    "field_name": "MedicationEncounter",
+    "section": "Medication Data",
+    "source_row": 14,
+    "uscdi_element": "N/A (link)",
+    "rationale_for_inclusion": "Links the order to the visit or admission in which it was written.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.encounter (Reference to US Core Encounter)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 11,
+  "fields": {
+    "name": "Date Written",
+    "field_name": "DateWritten",
+    "section": "Medication Data",
+    "source_row": 15,
+    "uscdi_element": "Related – Medications",
+    "rationale_for_inclusion": "When the prescription was written; supports timelines and adherence analysis.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.authoredOn",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (dateTime)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No exact PIQI equivalent for MedicationRequest.authoredOn; medication statementDate and startDate describe different events.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 12,
+  "fields": {
+    "name": "Dosage Instructions (SIG)",
+    "field_name": "DosageInstructionsSIG",
+    "section": "Medication Data",
+    "source_row": 16,
+    "uscdi_element": "Yes – Medication Instructions",
+    "rationale_for_inclusion": "Free-text instructions exactly as given to the patient.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.dosageInstruction.text",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "dosageInstruction 0..*; text 0..1",
+    "ig_value_set": "None (string)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      80
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 13,
+  "fields": {
+    "name": "Dose Timing",
+    "field_name": "DoseTiming",
+    "section": "Medication Data",
+    "source_row": 17,
+    "uscdi_element": "Yes – Medication Instructions",
+    "rationale_for_inclusion": "When the medication should be taken (e.g., twice daily).",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.dosageInstruction.timing",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (Timing)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 14,
+  "fields": {
+    "name": "Number of Refills",
+    "field_name": "NumberOfRefills",
+    "section": "Medication Data",
+    "source_row": 18,
+    "uscdi_element": "Related – Medications",
+    "rationale_for_inclusion": "Refills authorized after the initial fill; with quantity gives total supply.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.dispenseRequest.numberOfRepeatsAllowed",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (unsignedInt)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 15,
+  "fields": {
+    "name": "Reason / Indication [Additional USCDI]",
+    "field_name": "ReasonIndicationAdditionalUSCDI",
+    "section": "Medication Data",
+    "source_row": 19,
+    "uscdi_element": "Yes – Indication",
+    "rationale_for_inclusion": "Why the medication was prescribed. Required for ONC certification testing; servers SHALL support at least one of code or reference.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.reasonCode OR reasonReference (Condition | Observation)",
+    "ig_must_support": "No (Additional USCDI requirement)",
+    "ig_cardinality": "0..* each",
+    "ig_value_set": "reasonCode: US Core Condition Codes (binding: extensible)",
+    "value_set_name": "US Core Condition Codes",
+    "value_set_oid": "N/A (IG value set)",
+    "code_systems_name": "SNOMED CT; ICD-10-CM",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      81
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 16,
+  "fields": {
+    "name": "Medication Adherence [Additional USCDI]",
+    "field_name": "MedicationAdherenceAdditionalUSCDI",
+    "section": "Medication Data",
+    "source_row": 20,
+    "uscdi_element": "Yes – Medication Adherence",
+    "rationale_for_inclusion": "Whether the medication has been taken as instructed. Required for ONC certification testing.",
+    "base_fhir_profile": "US Core MedicationRequest Profile, US Core 9.0.0",
+    "profile_data_element": "MedicationRequest.extension:medicationAdherence (US Core Medication Adherence Extension)",
+    "ig_must_support": "No (Additional USCDI requirement)",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "Verify in extension definition",
+    "value_set_name": "Verify",
+    "value_set_oid": "Verify",
+    "code_systems_name": "Verify",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      85
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 17,
+  "fields": {
+    "name": "Dispensing Pharmacy / Performer [Conditional]",
+    "field_name": "DispensingPharmacyPerformerConditional",
+    "section": "Medication Data",
+    "source_row": 21,
+    "uscdi_element": "Related – Provenance",
+    "rationale_for_inclusion": "Who dispensed (e.g., the pharmacy).",
+    "base_fhir_profile": "US Core MedicationDispense Profile, US Core 9.0",
+    "profile_data_element": "MedicationDispense.performer.actor",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "performer 0..*; actor 1..1 when performer is sent",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 18,
+  "fields": {
+    "name": "Authorizing Prescription",
+    "field_name": "AuthorizingPrescription",
+    "section": "Medication Data",
+    "source_row": 22,
+    "uscdi_element": "N/A (link)",
+    "rationale_for_inclusion": "Links the fill to the original order.",
+    "base_fhir_profile": "US Core MedicationDispense Profile, US Core 9.0",
+    "profile_data_element": "MedicationDispense.authorizingPrescription (Reference to US Core MedicationRequest)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 19,
+  "fields": {
+    "name": "Quantity Dispensed",
+    "field_name": "QuantityDispensed",
+    "section": "Medication Data",
+    "source_row": 23,
+    "uscdi_element": "Related – Medications",
+    "rationale_for_inclusion": "Amount actually dispensed (vs. amount ordered on the MedicationRequest).",
+    "base_fhir_profile": "US Core MedicationDispense Profile, US Core 9.0",
+    "profile_data_element": "MedicationDispense.quantity",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (SimpleQuantity)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "UCUM recommended",
+    "notes": "",
+    "piqi_mapping_notes": "No exact PIQI equivalent for dispensed quantity; doseQuantity describes the dose, not the amount dispensed.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.foundationalmustsupport",
+  "pk": 20,
+  "fields": {
+    "name": "Dispense Date",
+    "field_name": "DispenseDate",
+    "section": "Medication Data",
+    "source_row": 24,
+    "uscdi_element": "Related – Fill Status",
+    "rationale_for_inclusion": "When the medication was given to the patient.",
+    "base_fhir_profile": "US Core MedicationDispense Profile, US Core 9.0",
+    "profile_data_element": "MedicationDispense.whenHandedOver",
+    "ig_must_support": "Yes (verify)",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (dateTime)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 1,
+  "fields": {
+    "name": "Mother–Child Linkage: Child Reference",
+    "field_name": "MotherChildLinkageChildReference",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 3,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Core of the MIHR linkage pattern: the mother is represented as a RelatedPerson of the child Patient. Lets researchers pull infant outcomes for mothers in a cohort. MIHR expects sources to link mothers and children via RelatedPerson and Patient.link.",
+    "base_fhir_profile": "RelatedPerson (US Core RelatedPerson profile, as used by MIHR; MIHR defines no RelatedPerson profile of its own)",
+    "profile_data_element": "RelatedPerson.patient (the child Patient the mother is related to)",
+    "ig_must_support": "Yes (US Core)",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (Reference to US Core Patient)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 2,
+  "fields": {
+    "name": "Mother–Child Linkage: Relationship Type",
+    "field_name": "MotherChildLinkageRelationshipType",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 4,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Identifies the person as the mother (or natural/gestational mother) so the link can be interpreted correctly. Although optional in US Core, it is effectively needed for the linkage to be meaningful.",
+    "base_fhir_profile": "RelatedPerson (US Core RelatedPerson profile, as used by MIHR; MIHR defines no RelatedPerson profile of its own)",
+    "profile_data_element": "RelatedPerson.relationship (e.g., MTH = mother; MIHR examples also use CHILD)",
+    "ig_must_support": "Yes (US Core)",
+    "ig_cardinality": "0..*",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/relatedperson-relationshiptype (binding: preferred)",
+    "value_set_name": "Patient Relationship Type",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "HL7 v3 RoleCode (2.16.840.1.113883.5.111); HL7 v2 Table 0131",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 3,
+  "fields": {
+    "name": "Mother–Child Linkage: Mother Patient Link",
+    "field_name": "MotherChildLinkageMotherPatientLink",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 5,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Closes the loop: states that the mother Patient and the mother RelatedPerson are the same person, so the mother's own clinical record can be joined to the child's. If a source cannot link this way, MIHR requires a separate mother/child association map.",
+    "base_fhir_profile": "Patient (US Core Patient profile, mother) – MIHR defines no Patient profile of its own",
+    "profile_data_element": "Patient.link.other (Reference to the mother's RelatedPerson) with Patient.link.type = seealso",
+    "ig_must_support": "No (not Must Support in US Core)",
+    "ig_cardinality": "link 0..*; link.other 1..1; link.type 1..1",
+    "ig_value_set": "link.type: http://hl7.org/fhir/ValueSet/link-type (binding: required)",
+    "value_set_name": "LinkType",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "FHIR LinkType (http://hl7.org/fhir/link-type)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 4,
+  "fields": {
+    "name": "Newborn Encounter Linked to Delivery Encounter",
+    "field_name": "NewbornEncounterLinkedToDeliveryEncounter",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 6,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Ties the newborn's birth encounter to the mother's delivery encounter, following FHIR's mother-and-newborn guidance (shown in the MIHR newborn encounter example). Lets researchers relate delivery events and complications to newborn outcomes such as APGAR or bilirubin.",
+    "base_fhir_profile": "Encounter (US Core Encounter profile) – MIHR defines no Encounter profile of its own",
+    "profile_data_element": "Encounter.partOf (on the newborn's Encounter, referencing the mother's delivery Encounter)",
+    "ig_must_support": "No (not Must Support in US Core)",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (Reference to Encounter)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 5,
+  "fields": {
+    "name": "Family Member History: Status",
+    "field_name": "FamilyMemberHistoryStatus",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 7,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Indicates whether the record is complete, partial, entered-in-error, or health-unknown so incomplete or erroneous histories can be excluded from analysis.",
+    "base_fhir_profile": "FamilyMemberHistory (base FHIR R4 resource – no US Core or MIHR profile exists)",
+    "profile_data_element": "FamilyMemberHistory.status",
+    "ig_must_support": "N/A (no profile; base FHIR required element)",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/history-status (binding: required)",
+    "value_set_name": "FamilyHistoryStatus",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "FHIR FamilyHistoryStatus (http://hl7.org/fhir/history-status)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 6,
+  "fields": {
+    "name": "Family Member History: Patient",
+    "field_name": "FamilyMemberHistoryPatient",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 8,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Identifies whose family history this is (the mother in MIHR's maternal death cohort example).",
+    "base_fhir_profile": "FamilyMemberHistory (base FHIR R4 resource – no US Core or MIHR profile exists)",
+    "profile_data_element": "FamilyMemberHistory.patient",
+    "ig_must_support": "N/A (no profile; base FHIR required element)",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (Reference to Patient)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 7,
+  "fields": {
+    "name": "Family Member History: Relationship",
+    "field_name": "FamilyMemberHistoryRelationship",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 9,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Captures how the family member relates to the patient (MIHR example uses CHILD). Example binding only, so agree on codes locally.",
+    "base_fhir_profile": "FamilyMemberHistory (base FHIR R4 resource – no US Core or MIHR profile exists)",
+    "profile_data_element": "FamilyMemberHistory.relationship",
+    "ig_must_support": "N/A (no profile; base FHIR required element)",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://terminology.hl7.org/ValueSet/v3-FamilyMember (binding: example)",
+    "value_set_name": "FamilyMember",
+    "value_set_oid": "2.16.840.1.113883.1.11.19579 (verify)",
+    "code_systems_name": "HL7 v3 RoleCode (2.16.840.1.113883.5.111)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 8,
+  "fields": {
+    "name": "Family Member History: Condition",
+    "field_name": "FamilyMemberHistoryCondition",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 10,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Captures hereditary and familial risk factors (e.g., hypertension, cardiovascular disease, diabetes) relevant to maternal morbidity and mortality research and risk assessment.",
+    "base_fhir_profile": "FamilyMemberHistory (base FHIR R4 resource – no US Core or MIHR profile exists)",
+    "profile_data_element": "FamilyMemberHistory.condition.code (optionally with condition.outcome, condition.onset[x], condition.contributedToDeath)",
+    "ig_must_support": "N/A (no profile)",
+    "ig_cardinality": "condition 0..*; condition.code 1..1 (when condition is sent)",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/condition-code (binding: example)",
+    "value_set_name": "Condition/Problem/Diagnosis Codes",
+    "value_set_oid": "N/A (example binding)",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96); ICD-10-CM (2.16.840.1.113883.6.90) commonly used",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 9,
+  "fields": {
+    "name": "VR: Mother–Child Linkage: Child Reference",
+    "field_name": "VRMotherChildLinkageChildReference",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 11,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "VRCL requires this RelatedPerson to link the mother to the newborn or decedent fetus. It is the anchor for birth and fetal death reports that combine mother and child data.",
+    "base_fhir_profile": "VRCL STU2: RelatedPerson - Mother Vital Records (RelatedPerson-mother-vr), used by BFDR STU2",
+    "profile_data_element": "RelatedPerson.patient (Reference to the newborn or fetus: Patient - Vital Records)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 10,
+  "fields": {
+    "name": "VR: Mother–Child Linkage: Relationship Type",
+    "field_name": "VRMotherChildLinkageRelationshipType",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 12,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Stricter than US Core and MIHR: relationship is required and must come from the VR Mother Relationship value set, so receivers can tell the gestational (delivering) mother from other mother roles.",
+    "base_fhir_profile": "VRCL STU2: RelatedPerson - Mother Vital Records (RelatedPerson-mother-vr), used by BFDR STU2",
+    "profile_data_element": "RelatedPerson.relationship (e.g., GESTM = gestational mother, as in BFDR examples)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..* (required in VR; 0..* in US Core)",
+    "ig_value_set": "http://hl7.org/fhir/us/vr-common-library/ValueSet/ValueSet-mother-relationship-vr (binding: required)",
+    "value_set_name": "Value Set - Mother Relationship Vital Records",
+    "value_set_oid": "Verify in PHIN VADS / VSAC",
+    "code_systems_name": "HL7 v3 RoleCode (2.16.840.1.113883.5.111)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 11,
+  "fields": {
+    "name": "VR: Mother–Child Linkage: Mother Name",
+    "field_name": "VRMotherChildLinkageMotherName",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 13,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "VR requires the mother's name on the RelatedPerson (US Core only requires name or relationship). Needed for the birth certificate and for record matching.",
+    "base_fhir_profile": "VRCL STU2: RelatedPerson - Mother Vital Records (RelatedPerson-mother-vr), used by BFDR STU2",
+    "profile_data_element": "RelatedPerson.name",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..* (required in VR)",
+    "ig_value_set": "None (HumanName)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 12,
+  "fields": {
+    "name": "VR: Mother–Child Linkage: Mother Identifier",
+    "field_name": "VRMotherChildLinkageMotherIdentifier",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 14,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Optional SSN 'if available and appropriate to send', used by vital records offices for matching mother records. Handle as sensitive personal information.",
+    "base_fhir_profile": "VRCL STU2: RelatedPerson - Mother Vital Records (RelatedPerson-mother-vr), used by BFDR STU2",
+    "profile_data_element": "RelatedPerson.identifier:SSN (type = SS)",
+    "ig_must_support": "No",
+    "ig_cardinality": "0..1 (SSN slice); identifier 0..*",
+    "ig_value_set": "identifier.type pattern: v2-0203 code SS (binding: extensible to Identifier Type Codes)",
+    "value_set_name": "Identifier Type Codes",
+    "value_set_oid": "N/A",
+    "code_systems_name": "HL7 v2 Table 0203 (http://terminology.hl7.org/CodeSystem/v2-0203)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 13,
+  "fields": {
+    "name": "VR: Mother Patient Link",
+    "field_name": "VRMotherPatientLink",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 15,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "BFDR's mother Patient examples point Patient.link at the mother RelatedPerson, stating they are the same person. This joins the mother's own clinical data (e.g., prenatal care, delivery weight) to the child's record.",
+    "base_fhir_profile": "VRCL STU2: Patient - Mother Vital Records (Patient-mother-vr)",
+    "profile_data_element": "Patient.link.other (Reference to the mother's RelatedPerson) with Patient.link.type = seealso",
+    "ig_must_support": "Verify in VRCL profile",
+    "ig_cardinality": "link 0..*; link.other 1..1; link.type 1..1 (base FHIR)",
+    "ig_value_set": "link.type: http://hl7.org/fhir/ValueSet/link-type (binding: required)",
+    "value_set_name": "LinkType",
+    "value_set_oid": "Verify in VSAC",
+    "code_systems_name": "FHIR LinkType (http://hl7.org/fhir/link-type)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 14,
+  "fields": {
+    "name": "VR: Birth Encounter Linked to Maternity Encounter",
+    "field_name": "VRBirthEncounterLinkedToMaternityEncounter",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 16,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "BFDR's typed version of the MIHR pattern: the child's birth encounter references the mother's maternity encounter, and the target must conform to the BFDR Maternity Encounter profile. Lets reports pull labor and delivery data from the mother's encounter.",
+    "base_fhir_profile": "BFDR STU2: Encounter - Birth (Encounter-birth), derived from US Core Encounter",
+    "profile_data_element": "Encounter.partOf (Reference to Encounter - Maternity)",
+    "ig_must_support": "Yes (Must Support in BFDR STU1.1; verify in STU2)",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (Reference to Encounter - Maternity)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 15,
+  "fields": {
+    "name": "VR: Birth vs. Maternity Encounter Role",
+    "field_name": "VRBirthVsMaternityEncounterRole",
+    "section": "Maternal Child Linkage: Select At Least One Linkage Set",
+    "source_row": 17,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "New in BFDR STU2: a required extension that marks whether an Encounter is the child's birth encounter or the mother's maternity encounter, so the two can be told apart when both appear in one report.",
+    "base_fhir_profile": "BFDR STU2: Encounter - Birth (Encounter-birth), derived from US Core Encounter (also on Encounter - Maternity)",
+    "profile_data_element": "Encounter.extension:role (Extension-role)",
+    "ig_must_support": "Verify in BFDR profile",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "Verify in BFDR (role codes distinguishing birth vs. maternity encounter)",
+    "value_set_name": "Verify",
+    "value_set_oid": "Verify",
+    "code_systems_name": "Verify",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 16,
+  "fields": {
+    "name": "Immunization Status",
+    "field_name": "ImmunizationStatus",
+    "section": "Immunization",
+    "source_row": 19,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Distinguishes given, erroneous and not-given doses. US Core requires 'not-done' to record that a vaccine was not given (with statusReason, Must Support), which matters for coverage and refusal tracking.",
+    "base_fhir_profile": "US Core Immunization Profile",
+    "profile_data_element": "Immunization.status",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "http://hl7.org/fhir/ValueSet/immunization-status (binding: required)",
+    "value_set_name": "ImmunizationStatusCodes (completed | entered-in-error | not-done)",
+    "value_set_oid": "",
+    "code_systems_name": "FHIR ImmunizationStatusCodes (http://hl7.org/fhir/event-status subset)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      48
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 17,
+  "fields": {
+    "name": "Vaccine Product",
+    "field_name": "VaccineProduct",
+    "section": "Immunization",
+    "source_row": 20,
+    "uscdi_element": "Immunizations: Immunizations",
+    "rationale_for_inclusion": "Identifies the vaccine given. CVX is required; NDC (Unit of Use) SHOULD be sent as an additional coding (best-practice rule us-core-5) for product-level detail.",
+    "base_fhir_profile": "US Core Immunization Profile",
+    "profile_data_element": "Immunization.vaccineCode",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "CVX Vaccines Administered Vaccine Set (binding: extensible)",
+    "value_set_name": "CVX Vaccines Administered Vaccine Set",
+    "value_set_oid": "2.16.840.1.113762.1.4.1010.6",
+    "code_systems_name": "CVX (http://hl7.org/fhir/sid/cvx; OID 2.16.840.1.113883.12.292); NDC (http://hl7.org/fhir/sid/ndc; OID 2.16.840.1.113883.6.69) as additional coding",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      44
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchilddataset",
+  "pk": 18,
+  "fields": {
+    "name": "Administration Date",
+    "field_name": "AdministrationDate",
+    "section": "Immunization",
+    "source_row": 21,
+    "uscdi_element": "Not a USCDI v3.1 data element",
+    "rationale_for_inclusion": "Date administered (or when it was to be given, for not-done). Needed for schedule evaluation, forecasting and coverage.",
+    "base_fhir_profile": "US Core Immunization Profile",
+    "profile_data_element": "Immunization.occurrence[x] (occurrenceDateTime Must Support; occurrenceString allowed)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (dateTime or string)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "occurrenceString allows imprecise patient-reported dates.",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      43
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 1,
+  "fields": {
+    "name": "Live Birth versus Fetal Death (report type)",
+    "field_name": "LiveBirthVersusFetalDeathReportType",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 3,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "There is no single live-birth/fetal-death flag; the outcome is expressed by which report (Composition) is sent. Jurisdiction-to-NCHS reports use separate Jurisdiction Live Birth / Fetal Death Compositions.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Composition - Provider Live Birth Report vs Composition - Provider Fetal Death Report",
+    "profile_data_element": "Composition.type = LOINC 68998-4 (U.S. standard certificate of live birth, 2003 revision) OR 69045-3 (U.S. standard report of fetal death, 2003 revision)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1 (fixed per Composition profile)",
+    "ig_value_set": "Fixed code per profile",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      154
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 2,
+  "fields": {
+    "name": "Live Birth versus Fetal Death (subject)",
+    "field_name": "LiveBirthVersusFetalDeathSubject",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 4,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "The report subject's profile also distinguishes the outcome: a live-born child versus a delivered fetus.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0) / VRCL (Vital Records Common Library): Patient - Child - Vital Records vs Patient - Decedent Fetus",
+    "profile_data_element": "Composition.subject → Patient-child-vr (live birth) OR Patient-decedent-fetus (fetal death)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "1..1",
+    "ig_value_set": "None (Reference)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 3,
+  "fields": {
+    "name": "Gestational Age at Delivery",
+    "field_name": "GestationalAgeAtDelivery",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 5,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Obstetric estimate of gestation in completed weeks based on the attendant's final estimate (ultrasound and other perinatal factors, not the neonatal exam). Key for preterm birth surveillance. Optional edit-flag extension on the value.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Observation - Gestational Age at Delivery (Observation-gestational-age-at-delivery)",
+    "profile_data_element": "Observation.code = LOINC 11884-4 (Gestational age Estimated); Observation.valueQuantity (weeks or days)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed); value[x] 1..1 (Quantity)",
+    "ig_value_set": "Units: http://hl7.org/fhir/us/bfdr/ValueSet/ValueSet-units-of-gestational-age (binding: required)",
+    "value_set_name": "Units of Gestational Age",
+    "value_set_oid": "Verify in PHIN VADS",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 4,
+  "fields": {
+    "name": "Birth Weight",
+    "field_name": "BirthWeight",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 6,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Birth weight in grams for live births and fetal deaths; core measure for low birth weight surveillance. Subject is the child or decedent fetus.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Observation - Birth Weight (Observation-birth-weight)",
+    "profile_data_element": "Observation.code = LOINC 8339-4 (Birth weight Measured); category = vital-signs; Observation.valueQuantity (g)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed); value 1..1 (verify)",
+    "ig_value_set": "Unit UCUM g (verify for lb/oz handling)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1); UCUM (2.16.840.1.113883.6.8)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      101,
+      102,
+      103
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 5,
+  "fields": {
+    "name": "Plurality (pregnancy)",
+    "field_name": "PluralityPregnancy",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 7,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Number of fetuses delivered live or dead at any time in the pregnancy, regardless of gestational age. Reabsorbed fetuses are not counted; all live births and fetal losses from the pregnancy are.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Observation - Birth Plurality of Pregnancy (subject = Patient - Mother - Vital Records)",
+    "profile_data_element": "Observation.code (LOINC 57722-1 – verify); Observation.valueInteger",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1; value 1..1 (verify)",
+    "ig_value_set": "None (integer)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 6,
+  "fields": {
+    "name": "Infant Birth Order (set order)",
+    "field_name": "InfantBirthOrderSetOrder",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 8,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Delivery order within a multiple birth (1st, 2nd, 3rd…). Must be an integer so set order is preserved.",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Patient - Child - Vital Records / BFDR STU2 (2.0.0): Patient - Decedent Fetus",
+    "profile_data_element": "Patient.multipleBirthInteger (integer, not boolean)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1",
+    "ig_value_set": "None (integer)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 7,
+  "fields": {
+    "name": "Plurality (patient – total born in set)",
+    "field_name": "PluralityPatientTotalBornInSet",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 9,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Total number of deliveries in the set. Both this extension and multipleBirthInteger are needed to convey plurality as a patient characteristic.",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Patient - Child - Vital Records / BFDR STU2 (2.0.0): Patient - Decedent Fetus",
+    "profile_data_element": "Patient.extension: patient-multipleBirthTotal (FHIR extension)",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "0..1 – required together with multipleBirthInteger for meaningful plurality data",
+    "ig_value_set": "None (integer)",
+    "value_set_name": "N/A",
+    "value_set_oid": "N/A",
+    "code_systems_name": "N/A",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 8,
+  "fields": {
+    "name": "First Prenatal Visit Date",
+    "field_name": "FirstPrenatalVisitDate",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 10,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Timing of prenatal care entry (e.g., first trimester care). If this Observation is absent, the mother received no prenatal care during the pregnancy.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Observation - Date of First Prenatal Care Visit",
+    "profile_data_element": "Observation.code = LOINC 69044-6; Observation.valueDateTime",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1 (fixed); value 1..1 (dateTime)",
+    "ig_value_set": "Fixed code",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 9,
+  "fields": {
+    "name": "Prenatal Visit Count",
+    "field_name": "PrenatalVisitCount",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 11,
+    "uscdi_element": "No – vital records / USCDI+ Maternal Health element, not in USCDI v3.1",
+    "rationale_for_inclusion": "Total prenatal visits for this pregnancy; 0 if no prenatal care. Measures adequacy of prenatal care.",
+    "base_fhir_profile": "BFDR STU2 (2.0.0): Observation - Number of Prenatal Visits",
+    "profile_data_element": "Observation.code = LOINC 68493-6; Observation.valueInteger; effective[x] period = first to last visit",
+    "ig_must_support": "Yes (inherited US Core)",
+    "ig_cardinality": "code 1..1 (fixed); value 1..1",
+    "ig_value_set": "Fixed code; optional edit-flag extension (PregnancyReportEditFlags)",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "LOINC (2.16.840.1.113883.6.1)",
+    "notes": "",
+    "piqi_mapping_notes": "No corresponding attribute in the selected PIQI clinical model.",
+    "piqi_attributes": []
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 10,
+  "fields": {
+    "name": "Prepregnancy Diabetes",
+    "field_name": "PrepregnancyDiabetes",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 12,
+    "uscdi_element": "Yes – Problems (as a coded condition)",
+    "rationale_for_inclusion": "Diabetes diagnosed before this pregnancy. Must be distinguished from gestational diabetes for risk-factor reporting and outcome research.",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Condition - Prepregnancy Diabetes - Vital Records (based on US Core Condition Problems and Health Concerns)",
+    "profile_data_element": "Condition.code = SNOMED CT 73211009 (Diabetes mellitus); subject = mother",
+    "ig_must_support": "Yes (inherited US Core)",
+    "ig_cardinality": "code 1..1 (fixed); subject 1..1",
+    "ig_value_set": "Fixed code",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      32
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 11,
+  "fields": {
+    "name": "Gestational Diabetes",
+    "field_name": "GestationalDiabetes",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 13,
+    "uscdi_element": "Yes – Problems (as a coded condition)",
+    "rationale_for_inclusion": "Diabetes first diagnosed during this pregnancy.",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Condition - Gestational Diabetes - Vital Records",
+    "profile_data_element": "Condition.code = SNOMED CT 11687002 (Gestational diabetes mellitus); subject = mother",
+    "ig_must_support": "Yes (inherited US Core)",
+    "ig_cardinality": "code 1..1 (fixed); subject 1..1",
+    "ig_value_set": "Fixed code",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      32
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 12,
+  "fields": {
+    "name": "Prepregnancy Hypertension",
+    "field_name": "PrepregnancyHypertension",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 14,
+    "uscdi_element": "Yes – Problems (as a coded condition)",
+    "rationale_for_inclusion": "Chronic hypertension diagnosed before this pregnancy; distinguished from gestational hypertension.",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Condition - Prepregnancy Hypertension - Vital Records",
+    "profile_data_element": "Condition.code = SNOMED CT 38341003 (Hypertensive disorder, systemic arterial); subject = mother",
+    "ig_must_support": "Yes (inherited US Core)",
+    "ig_cardinality": "code 1..1 (fixed); subject 1..1",
+    "ig_value_set": "Fixed code",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      32
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.maternalchildmustsupport",
+  "pk": 13,
+  "fields": {
+    "name": "Gestational Hypertension",
+    "field_name": "GestationalHypertension",
+    "section": "Vital Signs and Body Measurements",
+    "source_row": 15,
+    "uscdi_element": "Yes – Problems (as a coded condition)",
+    "rationale_for_inclusion": "Hypertension that develops during this pregnancy. Key maternal morbidity risk factor (links to the MIHR hypertensive disorders cohort).",
+    "base_fhir_profile": "VRCL (Vital Records Common Library): Condition - Gestational Hypertension - Vital Records",
+    "profile_data_element": "Condition.code = SNOMED CT 48194001 (Pregnancy-induced hypertension); subject = mother",
+    "ig_must_support": "Yes (inherited US Core)",
+    "ig_cardinality": "code 1..1 (fixed); subject 1..1",
+    "ig_value_set": "Fixed code",
+    "value_set_name": "N/A (fixed code)",
+    "value_set_oid": "N/A",
+    "code_systems_name": "SNOMED CT (2.16.840.1.113883.6.96)",
+    "notes": "",
+    "piqi_mapping_notes": "",
+    "piqi_attributes": [
+      32
+    ]
+  }
+},
+{
+  "model": "phig_data_elements.chroniccaredataset",
+  "pk": 1,
+  "fields": {
+    "name": "SDOH Assessment (screening question and result)",
+    "field_name": "SDOHAssessmentScreeningQuestionAndResult",
+    "section": "Social Determinants of Health (SDOH)",
+    "source_row": 3,
+    "uscdi_element": "Yes – SDOH Assessment (Assessment and Plan of Treatment)",
+    "rationale_for_inclusion": "Identifies social needs, such as food, housing or transportation insecurity, that may affect chronic disease management. Supports analysis of care gaps and differences in outcomes.",
+    "base_fhir_profile": "US Core Observation Screening Assessment Profile (us-core-observation-screening-assessment), US Core 9.0.0",
+    "profile_data_element": "Observation.code + Observation.value[x] OR Observation.dataAbsentReason",
+    "ig_must_support": "Yes",
+    "ig_cardinality": "code 1..1; value[x] 0..1; dataAbsentReason 0..1. For an individual question without component or hasMember, a value or absent reason is required (us-core-2); do not send both (obs-6).",
+    "ig_value_set": "code: Screening and Assessment Survey Codes (preferred); answers: selected tool’s answer list; dataAbsentReason: DataAbsentReason (extensible)",
+    "value_set_name": "Screening and Assessment Survey Codes; tool-specific answer list; DataAbsentReason",
+    "value_set_oid": "2.16.840.1.113762.1.4.1267.13 (question codes). Answer-list OID depends on tool; absent reason uses FHIR canonical URL.",
+    "code_systems_name": "LOINC (questions and coded answers); SNOMED CT where applicable; HL7 DataAbsentReason",
+    "notes": "One Observation per question/response. Include patient, status and survey category; retain screening date and identify SDOH category. Select domains and screening expectations for the pilot. Must Support does not itself require new screening. Missing results do not mean no social need. Sources in cell notes.",
+    "piqi_mapping_notes": "Partial mapping to assessment and resultValue. PIQI Health Assessments has no dataAbsentReason attribute.",
+    "piqi_attributes": [
+      142,
+      144
+    ]
+  }
+}
+]

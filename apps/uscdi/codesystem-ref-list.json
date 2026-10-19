@@ -1,0 +1,257 @@
+{
+  "codeSystems" : [
+    {
+      "url" : "http://hl7.org/fhir/message-significance-category",
+      "version" : "4.0.1",
+      "status" : "draft",
+      "name" : "MessageSignificanceCategory",
+      "title" : "MessageSignificanceCategory",
+      "description" : "The impact of the content of a message.",
+      "oids" : ["2.16.840.1.113883.4.642.4.189"],
+      "uses" : {
+      },
+      "http://hl7.org/fhir/R4/valueset-message-significance-category.html" : "MessageSignificanceCategory",
+      "ValueSet-us-ph-message-significance-category.html" : "US Public Health Message Significance Category"
+    },
+    {
+      "url" : "http://hl7.org/fhir/sid/icd-10-cm",
+      "version" : "2.0.1",
+      "status" : "active",
+      "name" : "Icd10CM",
+      "title" : "International Classification of Diseases, 10th Revision, Clinical Modification (ICD-10-CM)",
+      "description" : "The International Classification of Diseases, 10th Revision, Clinical Modification (ICD-10-CM), describes the classification of morbidity and mortality information for statistical purposes and for the indexing of healthcare records by diseases. The ICD-10-CM codes can be used as the value of the Act.cd attribute.",
+      "oids" : ["2.16.840.1.113883.6.90"],
+      "uses" : {
+      },
+      "ValueSet-valueset-sdtc-example.html" : "Example Suspected Disorder Triggers for Public Health Reporting",
+      "ValueSet-valueset-dxtc-example.html" : "Example Diagnosis Problem Triggers for Public Health Reporting"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/codesystem-messageHeader-event",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "CodeSystem_MessageHeader_event",
+      "title" : "MessageHeader Event Code System",
+      "description" : "This code system contains codes that identify the event a message represents.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.4"],
+      "uses" : {
+      },
+      "ValueSet-valueset-ecr-messageheader-event.html" : "eCR MessageHeader Event Value Set"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/ersd-endpoint-connection-type",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "Ersd_CodeSystem_Endpoint_Connection_Type",
+      "title" : "eRSD Endpoint Connection Type",
+      "description" : "This code system contains codes that identify the HL7 FHIR File type.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.1"],
+      "uses" : {
+      },
+      "ValueSet-valueset-ersd-endpoint-connection-type.html" : "eRSD Endpoint Connection Type Codes",
+      "ValueSet-valueset-us-ph-supplemental-valueset-example.html" : "US Public Health Supplemental Valueset Example"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/us-ph-message-types-codesystem",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "USPublicHealthMessageTypesCodeSystem",
+      "title" : "US Public Health Message Types CodeSystem",
+      "description" : "The US Public Health Message Types CodeSystem is a 'starter set' of codes supported for identifying types of messages being exchanged.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.5"],
+      "uses" : {
+      },
+      "ValueSet-us-ph-message-types-valueset.html" : "US Public Health Message Types ValueSet"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/us-ph-plandefinition-actions",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "USPublicHealthPlanDefinitionActions",
+      "title" : "US Public Health PlanDefinition Action Codes",
+      "description" : "The US Public Health PlanDefinition Actions CodeSystem is a 'starter set' of codes supported for identifying actions in PlanDefinition.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.6"],
+      "uses" : {
+      },
+      "ValueSet-us-ph-plandefinition-action.html" : "US Public Health PlanDefinition Action"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/us-ph-triggerdefinition-namedevents",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "USPublicHealthTriggerDefinitionNamedEvents",
+      "title" : "US Public Health TriggerDefinition NamedEvents",
+      "description" : "The US Public Health TriggerDefinition NamedEvents CodeSystem is a 'starter set' of codes supported for identifying named events to subscribe to in clinical workflows.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.7"],
+      "uses" : {
+      },
+      "ValueSet-us-ph-triggerdefinition-namedevent.html" : "US Public Health TriggerDefinition NamedEvent"
+    },
+    {
+      "url" : "http://hl7.org/fhir/us/ecr/CodeSystem/us-ph-usage-context",
+      "version" : "2.1.2",
+      "status" : "active",
+      "name" : "USPublicHealthUsageContext",
+      "title" : "US Public Health Usage Context",
+      "description" : "This code system contains codes that identify the use context of a ValueSet or Library.",
+      "oids" : ["2.16.840.1.113883.4.642.40.46.16.8"],
+      "uses" : {
+      },
+      "ValueSet-us-ph-valueset-priority.html" : "US Public Health ValueSet Priority"
+    },
+    {
+      "url" : "http://loinc.org",
+      "version" : "3.1.0",
+      "status" : "active",
+      "name" : "LOINC",
+      "title" : "Logical Observation Identifiers, Names and Codes (LOINC)",
+      "description" : "LOINC provides a set of universal names and ID codes for identifying laboratory and clinical test results.1,2 LOINC facilitates the exchange and pooling of results, such as blood hemoglobin, serum potassium, or vital signs, for clinical care, outcomes management, and research. LOINC's universal identifiers (names and codes) can be used in the context of order and observation exchanges between information systems that use syntax standards such as HL73, CEN TC251, ISO TC215, ASTM4, and DICOM. Specifically, the identifier can be used as the coded value for an observation in any other standard that uses the observation/observation value paradigm, whether messages, documents, application programming interface (API), etc. For example, LOINC codes are used widely in the OBX segment Observation Identifier field (OBX-3) of an ORU HL7 (HL7 version 2.x or ASTM 1238-9410) message that may be sent between a Clinical Laboratory Information Management Systems (LIMS) and Electronic Health Record Systems (EHR).5, 6 In this way, LOINC codes provide universal identifiers that allow the exchange of clinical data between heterogeneous computing environments.",
+      "oids" : ["2.16.840.1.113883.6.1"],
+      "uses" : {
+      },
+      "ValueSet-us-ph-valueset-example.html" : "US Public Health ValueSet Chlamydia Example",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.81/expansion" : "Estimated Date of Delivery Including Method",
+      "ValueSet-valueset-lotc-example.html" : "Example Lab Order Test Triggers for Public Health Reporting",
+      "ValueSet-valueset-chlamydia-example.html" : "Example Chlamydia Lab Obs Test Name Triggers for Public Health Reporting",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1099.49/expansion" : "Disability Status Assessment",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.82/expansion" : "Estimated Gestational Age Code Including Method",
+      "ValueSet-valueset-lrtc-example.html" : "Example Lab Obs Test Name Triggers for Public Health Reporting",
+      "http://hl7.org/fhir/R4/valueset-report-codes.html" : "LOINC Diagnostic Report Codes"
+    },
+    {
+      "url" : "http://snomed.info/sct",
+      "version" : null,
+      "status" : "active",
+      "name" : "SNOMED_CT",
+      "title" : "SNOMED CT (all versions)",
+      "description" : "SNOMED CT is the most comprehensive and precise clinical health terminology product in the world, owned and distributed around the world by The International Health Terminology Standards Development Organisation (IHTSDO).",
+      "oids" : ["2.16.840.1.113883.6.96"],
+      "uses" : {
+      },
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.86/expansion" : "Pregnancy Outcome",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.10.20.15.2.5.12/expansion" : "Therapeutic Response to Medication",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.49/expansion" : "Residence and Accommodation Type",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.80/expansion" : "Pregnancy Status Determination Method",
+      "http://hl7.org/fhir/R4/valueset-condition-code.html" : "Condition/Problem/Diagnosis Codes",
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.8064" : "Travel Purpose (CDC)",
+      "ValueSet-valueset-sdtc-example.html" : "Example Suspected Disorder Triggers for Public Health Reporting",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113762.1.4.1099.50/expansion" : "Transport vehicle type",
+      "ValueSet-valueset-dxtc-example.html" : "Example Diagnosis Problem Triggers for Public Health Reporting",
+      "ValueSet-valueset-ostc-example.html" : "Example Organism Substance Triggers for Public Health Reporting",
+      "https://vsac.nlm.nih.gov/valueset/2.16.840.1.113883.11.20.9.87/expansion" : "Postpartum Status"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/endpoint-connection-type",
+      "version" : "2.1.1",
+      "status" : "active",
+      "name" : "EndpointConnectionType",
+      "title" : "Endpoint Connection Type",
+      "description" : "This is an example value set defined by the FHIR project, that could be used to represent possible connection type profile values.",
+      "oids" : ["2.16.840.1.113883.4.642.1.1140"],
+      "uses" : {
+      },
+      "ValueSet-valueset-ersd-endpoint-connection-type.html" : "eRSD Endpoint Connection Type Codes",
+      "ValueSet-valueset-us-ph-supplemental-valueset-example.html" : "US Public Health Supplemental Valueset Example"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/umls",
+      "version" : "2.0.1",
+      "status" : "retired",
+      "name" : "Umls",
+      "title" : "Unified Medical Language System",
+      "description" : "UMLS codes as CUIs making up the values in a coding system. More information may be found at http://www.nlm.nih.gov/research/umls/",
+      "oids" : ["2.16.840.1.113883.6.86"],
+      "uses" : {
+      },
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.8064" : "Travel Purpose (CDC)"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/v2-0532",
+      "version" : "2.0.0",
+      "status" : "active",
+      "name" : "ExpandedYesNoIndicator",
+      "title" : "expandedYes-NoIndicator",
+      "description" : "HL7-defined code system of concepts used to specify an expansion on the original Yes/No indicator table by including \"flavors of null\".  It is intended to be applied to fields where the response is not limited to \"yes\" or \"no\".  Used in numerous locations in HL7 Version 2.x messaging.",
+      "oids" : ["2.16.840.1.113883.18.347"],
+      "uses" : {
+      },
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.888" : "Yes No Unknown (YNU)"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/v3-ActClass",
+      "version" : "4.0.0",
+      "status" : "active",
+      "name" : "ActClass",
+      "title" : "ActClass",
+      "description" : "A code specifying the major type of Act that this Act-instance represents.\r\n\r\n*Constraints:* The classCode domain is a tightly controlled vocabulary, not an external or user-defined vocabulary.\r\n\r\nEvery Act-instance must have a classCode. If the act class is not further specified, the most general Act.classCode (ACT) is used.\r\n\r\nThe Act.classCode must be a generalization of the specific Act concept (e.g., as expressed in Act.code), in other words, the Act concepts conveyed in an Act must be specializations of the Act.classCode. Especially, Act.code is not a \"modifier\" that can alter the meaning of a class code. (See Act.code for contrast.)",
+      "oids" : ["2.16.840.1.113883.5.6"],
+      "uses" : {
+      },
+      "http://terminology.hl7.org/6.0.2/ValueSet-v3-ActClassExposure.html" : "ActClassExposure"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/v3-NullFlavor",
+      "version" : "3.0.0",
+      "status" : "active",
+      "name" : "NullFlavor",
+      "title" : "NullFlavor",
+      "description" : "A collection of codes specifying why a valid value is not present.",
+      "oids" : ["2.16.840.1.113883.5.1008"],
+      "uses" : {
+      },
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.8064" : "Travel Purpose (CDC)",
+      "ValueSet-us-ph-pregnancy-status.html" : "US Public Health Pregnancy Status",
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.3201" : "Geographical location history",
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.888" : "Yes No Unknown (YNU)"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+      "version" : "3.0.0",
+      "status" : "active",
+      "name" : "RoleCode",
+      "title" : "RoleCode",
+      "description" : "A set of codes further specifying the kind of Role; specific classification codes for further qualifying RoleClass codes.",
+      "oids" : ["2.16.840.1.113883.5.111"],
+      "uses" : {
+      },
+      "http://terminology.hl7.org/6.0.2/ValueSet-v3-ServiceDeliveryLocationRoleType.html" : "ServiceDeliveryLocationRoleType"
+    },
+    {
+      "url" : "http://terminology.hl7.org/CodeSystem/v3-TribalEntityUS",
+      "version" : "4.0.0",
+      "status" : "active",
+      "name" : "TribalEntityUS",
+      "title" : "TribalEntityUS",
+      "description" : "INDIAN ENTITIES RECOGNIZED AND ELIGIBLE TO RECEIVE SERVICES FROM THE UNITED STATES BUREAU OF INDIAN AFFAIRS",
+      "oids" : ["2.16.840.1.113883.5.140"],
+      "uses" : {
+      },
+      "http://terminology.hl7.org/6.0.2/ValueSet-v3-TribalEntityUS.html" : "TribalEntityUS"
+    },
+    {
+      "url" : "http://www.nlm.nih.gov/research/umls/rxnorm",
+      "version" : "3.0.1",
+      "status" : "active",
+      "name" : "RxNorm",
+      "title" : "RxNorm",
+      "description" : "RxNorm provides normalized names for clinical drugs and links its names to many of the drug vocabularies commonly used in pharmacy management and drug interaction software, including those of First Databank, Micromedex, and Gold Standard Drug Database. By providing links between these vocabularies, RxNorm can mediate messages between systems not using the same software and vocabulary. RxNorm now includes the United States Pharmacopeia (USP) Compendial Nomenclature from the United States Pharmacopeial Convention. USP is a cumulative data set of all Active Pharmaceutical Ingredients (API).",
+      "oids" : ["2.16.840.1.113883.6.88"],
+      "uses" : {
+      },
+      "ValueSet-valueset-mrtc-example.html" : "Example Medications Triggers for Public Health Reporting"
+    },
+    {
+      "url" : "urn:iso:std:iso:3166",
+      "version" : "1.0.1",
+      "status" : "active",
+      "name" : "ISO3166Part1",
+      "title" : "ISO 3166-1 Codes for the representation of names of countries and their subdivisions — Part 1: Country code",
+      "description" : "ISO 3166-1 establishes codes that represent the current names of countries, dependencies, and other areas of particular geopolitical interest, on the basis of country names obtained from the United Nations.",
+      "oids" : ["1.0.3166.1"],
+      "uses" : {
+      },
+      "http://hl7.org/fhir/R4/valueset-iso3166-1-2.html" : "Iso 3166 Part 1: 2 Letter Codes",
+      "https://phinvads.cdc.gov/vads/ViewValueSet.action?oid=2.16.840.1.114222.4.11.3201" : "Geographical location history"
+    }
+  ]
+}
