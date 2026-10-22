@@ -2224,6 +2224,24 @@
   }
 },
 {
+  "model": "phig_data_elements.usecase",
+  "pk": 1,
+  "fields": {
+    "name": "Local to State",
+    "code": "LOCAL-TO-STATE",
+    "description": "Local to state/STLT"
+  }
+},
+{
+  "model": "phig_data_elements.usecase",
+  "pk": 2,
+  "fields": {
+    "name": "State to CDC",
+    "code": "STATE-TO-CDC",
+    "description": "State/STILT/HIE/TEFCA to CDC"
+  }
+},
+{
   "model": "phig_data_elements.reccomendedelement",
   "pk": 1,
   "fields": {
