@@ -7,7 +7,7 @@
     <header class="container">
         <nav>
             <ul>
-                <li><h1><strong>Health Data Utilities</strong></h1></li>
+                <li><h1><strong>Tables and References</strong></h1></li>
               </ul>
           <ul>
             <li>
@@ -23,13 +23,19 @@
           </ul>
         </nav>
         <hgroup>
-            <p>Hello {{request.user.first_name}}. We're glad you're here :-). 
+           
+           
+           
+            <p>Howdy {{request.user.first_name}}.
+                We're glad you're here :-). 
 
                 
-            Health Data Utilties experimental software for research and development purposes.
-            If you think something should be added here, please add an issue or do a pull request on
-            <a href="https://github.com/CDCGov/meta">GitHub</a>. Data might be out of date, incorrect, or missing. 
-                No warranties are provided. No PII or PHI is is stored here.
+           This site is a collection of reference tables and tools 
+            to facilitate machine readable resource development,
+            The source code is on
+            <a href="https://github.com/CDCGov/meta">GitHub</a>.
+            Data might be out of date, incorrect, or missing. 
+            No warranties are provided. No PII or PHI is is stored here.
             
             </p>
           </hgroup>
@@ -37,28 +43,15 @@
 
 <section id="preview">
 
-    <h3> STILT Systems Reports</h3>
-    <p class="grid" >
-    <a href="{% url 'report_meta:state_report_index' %}"><button type="button" class="outline">
-            By State </button></a>
-        <a href="{% url 'report_meta:jurisdiction_report_index' %}"><button type="button" class="outline">
-            By Jurisdiction </button></a>
-        <a href="{% url 'report_meta:source_software_report_index' %}"><button type="button" class="outline">
-            By Source Software </button></a>
-        <a href="{% url 'report_meta:program_area_report_index' %}"><button type="button" class="outline">
-            By Program Area</button></a> 
-    </p>
+    <h3>PHIG Guide Map (Reccomened Minimal Data Element Set)</h3>
 
-    <p class="grid" >
-
-                <a href="{% url 'report_meta:type_csv' 'SourceSystem' %}"><button type="button" class="outline">
-                    All Systems (CSV)</button></a>
-                    <a href="{% url 'report_meta:type_json' 'SourceSystem' %}"><button type="button" class="outline">
-                        All Systems (JSON)</button></a>
+       <p class="grid">
+        
+        <a href="{% url 'admin:index' %}"><button type="button" class="outline">
+                Backoffice Admin </button></a>
         </p>
 
-
-    <h3>Data Tables of Interest (Not a formal Specification)</h3>
+    <h3>Other Misc Data Tables of Interest (Not a formal Specification)</h3>
 
        <p class="grid">
         <a href="{% url 'report_meta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
@@ -106,20 +99,29 @@
                 Report Types (JSON)</button></a>
         </p>
     
-        <p class="grid">
-            <a href="{% url 'report_meta:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
-                Person Hash Types (CSV)</button></a>
 
-            <a href="{% url 'report_meta:type_json' 'PersonHashType' %}"><button type="button" class="outline">
-                Person Hash Types (JSON)</button></a>
+
+
+    <h3> Systems Reports (Out of date)</h3>
+    <p class="grid" >
+    <a href="{% url 'report_meta:state_report_index' %}"><button type="button" class="outline">
+            By State </button></a>
+        <a href="{% url 'report_meta:jurisdiction_report_index' %}"><button type="button" class="outline">
+            By Jurisdiction </button></a>
+        <a href="{% url 'report_meta:source_software_report_index' %}"><button type="button" class="outline">
+            By Source Software </button></a>
+        <a href="{% url 'report_meta:program_area_report_index' %}"><button type="button" class="outline">
+            By Program Area</button></a> 
+    </p>
+
+    <p class="grid" >
+
+                <a href="{% url 'report_meta:type_csv' 'SourceSystem' %}"><button type="button" class="outline">
+                    All Systems (CSV)</button></a>
+                    <a href="{% url 'report_meta:type_json' 'SourceSystem' %}"><button type="button" class="outline">
+                        All Systems (JSON)</button></a>
         </p>
 
-        <p class="grid">
-            <a href="{% url 'report_meta:annon_data_needs_csv' %}"><button type="button" class="outline">
-                Anonyomized Data Needs (CSV) </button></a>
-            <a href="{% url 'report_meta:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
-                Anonyomized Data Needs (JSON)</button></a>     
-            </p>
 
         {% if request.user.is_staff %}
     <h3>Administrative Access</h3>
@@ -127,8 +129,15 @@
             <a href="{% url 'admin:index' %}"><button type="button" class="outline">
             Administrative "Back Office" Interface </button></a>
        </p>
-    {% endif %}
 
+
+
+       {% endif %}
+
+
+
+
+    
     <h3>Account</h3>
     <form id="logout-form" method="post" action="{% url 'password_change' %}">
         {% csrf_token %}

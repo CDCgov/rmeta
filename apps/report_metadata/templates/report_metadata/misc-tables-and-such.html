@@ -1,0 +1,149 @@
+{% extends "report_metadata/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block Content %}
+
+<main class="container">
+    <header class="container">
+        <nav>
+            <ul>
+                <li><h1><strong>Tables and Such</strong></h1></li>
+              </ul>
+          <ul>
+            <li>
+              <details class="dropdown">
+                <summary role="button" class="secondary">Theme</summary>
+                <ul>
+                  <li><a href="#" data-theme-switcher="auto">Auto</a></li>
+                  <li><a href="#" data-theme-switcher="light">Light</a></li>
+                  <li><a href="#" data-theme-switcher="dark">Dark</a></li>
+                </ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+        <hgroup>
+            <p>Howdy {{request.user.first_name}}. Glad you're here :-). 
+
+                
+            This site is a collection of reference tables and tools 
+            to facilitate machine readable resource development,
+            The source code is on
+            <a href="https://github.com/CDCGov/meta">GitHub</a>.
+           
+                No warranties are provided.  Data might be out of date, incorrect, or missing. 
+                No PII or PHI is to be 
+                stored here.
+            
+            </p>
+          </hgroup>
+      </header>
+
+<section id="preview">
+
+    <h3> STILT Systems Reports</h3>
+    <p class="grid" >
+    <a href="{% url 'report_meta:state_report_index' %}"><button type="button" class="outline">
+            By State </button></a>
+        <a href="{% url 'report_meta:jurisdiction_report_index' %}"><button type="button" class="outline">
+            By Jurisdiction </button></a>
+        <a href="{% url 'report_meta:source_software_report_index' %}"><button type="button" class="outline">
+            By Source Software </button></a>
+        <a href="{% url 'report_meta:program_area_report_index' %}"><button type="button" class="outline">
+            By Program Area</button></a> 
+    </p>
+
+    <p class="grid" >
+
+                <a href="{% url 'report_meta:type_csv' 'SourceSystem' %}"><button type="button" class="outline">
+                    All Systems (CSV)</button></a>
+                    <a href="{% url 'report_meta:type_json' 'SourceSystem' %}"><button type="button" class="outline">
+                        All Systems (JSON)</button></a>
+        </p>
+
+
+    <h3>Data Tables of Interest (Not a formal Specification)</h3>
+
+       <p class="grid">
+        <a href="{% url 'report_meta:type_csv' 'Jurisdiction' %}"><button type="button" class="outline">
+                Jurisdictions (CSV) </button></a>
+        <a href="{% url 'report_meta:type_json' 'Jurisdiction' %}"><button type="button" class="outline">
+                Jurisdictions (JSON) </button></a>
+        </p>
+        
+        <p class="grid">
+        <a href="{% url 'report_meta:type_csv' 'ProgramAreaType' %}"><button type="button" class="outline">
+            Program Areas (CSV) </button></a>
+
+            <a href="{% url 'report_meta:type_json' 'ProgramAreaType' %}"><button type="button" class="outline">
+            Program Areas (JSON) </button></a>
+        </p>
+
+        <p class="grid">
+            <a href="{% url 'report_meta:type_csv' 'HealthDataType' %}"><button type="button" class="outline">
+                Health Data Types (CSV) </button></a>
+            <a href="{% url 'report_meta:type_json' 'HealthDataType' %}"><button type="button" class="outline">
+                Health Data Types (JSON) </button></a>     
+            </p>
+
+        <p class="grid">
+            <a href="{% url 'report_meta:type_csv' 'DataTransportType' %}"><button type="button" class="outline">
+                Data Transport Types (CSV) </button></a>
+            <a href="{% url 'report_meta:type_json' 'DataTransportType' %}"><button type="button" class="outline">
+                Data Transport Types (JSON) </button></a>
+        </p>
+
+        <p class="grid">
+            <a href="{% url 'report_meta:type_csv' 'PatientIDType' %}"><button type="button" class="outline">
+                Patient ID Types (CSV) </button></a>
+
+            <a href="{% url 'report_meta:type_json' 'PatientIDType' %}"><button type="button" class="outline">
+                Patient ID Types (JSON) </button></a>
+
+        </p>
+        
+        <p class="grid">
+            <a href="{% url 'report_meta:type_csv' 'ReportType' %}"><button type="button" class="outline">
+                Report Types (CSV)</button></a>
+
+            <a href="{% url 'report_meta:type_json' 'ReportType' %}"><button type="button" class="outline">
+                Report Types (JSON)</button></a>
+        </p>
+    
+        <p class="grid">
+            <a href="{% url 'report_meta:type_csv' 'PersonHashType' %}"><button type="button" class="outline">
+                Person Hash Types (CSV)</button></a>
+
+            <a href="{% url 'report_meta:type_json' 'PersonHashType' %}"><button type="button" class="outline">
+                Person Hash Types (JSON)</button></a>
+        </p>
+
+        <p class="grid">
+            <a href="{% url 'report_meta:annon_data_needs_csv' %}"><button type="button" class="outline">
+                Anonyomized Data Needs (CSV) </button></a>
+            <a href="{% url 'report_meta:type_json' 'AnonyomizedDataNeed' %}"><button type="button" class="outline">
+                Anonyomized Data Needs (JSON)</button></a>     
+            </p>
+
+        {% if request.user.is_staff %}
+    <h3>Administrative Access</h3>
+        <p>
+            <a href="{% url 'admin:index' %}"><button type="button" class="outline">
+            Administrative "Back Office" Interface </button></a>
+       </p>
+    {% endif %}
+
+    <h3>Account</h3>
+    <form id="logout-form" method="post" action="{% url 'password_change' %}">
+        {% csrf_token %}
+        <button  class="secondary" type="submit">Change Password</button>
+    </form>
+
+    <form id="logout-form" method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button  class="secondary" type="submit">Logout</button>
+    </form>
+
+</section>
+</main>
+{% endblock %}

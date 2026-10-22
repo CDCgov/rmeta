@@ -5,7 +5,7 @@ from django.utils.html import format_html_join
 
 from apps.piqi_pcm.models import Attribute
 
-from .models import SHEET_MODELS
+from .models import ReccomendedElement, SHEET_MODELS
 
 
 class DataElementAdmin(admin.ModelAdmin):
@@ -59,3 +59,38 @@ class DataElementAdmin(admin.ModelAdmin):
 
 for model in SHEET_MODELS.values():
     admin.site.register(model, DataElementAdmin)
+
+
+@admin.register(ReccomendedElement)
+class ReccomendedElementAdmin(DataElementAdmin):
+    list_display = (
+        "name", "field_name", "sheet_model", "section", "piqi_mnemonics",
+        "uscdi_element", "uscdi_url",
+    )
+    list_filter = ("sheet_model",) + DataElementAdmin.list_filter
+    search_fields = DataElementAdmin.search_fields + (
+        "uscdi_url", "other_urls", "uscdi_data_elements__name",
+        "message_mapping_guides__name", "message_mapping_guides__code",
+        "hl7v2_messages__code", "hl7v2_segments__code",
+        "code_references__name", "code_references__oid",
+    )
+    autocomplete_fields = DataElementAdmin.autocomplete_fields + (
+        "uscdi_data_elements", "message_mapping_guides", "hl7v2_messages",
+        "hl7v2_segments", "code_references",
+    )
+    fieldsets = (
+        (None, {"fields": (
+            "name", "field_name", "sheet_model", "section", "source_row",
+        )}),
+        *DataElementAdmin.fieldsets[1:],
+        ("USCDI and reference links", {"fields": (
+            "uscdi_data_elements", "uscdi_url", "other_urls", "code_references",
+        )}),
+        ("HL7v2 and message mapping guides", {"fields": (
+            "message_mapping_guides", "hl7v2_messages", "hl7v2_segments",
+            "hl7v2_url", "hl7v2_example",
+        )}),
+        ("FHIR", {"fields": ("fhir_url", "fhir_example")}),
+        ("CDA", {"fields": ("cda_url", "cda_example")}),
+        ("CSV", {"fields": ("csv_url", "csv_example")}),
+    )

@@ -14,7 +14,7 @@ from django.db import transaction
 
 from apps.piqi_pcm.models import Attribute, ClinicalModel
 
-from ...models import SHEET_MODELS
+from ...models import ReccomendedElement, SHEET_MODELS
 from ...piqi_mappings import PIQI_MAPPING_NOTES, PIQI_MAPPINGS
 
 
@@ -142,7 +142,7 @@ def read_workbook(source):
 
 
 class Command(BaseCommand):
-    help = "Import or refresh all six PHIG data worksheets and their PIQI attribute links."
+    help = "Refresh the six PHIG worksheets, master elements, and PIQI attribute links."
 
     def add_arguments(self, parser):
         parser.add_argument("--source", type=Path, default=DEFAULT_WORKBOOK)
@@ -188,6 +188,11 @@ class Command(BaseCommand):
                             field_name=identifier, defaults=defaults,
                         )
                         element.piqi_attributes.set(attributes[mnemonic][0] for mnemonic in mnemonics)
+                        master, _ = ReccomendedElement.objects.update_or_create(
+                            sheet_model=SHEET_MODELS[sheet_name].__name__,
+                            field_name=identifier, defaults=defaults,
+                        )
+                        master.piqi_attributes.set(attributes[mnemonic][0] for mnemonic in mnemonics)
 
         total = linked = 0
         for sheet_name, rows in records.items():

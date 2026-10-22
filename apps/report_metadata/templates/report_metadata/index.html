@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
-    <title>Health Data Utilities</title>
+    <title>CDC Meta</title>
     <meta name="description" content="An informative collection of links to APIs, data sets, and endpoints that are relevant to efficient health information exchange." />
 
     <!-- Pico.css -->
@@ -23,7 +23,7 @@
       <nav>
 
           <ul>
-              <li><h1><strong>Health Data Utilities</strong></h1></li>
+              <li><h1><strong>CDCMeta</strong></h1></li>
             </ul>
 
           <ul>
@@ -50,14 +50,12 @@
       
       <!-- Article-->
       <article id="article">
-        <h2>USCDI+ Cheat Sheets</h2>
+        <h2>Howdy partner!</h2>
         <p>
-          These CSV files or JSON objects contain information about USCDI+ as part of the 
-          the "Public Health" Domain. This is a proof of concept. Some information might 
-          be missing, outdated, or incorrect.
+         <a href="{% url 'login' %}">Login</a>
         </p>
       </p>
-          <ul>
+        <!--   <ul>
           <li>Data Elements: <a href="{% url 'report_meta:public_type_csv_module' 'DataElementType' 'uscdi' %}" >CSV</a> | 
             <a href="{% url 'report_meta:public_type_json_module' 'DataElementType' 'uscdi' %}" >JSON</a></li>
           
@@ -69,7 +67,7 @@
           
             <li>Domains: <a href="{% url 'report_meta:public_type_csv_module' 'DomainType' 'uscdi' %}" >CSV</a> | 
             <a href="{% url 'report_meta:public_type_json_module' 'DomainType'  'uscdi' %}" >JSON</a></li>
-          </ul>
+          </ul> -->
        
         </p>
       </article>
@@ -82,7 +80,7 @@
     <!-- Footer -->
     <footer class="container">
       <p>
-         {% now "Y" %}. Public Health Data Utilities
+         {% now "Y" %}
       </p>
     </footer>
     <!-- ./ Footer -->
