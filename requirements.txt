@@ -45,7 +45,7 @@ typing_extensions==4.10.0
 urllib3==2.6.3
 django-ses==4.0.0
 hl7==0.4.5
-makrkdown
+markdown
 # python-fhir-converter
 dj-database-url==2.3.0
 social-auth-core[all]
