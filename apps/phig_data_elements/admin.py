@@ -5,7 +5,11 @@ from django.utils.html import format_html_join
 
 from apps.piqi_pcm.models import Attribute
 
-from .models import ReccomendedElement, SHEET_MODELS
+from .models import ReccomendedElement, SHEET_MODELS, UseCase
+
+@admin.register(UseCase)
+class UseCaseAdmin(admin.ModelAdmin):
+    list_display = ("name", "code", "description")
 
 
 class DataElementAdmin(admin.ModelAdmin):

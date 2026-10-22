@@ -101,7 +101,7 @@ class UseCase(models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return self.name
+        return self.code
 
 class ReccomendedElement(DataElement):
     """A master PHIG row, identified by its source sheet and field name."""
@@ -120,18 +120,18 @@ class ReccomendedElement(DataElement):
     )
     hl7v2_messages = models.ManyToManyField(
         "uscdi.HL7Message", verbose_name="HL7v2 messages",
-        blank=True, related_name="hl7v2_messages_recommended_elements",
+        blank=True, related_name="recommended_elements",
     )
     hl7v2_segments = models.ManyToManyField(
         "uscdi.HL7Segment", verbose_name="HL7v2 segments",
-        blank=True, related_name="hl7v2_segmentsrecommended_elements",
+        blank=True, related_name="recommended_elements",
     )
     uscdi_data_elements = models.ManyToManyField(
         "uscdi.DataElement", verbose_name="USCDI data elements",
-        blank=True, related_name="uscdi_data_elements_recommended_elements",
+        blank=True, related_name="recommended_elements",
     )
     code_references = models.ManyToManyField(
-        "uscdi.CodeReference", blank=True, related_name="uscdi_code_references_recommended_elements",
+        "uscdi.CodeReference", blank=True, related_name="recommended_elements",
     )
     uscdi_url = models.URLField("USCDI URL", max_length=2048, blank=True)
     other_urls = models.TextField(
